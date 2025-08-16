@@ -136,7 +136,7 @@ $\frac{\partial}{\partial\boldsymbol{\beta}} \|\mathbf{Y} - \mathbf{X}\boldsymbo
 $\Rightarrow \mathbf{X}^T \mathbf{X} \hat{\boldsymbol{\beta}} = \mathbf{X}^T \mathbf{Y}$\\[2pt]
 \textbf{OLS solution:} $\hat{\boldsymbol{\beta}} = (\mathbf{X}^T \mathbf{X})^{-1}\mathbf{X}^T \mathbf{Y}$\\
 \medskip
-\textbf{Hat matrix:} $\mathbf{H} = \mathbf{X}(\mathbf{X}^T \mathbf{X})^{-1}\mathbf{X}^T$, $\ \mathbf{\hat y} = \mathbf{H}\mathbf {y}$, $\mathbf{e} = (I-\mathbf{H})\mathbf{y}$.\\
+\textbf{Hat matrix:} $\mathbf{H} = \mathbf{X}(\mathbf{X}^T \mathbf{X})^{-1}\mathbf{X}^T$, $\ \mathbf{\hat y} = \mathbf{H}\mathbf {y}$, $\mathbf{e} = (\mathbf{I}-\mathbf{H})\mathbf{y}$.\\
 $\mathbf{H}$ symm. idemp. $\Rightarrow$ $r(\mathbf{H}) = p$, $\mathrm{Var}(\hat y) = \sigma^2 \mathbf{H}$.\\
 $(\mathbf{I}-\mathbf{H})$ symm. idemp., $r(\mathbf{I}-\mathbf{H}) = n-p$, $\mathrm{Var}(\mathbf{e}) = \sigma^2(\mathbf{I}-\mathbf{H})$.\\
 \medskip
@@ -166,8 +166,8 @@ For MVN, uncorrelated $\Leftrightarrow$ independent; in general, indep. $\Righta
 $\mathbb E [\mathbf y^T \mathbf{Ay}] = tr(\mathbf{AV}) + \boldsymbol\mu^T \mathbf A\boldsymbol\mu$.\\
 \medskip
 \subsection*{Chi-Square \& QF}
-Central $\chi^2_k$: $\mathbf{y} \sim N(0,\mathbf{I}_k)$, $\mathbf{y}^T\mathbf{y} \sim \chi^2_k$, $E=k$, $Var=2k$.\\
-Noncentral $\chi^2_{k,\lambda}$: $\mathbf{y} \sim N(\mu,\mathbf{I}_k)$, $\lambda=\frac{1}{2}\boldsymbol\mu^T\boldsymbol\mu$, $E=k+2\lambda$, $Var=2k+8\lambda$.
+Central $\chi^2_k$: $\mathbf{y} \sim N(0,\mathbf{I}_k)$, $\mathbf{y}^T\mathbf{y} \sim \chi^2_k$, $\mathbb E=k$, $\mathrm{Var}=2k$.\\
+Noncentral $\chi^2_{k,\lambda}$: $\mathbf{y} \sim N(\mu,\mathbf{I}_k)$, $\lambda=\frac{1}{2}\boldsymbol\mu^T\boldsymbol\mu$, $\mathbb E=k+2\lambda$, $\mathrm{Var}=2k+8\lambda$.
 PDF:\\
 \medskip
 $f(x;k,\lambda) = \sum_{i=0}^\infty \frac{e^{-\lambda}\lambda^i}{i!} g(x;k+2i)$,  
@@ -175,7 +175,7 @@ $g(x;k) = \frac{x^{k/2-1} e^{-x/2}}{2^{k/2}\Gamma(k/2)}$.\\
 Sum rule: $\sum_{i=1}^n \chi^2_{k_i,\lambda_i} \sim \chi^2_{\sum k_i, \sum\lambda_i}$.  \\
 \medskip
 \renewcommand{\arraystretch}{1.05}
-\begin{tabular}{|p{0.9cm}|p{3.3cm}|p{1.0cm}|p{1.1cm}|}
+\begin{tabular}{|p{0.9cm}|p{3.3cm}|p{0.6cm}|p{1.3cm}|}
 \hline
 \textbf{Case} & \textbf{Conditions} & \textbf{Dist.} & \boldmath{$\lambda$} \\
 \hline
@@ -183,9 +183,9 @@ Cen.\ $\mathbf{V}=\mathbf{I}$& $y\!\sim\! N(\boldsymbol 0,\mathbf{I}_n)$, $\math
 \hline
 Noncen.\ $\mathbf{V}=\mathbf{I}$& $y\!\sim\! N(\boldsymbol\mu,\sigma^2\mathbf{I})$, $\mathbf{A}$ symm., $\mathbf{A}^2=\mathbf{A}$, $r(\mathbf{A})=k$& $\chi^2_{k,\lambda}$ & $\frac{1}{2\sigma^2}\mu^T A\mu$ \\
 \hline
-Cen.\ gen.\ $\mathbf{V}$& $y\!\sim\! N(\boldsymbol 0,\mathbf{V})$, $\mathbf{A}$ symm., $(\mathbf{A}\mathbf{V})^2 = \mathbf{A}\mathbf{V}$, $r(\mathbf{A}\mathbf{V})=k$& $\chi^2_k$ & 0 \\
+Cen.\ gen.\ $\mathbf{V}$& $y\!\sim\! N(\boldsymbol 0,\mathbf{V})$, $\mathbf{A}$ symm., $({A}{V})^2 = {A}{V}$, $r({A}{V})=k$& $\chi^2_k$ & 0 \\
 \hline
-Noncen.\ gen.\ $\mathbf{V}$& $y\!\sim\! N(\boldsymbol\mu,\mathbf{V})$, $\mathbf{A}$ symm., $(\mathbf{A}\mathbf{V})^2 = \mathbf{A}\mathbf{V}$, $r(\mathbf{A}\mathbf{V})=k$ (add $\sigma^2$ factor if $\mathbf{V}$ scaled)& $\chi^2_{k,\lambda}$ & $\frac12\mu^T A\mu$\\
+Noncen.\ gen.\ $\mathbf{V}$& $y\!\sim\! N(\boldsymbol\mu,\mathbf{V})$, $\mathbf{A}$ symm., $({A}{V})^2 = {A}{V}$, $r({A}{V})=k$ (add $\sigma^2$ fact. if ${V}$ scaled)& $\chi^2_{k,\lambda}$ & $\frac12\mu^T A\mu$\\
 \hline
 $\mathbf{V}^{-1}$& $y\!\sim\! N(\boldsymbol\mu,\mathbf{V})$, $\mathbf{V}$ nonsing.& $\chi^2_{k,\lambda}$ & $\frac12\mu^T V^{-1}\mu$ \\
 \hline
@@ -203,21 +203,21 @@ QF–LF & $\mathbf{A}$ symm., $\mathbf{B}$ ($m\times n$), $\mathbf{B}\mathbf{V}\
 \hline
 Multi-QF & $y\!\sim\! N(\boldsymbol\mu,\sigma^2\mathbf{I})$, $\mathbf{A}_i$ symm.;\\
 & any 2 of: $\mathbf{A}_i^2=\mathbf{A}_i$, $\sum_i \mathbf{A}_i$ idemp., $\mathbf{A}_i\mathbf{A}_j=0$ ($i\neq j$) $\Rightarrow$ all 3;\\
-& $\frac{1}{\sigma^2}y^T \mathbf{A}_i y \sim \chi^2_{r(\mathbf{A}_i),\lambda_i}$, $\lambda_i=\frac{1}{2\sigma^2}\mu^T \mathbf{A}_i \mu$;
+& $\frac{1}{\sigma^2}\mathbf{y}^T \mathbf{A}_i \mathbf{y} \sim \chi^2_{r(\mathbf{A}_i),\lambda_i}$, $\lambda_i=\frac{1}{2\sigma^2}\mu^T \mathbf{A}_i \mu$;
 indep.;
-$\sum r(A_i)=r(\sum \mathbf{A}_i)$\\
+$\sum r(\mathbf{A}_i)=r(\sum \mathbf{A}_i)$\\
 \hline
-Cochran-Fisher & $y\!\sim\! N(\boldsymbol\mu,\sigma^2\mathbf{I})$, $\mathbf{A}_i$ idemp., $\sum_{i=1}^m \mathbf{A}_i=I$;\\
-& $\frac{1}{\sigma^2}y^T \mathbf{A}_i y \sim \chi^2_{r(\mathbf{A}_i),\lambda_i}$, $\lambda_i=\frac{1}{2\sigma^2}\mu^T \mathbf{A}_i \mu$, indep.; $\sum r(\mathbf{A}_i)=n$\\
+Cochran-Fisher & $y\!\sim\! N(\boldsymbol\mu,\sigma^2\mathbf{I})$, $\mathbf{A}_i$ idemp., $\sum_{i=1}^m \mathbf{A}_i=\mathbf{I}$;\\
+& $\frac{1}{\sigma^2}\mathbf{y}^T \mathbf{A}_i \mathbf{y} \sim \chi^2_{r(\mathbf{A}_i),\lambda_i}$, $\lambda_i=\frac{1}{2\sigma^2}\mu^T \mathbf{A}_i \mu$, indep.; $\sum r(\mathbf{A}_i)=n$\\
 \hline
 \end{tabular}
 
 \medskip
-$y^T \mathbf{A} y \perp y^T \mathbf{B} y \Leftrightarrow \mathbf{A}\mathbf{V}\mathbf{B} = 0$ ($\mathbf{V}$ nonsing.).\\
-$y^T \mathbf{A} y \perp \mathbf{C} y \Leftrightarrow \mathbf{C}\mathbf{V}\mathbf{A} = 0$.\\
+$\mathbf{y}^T \mathbf{A} \mathbf{y} \perp \mathbf{y}^T \mathbf{B} \mathbf{y} \Leftrightarrow \mathbf{A}\mathbf{V}\mathbf{B} = 0$ ($\mathbf{V}$ nonsing.).\\
+$\mathbf{y}^T \mathbf{A} \mathbf{y} \perp \mathbf{C} \mathbf{y} \Leftrightarrow \mathbf{C}\mathbf{V}\mathbf{A} = 0$.\\
 \medskip
 Multiple QFs: $\mathbf{A}_i^2 = \mathbf{A}_i$, $\sum \mathbf{A}_i$ idem., $\mathbf{A}_i \mathbf{A}_j=0 \ (i\neq j) \Rightarrow$ all indep., $\sum r(\mathbf{A}_i)=r(\sum \mathbf{A}_i)$.\\
-Cochran–Fisher: $\sum \mathbf{A}_i = I$, idempotent $\Rightarrow$ indep. $\chi^2$.\\
+Cochran–Fisher: $\sum \mathbf{A}_i = \mathbf{I}$, idempotent $\Rightarrow$ indep. $\chi^2$.\\
 \medskip
 
 \subsection{Hypothesis Testing}
