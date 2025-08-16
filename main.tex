@@ -1,0 +1,238 @@
+\documentclass[10pt,landscape]{article}
+\usepackage{amssymb,amsmath,amsthm,amsfonts}
+\usepackage{multicol,multirow}
+\usepackage{calc}
+\usepackage{ifthen}
+\usepackage[landscape]{geometry}
+\usepackage[colorlinks=true,citecolor=blue,linkcolor=blue]{hyperref}
+
+\ifthenelse{\lengthtest { \paperwidth = 11in}}
+    { \geometry{top=.5in,left=.5in,right=.5in,bottom=.5in} }
+	{\ifthenelse{ \lengthtest{ \paperwidth = 297mm}}
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+	}
+\pagestyle{empty}
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%x
+                                {\normalfont\normalsize\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\small\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {1ex plus .2ex}%
+                                {\normalfont\small\bfseries}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+% -----------------------------------------------------------------------
+
+\title{MAST90105 Cheat Sheet for Enoch Ko (147938)}
+
+\begin{document}
+
+\raggedright
+\footnotesize
+
+%\begin{center}
+%     \Large{\textbf{MAST90104 Cheat Sheet for Enoch Ko (147938)}} \\
+%\end{center}
+\begin{multicols}{3}
+\setlength{\premulticols}{1pt}
+\setlength{\postmulticols}{1pt}
+\setlength{\multicolsep}{1pt}
+\setlength{\columnsep}{2pt}
+
+\subsection{Linear Algebra Essentials}
+\textbf{Symm.:} $\mathbf{X}^T=\mathbf{X}$;\quad 
+\textbf{Ortho.:} $\mathbf{X}^T\mathbf{X}=\mathbf{I} \Rightarrow \mathbf{X}^{-1}=\mathbf{X}^T$;\\ 
+\smallskip
+\textbf{Idempotent:} $\mathbf{A}^2=\mathbf{A}$.\\
+\hspace*{1em} Sym. idemp. $\Rightarrow$ eigs $\in\{0,1\}$, rank = trace.\\
+\hspace*{1em} any 2: $ \mathbf{A}_i^2= \mathbf{A}_i$, $\sum_i A_i$ idemp., $ \mathbf{A}_i \mathbf{A}_j=0$ ($i\neq j$) $\Rightarrow$ all 3;\\
+\smallskip
+\textbf{Rank:} $r(\mathbf{X}) = r(\mathbf{X}^T) = r(\mathbf{X}^T \mathbf{X})$;\\
+\hspace*{1em} nonsingular $\Leftrightarrow$ full rank $\Leftrightarrow \det\neq 0$.\\
+\hspace*{1em} \textbf{Sylvester's Inequality:} If $\mathbf{A}$ is $m\times n$, $\mathbf{B}$ is $n\times p$: 
+\hspace*{1em} $\mathrm{r}(\mathbf{A}) + \mathrm{r}(\mathbf{B}) - n \ \le \ \mathrm{r}(\mathbf{A}\mathbf{B}) \ \le \ \min\{\mathrm{r}(\mathbf{A}),\mathrm{r}(\mathbf{B})\}$.\\
+\smallskip
+\textbf{Trace:} $\mathrm{tr}(\mathbf{X}\mathbf{Y}) = \mathrm{tr}(\mathbf{Y}\mathbf{X})$; $\mathrm{tr}(c) = c$.\\
+\hspace*{1em} $\mathrm{tr}(uv^T) = v^T u$ (vectors $u,v$).\\
+\hspace*{1em} $\mathbb{E}[\mathrm{tr}(\mathbf{X})] = \mathrm{tr}[\mathbb{E}(\mathbf{X})]$; $\mathbb{E}(\mathbf{X}\mathbf{A}) = \mathbb{E}(\mathbf{X})\mathbf{A}$.\\
+\smallskip
+\textbf{Positive-definite:} $\mathbf{x}^T \mathbf{A} \mathbf{x} > 0$ for all $\mathbf{x}\neq 0$ \& $\mathbf{A} = \mathbf{A}^T$;\\
+\hspace*{1em} SPD $\Leftrightarrow$ all eigs $>0$ (PSD $\ge0$).\\
+\smallskip
+\textbf{Eigenfacts:} Sym.\ $\Rightarrow$ real eigs, orthonormal eigvecs; \\
+\hspace*{1em} $\exists$ ortho. $\mathbf{P}$: $\mathbf{P}^T \mathbf{A} \mathbf{P} = \mathbf{\Lambda}$ (Spectral Thm.);\\
+\hspace*{1em} $\det = \prod \lambda_i$, $\mathrm{tr} = \sum\lambda_i$;\\
+\hspace*{1em} Singular $\Leftrightarrow$ at least one $\lambda_i = 0 \ \Leftrightarrow \det(\mathbf{A}) = 0$.\\
+\smallskip
+\textbf{Simult. Diag.:} Let $\mathbf{A}_i$ be symm. $k \times k$ matrices:\\
+\hspace*{1em} $\exists$ ortho. $\mathbf{P}$: $\mathbf{P}^T \mathbf{A}_i \mathbf{P} = \mathbf{\Lambda}_i (\forall i)$ $\Leftrightarrow$ $\mathbf{A}_i \mathbf{A}_j=\mathbf{A}_j\mathbf{A}_i$ ($\forall i,j$);\\
+\smallskip
+\textbf{Square Root:} If $\mathbf A= \mathbf P\boldsymbol\Lambda\mathbf P^T$(SPD), then $\mathbf A^{1/2}= \mathbf P\boldsymbol\Lambda^{1/2}\mathbf P^T$\\
+\smallskip
+\textbf{Matrix calculus:} $\frac{\partial}{\partial x}(m^T x) = m$, 
+$\frac{\partial}{\partial x}(x^T \mathbf{A}) = \mathbf{A}^T$, 
+$\frac{\partial}{\partial x}(x^T \mathbf{A} x) = (\mathbf{A}+\mathbf{A}^T)x$.\\
+\medskip
+\subsection{Determinants \& Inverses}
+$\det(c\mathbf{A}) = c^n \det(\mathbf{A})$ for $n\times n$ $\mathbf{A}$; 
+$\ \det(\mathbf{A}^k) = (\det \mathbf{A})^k$; 
+$\ \det(\mathbf{A}\mathbf{B}) = \det(\mathbf{A})\det(\mathbf{B})$.\\
+\medskip
+$2\times 2$: $\begin{bmatrix} a & b \\ c & d \end{bmatrix}^{-1} = \frac{1}{ad-bc}\begin{bmatrix} d & -b \\ -c & a \end{bmatrix}$.\\
+\medskip
+$\begin{vmatrix} a & b & c \\ d & e & f \\ g & h & i \end{vmatrix} \implies a\begin{vmatrix} e & f \\ h & i \end{vmatrix}-b\begin{vmatrix} d & f \\ g & i \end{vmatrix}+c\begin{vmatrix} d & e \\ g & h \end{vmatrix}$\\
+\medskip
+Row ops: swap $\times(-1)$, scale row $\times c$, add multiple $\to$ det unchanged.\\
+\medskip
+\subsection{Partitioned Matrices}
+$\mathbf{X} =
+\left[ \begin{array}{c|c}
+\mathbf{X}_{11} & \mathbf{X}_{12} \\
+\hline
+\mathbf{X}_{21} & \mathbf{X}_{22}
+\end{array} \right]
+\ \Rightarrow\ 
+\mathbf{X}^T =
+\left[ \begin{array}{c|c}
+\mathbf{X}_{11}^T & \mathbf{X}_{21}^T \\
+\hline
+\mathbf{X}_{12}^T & \mathbf{X}_{22}^T
+\end{array} \right]$\\[4pt]
+\textbf{Inverse:} $\mathbf{X}^{-1} =
+\left[ \begin{array}{c|c}
+\tilde{\mathbf{X}}_{11}^{-1} & \tilde{\mathbf{X}}_{12}^{-1} \\
+\hline
+\tilde{\mathbf{X}}_{21}^{-1} & \tilde{\mathbf{X}}_{22}^{-1}
+\end{array} \right]$, where:\\[4pt]
+$\tilde{\mathbf{X}}_{11}^{-1} = (\mathbf{X}_{11} - \mathbf{X}_{12} \mathbf{X}_{22}^{-1} \mathbf{X}_{21})^{-1}$\\
+$\tilde{\mathbf{X}}_{12}^{-1} = -\mathbf{X}_{11}^{-1} \mathbf{X}_{12} (\mathbf{X}_{22} - \mathbf{X}_{21} \mathbf{X}_{11}^{-1} \mathbf{X}_{12})^{-1}$\\
+$\tilde{\mathbf{X}}_{21}^{-1} = -(\mathbf{X}_{22} - \mathbf{X}_{21} \mathbf{X}_{11}^{-1} \mathbf{X}_{12})^{-1} \mathbf{X}_{21} \mathbf{X}_{11}^{-1}$\\
+$\tilde{\mathbf{X}}_{22}^{-1} = (\mathbf{X}_{22} - \mathbf{X}_{21} \mathbf{X}_{11}^{-1} \mathbf{X}_{12})^{-1}$\\
+\medskip
+\subsection{Linear Model}
+$Y_i = \beta_0 + \sum_{j=1}^k \beta_j x_{ij} + \epsilon_i$, \quad $\mathbb{E}(\epsilon_i)=0, \mathrm{Var}(\epsilon_i)=\sigma^2$.\\
+\medskip
+\textbf{Simple Regression (k=1):}\\
+$L(\hat{\beta}_0,\hat{\beta}_1) = \sum_{i=1}^n (y_i - \hat{\beta}_0 - \hat{\beta}_1 x_i)^2$\\
+$\hat{\beta}_1 = \frac{\sum (x_i - \bar{x})(y_i - \bar{y})}{\sum (x_i - \bar{x})^2}$,\quad
+$\hat{\beta}_0 = \bar{y} - \hat{\beta}_1 \bar{x}$\\
+$e_i = y_i - \hat{\beta}_0 - \hat{\beta}_1 x_i$,\quad
+$\epsilon_i = y_i - \beta_0 - \beta_1 x_i$\\[4pt]
+\medskip
+\textbf{Matrix Form:}\\
+$\mathbf{Y} = \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\epsilon},\quad \hat{\boldsymbol{\beta}} = \arg\min_{\boldsymbol{\beta}} \|\mathbf{Y} - \mathbf{X}\boldsymbol{\beta}\|^2$\\[2pt]
+$\|\mathbf{Y} - \mathbf{X}\boldsymbol{\beta}\|^2 = (\mathbf{Y} - \mathbf{X}\boldsymbol{\beta})^T(\mathbf{Y} - \mathbf{X}\boldsymbol{\beta})$\\
+$= \mathbf{Y}^T \mathbf{Y} - 2\mathbf{Y}^T\mathbf{X}\boldsymbol{\beta} + \boldsymbol{\beta}^T \mathbf{X}^T \mathbf{X} \boldsymbol{\beta}$\\
+$\frac{\partial}{\partial\boldsymbol{\beta}} \|\mathbf{Y} - \mathbf{X}\boldsymbol{\beta}\|^2 = - 2\mathbf{Y}^T \mathbf{X} + 2\boldsymbol{\beta}^T \mathbf{X}^T \mathbf{X} = 0$\\
+$\Rightarrow \mathbf{X}^T \mathbf{X} \hat{\boldsymbol{\beta}} = \mathbf{X}^T \mathbf{Y}$\\[2pt]
+\textbf{OLS solution:} $\hat{\boldsymbol{\beta}} = (\mathbf{X}^T \mathbf{X})^{-1}\mathbf{X}^T \mathbf{Y}$\\
+\medskip
+\textbf{Hat matrix:} $\mathbf{H} = \mathbf{X}(\mathbf{X}^T \mathbf{X})^{-1}\mathbf{X}^T$, $\ \mathbf{\hat y} = \mathbf{H}\mathbf {y}$, $\mathbf{e} = (I-\mathbf{H})\mathbf{y}$.\\
+$\mathbf{H}$ symm. idemp. $\Rightarrow$ $r(\mathbf{H}) = p$, $\mathrm{Var}(\hat y) = \sigma^2 \mathbf{H}$.\\
+$(\mathbf{I}-\mathbf{H})$ symm. idemp., $r(\mathbf{I}-\mathbf{H}) = n-p$, $\mathrm{Var}(\mathbf{e}) = \sigma^2(\mathbf{I}-\mathbf{H})$.\\
+\medskip
+If $\boldsymbol\varepsilon \sim N(0,\sigma^2 \mathbf{I})$, then $\hat{\boldsymbol{\beta}} \sim MVN\big(\boldsymbol{\beta},\ \sigma^2 (\mathbf{X}^T \mathbf{X})^{-1}\big)$.\\
+\medskip
+\subsection{Random Vectors}
+$\mathbb{E}[\mathbf{a}] = \mathbf{a}$; $\mathbb{E}[\mathbf{a}^T \mathbf{y}] = \mathbf{a}^T \mathbb{E}[\mathbf{y}]$; $\mathbb{E}[\mathbf{A}\mathbf{y}] = \mathbf{A}\mathbb{E}[\mathbf{y}]$.\\
+\medskip
+
+$\mathrm{Var}(\mathbf{y}) = \mathbb{E}[(\mathbf{y}-\boldsymbol\mu)(\mathbf{y}-\boldsymbol\mu)^T]$, diag = variances, off-diag = covariances.\\
+$\mathrm{Var}(\mathbf{y}) = V = \mathbb{E}[\mathbf{y}\mathbf{y}^T] - \boldsymbol\mu\boldsymbol\mu^T \ \Rightarrow\ \mathbb{E}[\mathbf{y}\mathbf{y}^T] = V + \boldsymbol\mu\boldsymbol\mu^T$.\\
+$\mathrm{Var}(\mathbf{a}^T \mathbf{y}) = \mathbf{a}^T \mathbf{V} \mathbf{a}$; \quad $\mathrm{Var}(\mathbf{A}\mathbf{y}) = \mathbf{A}\mathbf{V}\mathbf{A}^T$.\\
+\medskip
+Example: If $\mathbf{Z} = (\mathbf{X}^T \mathbf{X})^{-1} \mathbf{X}^T \mathbf{y} = \mathbf{A}\mathbf{y}$, $\mathrm{Var}(\mathbf{y}) = \sigma^2 \mathbf{I}$, then $\mathrm{Var}(\mathbf{Z}) = \mathbf{A}\mathrm{Var}(\mathbf{y})\mathbf{A}^T = \sigma^2 (\mathbf{X}^T \mathbf{X})^{-1}$.\\
+
+\subsection{Multivariate Normal (MVN) Distribution}
+$\mathbf y = \boldsymbol\mu + \boldsymbol\Sigma^{1/2} \mathbf Z,\ \mathbf{Z}\sim N(0,I) \Rightarrow \mathbf{y} \sim MVN(\boldsymbol\mu,\boldsymbol\Sigma)$\\
+\medskip
+Linear transform: $\mathbf{A}\mathbf{X}+\mathbf{b} \sim MVN(\mathbf{A}\boldsymbol\mu+\mathbf{b}, \mathbf{A}\boldsymbol\Sigma\mathbf{A}^T)$.\\
+If $\mathbf{Z} \sim N(0, I)$, then $\mathbf{X} = \mathbf{A}\mathbf{Z} + \boldsymbol\mu \ \Rightarrow\ \mathbf{X} \sim MVN(\boldsymbol\mu, \ \mathbf{A}\mathbf{A}^T)$.
+\medskip
+Density: $f(\mathbf x) = \frac{1}{(2\pi)^{k/2} |\boldsymbol\Sigma|^{1/2} } \exp \left[ -\frac{1}{2} (\mathbf x-\boldsymbol\mu)^T \boldsymbol\Sigma^{-1} (\mathbf x-\boldsymbol\mu) \right] $\\
+For MVN, uncorrelated $\Leftrightarrow$ independent; in general, indep. $\Rightarrow$uncorrelated, but uncorrelated $\neq$ indep.\\
+\medskip
+
+\subsection{Random Quadratic Form}
+$\mathbb E [\mathbf y^T \mathbf{Ay}] = tr(\mathbf{AV}) + \boldsymbol\mu^T \mathbf A\boldsymbol\mu$.\\
+\medskip
+\subsection*{Chi-Square \& QF}
+Central $\chi^2_k$: $\mathbf{y} \sim N(0,\mathbf{I}_k)$, $\mathbf{y}^T\mathbf{y} \sim \chi^2_k$, $E=k$, $Var=2k$.\\
+Noncentral $\chi^2_{k,\lambda}$: $\mathbf{y} \sim N(\mu,\mathbf{I}_k)$, $\lambda=\frac{1}{2}\boldsymbol\mu^T\boldsymbol\mu$, $E=k+2\lambda$, $Var=2k+8\lambda$.
+PDF:\\
+\medskip
+$f(x;k,\lambda) = \sum_{i=0}^\infty \frac{e^{-\lambda}\lambda^i}{i!} g(x;k+2i)$,  
+$g(x;k) = \frac{x^{k/2-1} e^{-x/2}}{2^{k/2}\Gamma(k/2)}$.\\
+Sum rule: $\sum_{i=1}^n \chi^2_{k_i,\lambda_i} \sim \chi^2_{\sum k_i, \sum\lambda_i}$.  \\
+\medskip
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular}{|p{0.9cm}|p{3.3cm}|p{1.0cm}|p{1.1cm}|}
+\hline
+\textbf{Case} & \textbf{Conditions} & \textbf{Dist.} & \boldmath{$\lambda$} \\
+\hline
+Cen.\ $\mathbf{V}=\mathbf{I}$& $y\!\sim\! N(\boldsymbol 0,\mathbf{I}_n)$, $\mathbf{A}$ symm., $\mathbf{A}^2=\mathbf{A}$, $r(\mathbf{A})=k$& $\chi^2_k$ & 0 \\
+\hline
+Noncen.\ $\mathbf{V}=\mathbf{I}$& $y\!\sim\! N(\boldsymbol\mu,\sigma^2\mathbf{I})$, $\mathbf{A}$ symm., $\mathbf{A}^2=\mathbf{A}$, $r(\mathbf{A})=k$& $\chi^2_{k,\lambda}$ & $\frac{1}{2\sigma^2}\mu^T A\mu$ \\
+\hline
+Cen.\ gen.\ $\mathbf{V}$& $y\!\sim\! N(\boldsymbol 0,\mathbf{V})$, $\mathbf{A}$ symm., $(\mathbf{A}\mathbf{V})^2 = \mathbf{A}\mathbf{V}$, $r(\mathbf{A}\mathbf{V})=k$& $\chi^2_k$ & 0 \\
+\hline
+Noncen.\ gen.\ $\mathbf{V}$& $y\!\sim\! N(\boldsymbol\mu,\mathbf{V})$, $\mathbf{A}$ symm., $(\mathbf{A}\mathbf{V})^2 = \mathbf{A}\mathbf{V}$, $r(\mathbf{A}\mathbf{V})=k$ (add $\sigma^2$ factor if $\mathbf{V}$ scaled)& $\chi^2_{k,\lambda}$ & $\frac12\mu^T A\mu$\\
+\hline
+$\mathbf{V}^{-1}$& $y\!\sim\! N(\boldsymbol\mu,\mathbf{V})$, $\mathbf{V}$ nonsing.& $\chi^2_{k,\lambda}$ & $\frac12\mu^T V^{-1}\mu$ \\
+\hline
+\end{tabular}
+
+\medskip
+\textbf{Independence:} QF: $\mathbf{y}^T\mathbf{A}\mathbf{y}$ / LF: $\mathbf{B}\mathbf{y}$
+\begin{tabular}{|p{1.3cm}|p{5.7cm}|}
+\hline
+QF–QF $\mathbf{V}=\mathbf{I}$& $\mathbf{A},\mathbf{B}$ symm., $\mathbf{A}\mathbf{B}=0$\\
+\hline
+QF–QF gen.\ $\mathbf{V}$& $\mathbf{A},\mathbf{B}$ symm.,$\mathbf{V}$ nonsing., $\mathbf{A}\mathbf{V}\mathbf{B}=0$\\
+\hline
+QF–LF & $\mathbf{A}$ symm., $\mathbf{B}$ ($m\times n$), $\mathbf{B}\mathbf{V}\mathbf{A}=0$\\
+\hline
+Multi-QF & $y\!\sim\! N(\boldsymbol\mu,\sigma^2\mathbf{I})$, $\mathbf{A}_i$ symm.;\\
+& any 2 of: $\mathbf{A}_i^2=\mathbf{A}_i$, $\sum_i \mathbf{A}_i$ idemp., $\mathbf{A}_i\mathbf{A}_j=0$ ($i\neq j$) $\Rightarrow$ all 3;\\
+& $\frac{1}{\sigma^2}y^T \mathbf{A}_i y \sim \chi^2_{r(\mathbf{A}_i),\lambda_i}$, $\lambda_i=\frac{1}{2\sigma^2}\mu^T \mathbf{A}_i \mu$;
+indep.;
+$\sum r(A_i)=r(\sum \mathbf{A}_i)$\\
+\hline
+Cochran-Fisher & $y\!\sim\! N(\boldsymbol\mu,\sigma^2\mathbf{I})$, $\mathbf{A}_i$ idemp., $\sum_{i=1}^m \mathbf{A}_i=I$;\\
+& $\frac{1}{\sigma^2}y^T \mathbf{A}_i y \sim \chi^2_{r(\mathbf{A}_i),\lambda_i}$, $\lambda_i=\frac{1}{2\sigma^2}\mu^T \mathbf{A}_i \mu$, indep.; $\sum r(\mathbf{A}_i)=n$\\
+\hline
+\end{tabular}
+
+\medskip
+$y^T \mathbf{A} y \perp y^T \mathbf{B} y \Leftrightarrow \mathbf{A}\mathbf{V}\mathbf{B} = 0$ ($\mathbf{V}$ nonsing.).\\
+$y^T \mathbf{A} y \perp \mathbf{C} y \Leftrightarrow \mathbf{C}\mathbf{V}\mathbf{A} = 0$.\\
+\medskip
+Multiple QFs: $\mathbf{A}_i^2 = \mathbf{A}_i$, $\sum \mathbf{A}_i$ idem., $\mathbf{A}_i \mathbf{A}_j=0 \ (i\neq j) \Rightarrow$ all indep., $\sum r(\mathbf{A}_i)=r(\sum \mathbf{A}_i)$.\\
+Cochran–Fisher: $\sum \mathbf{A}_i = I$, idempotent $\Rightarrow$ indep. $\chi^2$.\\
+\medskip
+
+\subsection{Hypothesis Testing}
+\begin{tabular}{|l|l|l|}\hline
+& Not Significant& Significant\\\hline
+$H_0$ true&True Neg ($1-\alpha$)& T1 - False Pos ($\alpha$)\\\hline
+$H_1$ true&T2 - False Neg ($\beta$)& True Pos ($1-\beta$)\\ \hline
+\end{tabular}
+
+
+\vfill
+Last updated:
+2025-08-13 T11-54-14
+\hrule
+Enoch Ko (147934), University of Melbourne.\\
+$180/35 = 5$ mins/mark. $1 \mapsto 5 // 2 \mapsto 10 //3 \mapsto 15 // 4 \mapsto 20 // 5 \mapsto 25 // 6 \mapsto 30$\\
+\end{multicols}
+\end{document}
