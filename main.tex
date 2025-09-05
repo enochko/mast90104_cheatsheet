@@ -51,6 +51,7 @@
 \subsection{Linear Algebra Essentials}
 \textbf{Symm.:} $\mathbf{X}^T=\mathbf{X}$;\quad 
 \textbf{Ortho.:} $\mathbf{X}^T\mathbf{X}=\mathbf{I} \Rightarrow \mathbf{X}^{-1}=\mathbf{X}^T$;\\ 
+$\mathbf{X}$ is ortho. matrix $\Leftrightarrow$ cols/rows form an orthonormal set.\\
 \smallskip
 \textbf{Idempotent:} $\mathbf{A}^2=\mathbf{A}$.\\
 \hspace*{1em} Sym. idemp. $\Rightarrow$ eigs $\in\{0,1\}$, rank = trace.\\
@@ -82,10 +83,14 @@
 $\frac{\partial}{\partial x}(x^T \mathbf{A}) = \mathbf{A}^T$, 
 $\frac{\partial}{\partial x}(x^T \mathbf{A} x) = (\mathbf{A}+\mathbf{A}^T)x$.\\
 \medskip
+\subsection{Finding Eigens}
+Eigenvalues: $\mathrm{det}(\mathbf A-\lambda\mathbf I) = 0$, solve for $\lambda$.\\
+Eigenvectors: $(\mathbf A-\lambda\mathbf I)\mathbf v=0$, solve for $ \mathbf v$ for each $\lambda$.\\
+\medskip
 \subsection{Determinants \& Inverses}
 $\det(c\mathbf{A}) = c^n \det(\mathbf{A})$ for $n\times n$ $\mathbf{A}$; 
-$\ \det(\mathbf{A}^k) = (\det \mathbf{A})^k$; 
-$\ \det(\mathbf{A}\mathbf{B}) = \det(\mathbf{A})\det(\mathbf{B})$.\\
+$\det(\mathbf{A}^k) = (\det \mathbf{A})^k$; 
+$\det(\mathbf{A}\mathbf{B}) = \det(\mathbf{A})\det(\mathbf{B})$.\\
 \medskip
 $2\times 2$: $\begin{bmatrix} a & b \\ c & d \end{bmatrix}^{-1} = \frac{1}{ad-bc}\begin{bmatrix} d & -b \\ -c & a \end{bmatrix}$.\\
 \medskip
@@ -123,35 +128,45 @@ $Y_i = \beta_0 + \sum_{j=1}^k \beta_j x_{ij} + \epsilon_i$, \quad $\mathbb{E}(\e
 \medskip
 \textbf{Simple Regression (k=1):}\\
 $L(\hat{\beta}_0,\hat{\beta}_1) = \sum_{i=1}^n (y_i - \hat{\beta}_0 - \hat{\beta}_1 x_i)^2$\\
-$\hat{\beta}_1 = \frac{\sum (x_i - \bar{x})(y_i - \bar{y})}{\sum (x_i - \bar{x})^2}$,\quad
+$\hat{\beta}_1 = \frac{\sum (x_i - \bar{x})(y_i - \bar{y}}{\sum (x_i - \bar{x})^2} = \frac{\sum x_i y_i - n\bar{x}\bar{y})}{\sum x_i^2 - n\bar{x}^2}$,\quad
 $\hat{\beta}_0 = \bar{y} - \hat{\beta}_1 \bar{x}$\\
 $e_i = y_i - \hat{\beta}_0 - \hat{\beta}_1 x_i$,\quad
 $\epsilon_i = y_i - \beta_0 - \beta_1 x_i$\\[4pt]
 \medskip
 \textbf{Matrix Form:}\\
-$\mathbf{Y} = \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\epsilon},\quad \hat{\boldsymbol{\beta}} = \arg\min_{\boldsymbol{\beta}} \|\mathbf{Y} - \mathbf{X}\boldsymbol{\beta}\|^2$\\[2pt]
-$\|\mathbf{Y} - \mathbf{X}\boldsymbol{\beta}\|^2 = (\mathbf{Y} - \mathbf{X}\boldsymbol{\beta})^T(\mathbf{Y} - \mathbf{X}\boldsymbol{\beta})$\\
-$= \mathbf{Y}^T \mathbf{Y} - 2\mathbf{Y}^T\mathbf{X}\boldsymbol{\beta} + \boldsymbol{\beta}^T \mathbf{X}^T \mathbf{X} \boldsymbol{\beta}$\\
-$\frac{\partial}{\partial\boldsymbol{\beta}} \|\mathbf{Y} - \mathbf{X}\boldsymbol{\beta}\|^2 = - 2\mathbf{Y}^T \mathbf{X} + 2\boldsymbol{\beta}^T \mathbf{X}^T \mathbf{X} = 0$\\
-$\Rightarrow \mathbf{X}^T \mathbf{X} \hat{\boldsymbol{\beta}} = \mathbf{X}^T \mathbf{Y}$\\[2pt]
-\textbf{OLS solution:} $\hat{\boldsymbol{\beta}} = (\mathbf{X}^T \mathbf{X})^{-1}\mathbf{X}^T \mathbf{Y}$\\
+$\mathbf{y} = \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\epsilon},\quad \widehat{\boldsymbol{\beta}} = \arg\min_{\boldsymbol{\beta}} \|\mathbf{y} - \mathbf{X}\boldsymbol{\beta}\|^2$\\[2pt]
+$\|\mathbf{y} - \mathbf{X}\boldsymbol{\beta}\|^2 = (\mathbf{y} - \mathbf{X}\boldsymbol{\beta})^T(\mathbf{y} - \mathbf{X}\boldsymbol{\beta})$\\
+$= \mathbf{y}^T \mathbf{y} - 2\mathbf{y}^T\mathbf{X}\boldsymbol{\beta} + \boldsymbol{\beta}^T \mathbf{X}^T \mathbf{X} \boldsymbol{\beta}$\\
+$\frac{\partial}{\partial\boldsymbol{\beta}} \|\mathbf{y} - \mathbf{X}\boldsymbol{\beta}\|^2 = - 2\mathbf{y}^T \mathbf{X} + 2\boldsymbol{\beta}^T \mathbf{X}^T \mathbf{X} = 0$\\
+$\Rightarrow \mathbf{X}^T \mathbf{X} \widehat{\boldsymbol{\beta}} = \mathbf{X}^T \mathbf{y}$ or $\widehat{\boldsymbol{\beta}}^T\mathbf{X}^T \mathbf{X}  = \mathbf{y}^T\mathbf{X}$\\
 \medskip
-\textbf{Hat matrix:} $\mathbf{H} = \mathbf{X}(\mathbf{X}^T \mathbf{X})^{-1}\mathbf{X}^T$, $\ \mathbf{\hat y} = \mathbf{H}\mathbf {y}$, $\mathbf{e} = (\mathbf{I}-\mathbf{H})\mathbf{y}$.\\
-$\mathbf{H}$ symm. idemp. $\Rightarrow$ $r(\mathbf{H}) = p$, $\mathrm{Var}(\hat y) = \sigma^2 \mathbf{H}$.\\
+\textbf{OLS solution:} $\widehat{\boldsymbol{\beta}} = (\mathbf{X}^T \mathbf{X})^{-1}\mathbf{X}^T \mathbf{y}$\\
+$\mathbb{E}[\widehat{\boldsymbol{\beta}}] = \boldsymbol{\beta}$; \quad $\mathrm{Var}(\widehat{\boldsymbol{\beta}}) = \sigma^2(\mathbf{X}^T \mathbf{X})^{-1}$\\
+\medskip
+\textbf{Error variance \& sample variance: } 
+$\mathrm{SS}_\mathrm{res}=(\mathbf{y}-\mathbf{X}\widehat{\boldsymbol{\beta}})^{\!T}(\mathbf{y}-\mathbf{X}\widehat{\boldsymbol{\beta}})$, \quad
+$\widehat{\sigma}^2_{\mathrm{MLE}} = \frac{\mathrm{SS}_\mathrm{res}}{n}$, \quad
+$s^2 = \widehat{\sigma}^2_{\mathrm{unb}} = \frac{\mathrm{SS}_\mathrm{res}}{n-p}$ with $\mathbb{E}[s^2]=\sigma^2$\\
+\medskip
+\textbf{Estimated covariance of } $\widehat{\boldsymbol{\beta}}$: 
+$\widehat{\mathrm{Var}}(\widehat{\boldsymbol{\beta}})= s^2\,(\mathbf{X}^T \mathbf{X})^{-1}\,$\\
+\medskip
+\textbf{Hat matrix:} $\mathbf{H} = \mathbf{X}(\mathbf{X}^T \mathbf{X})^{-1}\mathbf{X}^T$, $\ \mathbf{\widehat y} = \mathbf{H}\mathbf {y}$, $\mathbf{e} = (\mathbf{I}-\mathbf{H})\mathbf{y}$.\\
+$\mathbf{H}$ symm. idemp. $\Rightarrow$ $r(\mathbf{H}) = p$, $\mathrm{Var}(\mathbf{\widehat y}) = \sigma^2 \mathbf{H}$.\\
 $(\mathbf{I}-\mathbf{H})$ symm. idemp., $r(\mathbf{I}-\mathbf{H}) = n-p$, $\mathrm{Var}(\mathbf{e}) = \sigma^2(\mathbf{I}-\mathbf{H})$.\\
 \medskip
-If $\boldsymbol\varepsilon \sim N(0,\sigma^2 \mathbf{I})$, then $\hat{\boldsymbol{\beta}} \sim MVN\big(\boldsymbol{\beta},\ \sigma^2 (\mathbf{X}^T \mathbf{X})^{-1}\big)$.\\
+If $\boldsymbol\varepsilon \sim N(0,\sigma^2 \mathbf{I})$, then $\widehat{\boldsymbol{\beta}} \sim MVN\big(\boldsymbol{\beta},\ \sigma^2 (\mathbf{X}^T \mathbf{X})^{-1}\big)$.\\
 \medskip
 \subsection{Random Vectors}
 $\mathbb{E}[\mathbf{a}] = \mathbf{a}$; $\mathbb{E}[\mathbf{a}^T \mathbf{y}] = \mathbf{a}^T \mathbb{E}[\mathbf{y}]$; $\mathbb{E}[\mathbf{A}\mathbf{y}] = \mathbf{A}\mathbb{E}[\mathbf{y}]$.\\
 \medskip
-
 $\mathrm{Var}(\mathbf{y}) = \mathbb{E}[(\mathbf{y}-\boldsymbol\mu)(\mathbf{y}-\boldsymbol\mu)^T]$, diag = variances, off-diag = covariances.\\
 $\mathrm{Var}(\mathbf{y}) = V = \mathbb{E}[\mathbf{y}\mathbf{y}^T] - \boldsymbol\mu\boldsymbol\mu^T \ \Rightarrow\ \mathbb{E}[\mathbf{y}\mathbf{y}^T] = V + \boldsymbol\mu\boldsymbol\mu^T$.\\
 $\mathrm{Var}(\mathbf{a}^T \mathbf{y}) = \mathbf{a}^T \mathbf{V} \mathbf{a}$; \quad $\mathrm{Var}(\mathbf{A}\mathbf{y}) = \mathbf{A}\mathbf{V}\mathbf{A}^T$.\\
+The \textbf{eigenvectors} of covariance matrix = \textbf{principal components} of data -- used to find \textbf{collinear combinations} of the \textbf{predictor} variables.\\
 \medskip
 Example: If $\mathbf{Z} = (\mathbf{X}^T \mathbf{X})^{-1} \mathbf{X}^T \mathbf{y} = \mathbf{A}\mathbf{y}$, $\mathrm{Var}(\mathbf{y}) = \sigma^2 \mathbf{I}$, then $\mathrm{Var}(\mathbf{Z}) = \mathbf{A}\mathrm{Var}(\mathbf{y})\mathbf{A}^T = \sigma^2 (\mathbf{X}^T \mathbf{X})^{-1}$.\\
-
+\medskip\medskip
 \subsection{Multivariate Normal (MVN) Distribution}
 $\mathbf y = \boldsymbol\mu + \boldsymbol\Sigma^{1/2} \mathbf Z,\ \mathbf{Z}\sim N(0,I) \Rightarrow \mathbf{y} \sim MVN(\boldsymbol\mu,\boldsymbol\Sigma)$\\
 \medskip
@@ -161,7 +176,6 @@ If $\mathbf{Z} \sim N(0, I)$, then $\mathbf{X} = \mathbf{A}\mathbf{Z} + \boldsym
 Density: $f(\mathbf x) = \frac{1}{(2\pi)^{k/2} |\boldsymbol\Sigma|^{1/2} } \exp \left[ -\frac{1}{2} (\mathbf x-\boldsymbol\mu)^T \boldsymbol\Sigma^{-1} (\mathbf x-\boldsymbol\mu) \right] $\\
 For MVN, uncorrelated $\Leftrightarrow$ independent; in general, indep. $\Rightarrow$uncorrelated, but uncorrelated $\neq$ indep.\\
 \medskip
-
 \subsection{Random Quadratic Form}
 $\mathbb E [\mathbf y^T \mathbf{Ay}] = tr(\mathbf{AV}) + \boldsymbol\mu^T \mathbf A\boldsymbol\mu$.\\
 \medskip
@@ -201,25 +215,99 @@ QF–QF gen.\ $\mathbf{V}$& $\mathbf{A},\mathbf{B}$ symm.,$\mathbf{V}$ nonsing.,
 \hline
 QF–LF & $\mathbf{A}$ symm., $\mathbf{B}$ ($m\times n$), $\mathbf{B}\mathbf{V}\mathbf{A}=0$\\
 \hline
-Multi-QF & $y\!\sim\! N(\boldsymbol\mu,\sigma^2\mathbf{I})$, $\mathbf{A}_i$ symm.;\\
-& any 2 of: $\mathbf{A}_i^2=\mathbf{A}_i$, $\sum_i \mathbf{A}_i$ idemp., $\mathbf{A}_i\mathbf{A}_j=0$ ($i\neq j$) $\Rightarrow$ all 3;\\
+Multi-QF & $y\!\sim\! N(\mu,\sigma^2{I})$, ${A}_i$ symm.; any 2 of: ${A}_i^2={A}_i$,\\
+& $\sum_i \mathbf{A}_i$ idemp., $\mathbf{A}_i\mathbf{A}_j=0$ ($i\neq j$) $\Rightarrow$ all 3;\\
 & $\frac{1}{\sigma^2}\mathbf{y}^T \mathbf{A}_i \mathbf{y} \sim \chi^2_{r(\mathbf{A}_i),\lambda_i}$, $\lambda_i=\frac{1}{2\sigma^2}\mu^T \mathbf{A}_i \mu$;
 indep.;
 $\sum r(\mathbf{A}_i)=r(\sum \mathbf{A}_i)$\\
 \hline
-Cochran-Fisher & $y\!\sim\! N(\boldsymbol\mu,\sigma^2\mathbf{I})$, $\mathbf{A}_i$ idemp., $\sum_{i=1}^m \mathbf{A}_i=\mathbf{I}$;\\
-& $\frac{1}{\sigma^2}\mathbf{y}^T \mathbf{A}_i \mathbf{y} \sim \chi^2_{r(\mathbf{A}_i),\lambda_i}$, $\lambda_i=\frac{1}{2\sigma^2}\mu^T \mathbf{A}_i \mu$, indep.; $\sum r(\mathbf{A}_i)=n$\\
+Cochran-& $y\!\sim\! N(\boldsymbol\mu,\sigma^2\mathbf{I})$, $\mathbf{A}_i$ idemp., $\sum_{i=1}^m \mathbf{A}_i=\mathbf{I}$;\\
+Fisher& $\frac{1}{\sigma^2}\mathbf{y}^T \mathbf{A}_i \mathbf{y} \sim \chi^2_{r(\mathbf{A}_i),\lambda_i}$, $\lambda_i=\frac{1}{2\sigma^2}\mu^T \mathbf{A}_i \mu$, indep.; $\sum r(\mathbf{A}_i)=n$\\
 \hline
 \end{tabular}
 
 \medskip
-$\mathbf{y}^T \mathbf{A} \mathbf{y} \perp \mathbf{y}^T \mathbf{B} \mathbf{y} \Leftrightarrow \mathbf{A}\mathbf{V}\mathbf{B} = 0$ ($\mathbf{V}$ nonsing.).\\
-$\mathbf{y}^T \mathbf{A} \mathbf{y} \perp \mathbf{C} \mathbf{y} \Leftrightarrow \mathbf{C}\mathbf{V}\mathbf{A} = 0$.\\
+$\mathbf{A}$ Sym:
+$\mathbf{y}^T \mathbf{A} \mathbf{y} \perp\!\!\!\perp \mathbf{y}^T \mathbf{B} \mathbf{y} \Leftrightarrow \mathbf{A}\mathbf{V}\mathbf{B} = 0$ ($\mathbf{V}$ non-sing.) (3.12).
+$\mathbf{y}^T \mathbf{A} \mathbf{y} \perp\!\!\!\perp \mathbf{C} \mathbf{y} \Leftrightarrow \mathbf{C}\mathbf{V}\mathbf{A} = 0$ (3.14).\\
 \medskip
-Multiple QFs: $\mathbf{A}_i^2 = \mathbf{A}_i$, $\sum \mathbf{A}_i$ idem., $\mathbf{A}_i \mathbf{A}_j=0 \ (i\neq j) \Rightarrow$ all indep., $\sum r(\mathbf{A}_i)=r(\sum \mathbf{A}_i)$.\\
+Multiple QFs: any 2 of:$\mathbf{A}_i^2 = \mathbf{A}_i$, $\sum \mathbf{A}_i$ idem., $\mathbf{A}_i \mathbf{A}_j=0 \ (i\neq j) \Rightarrow$ all indep. $\sum r(\mathbf{A}_i)=r(\sum \mathbf{A}_i)$\\
 Cochran–Fisher: $\sum \mathbf{A}_i = \mathbf{I}$, idempotent $\Rightarrow$ indep. $\chi^2$.\\
 \medskip
-
+\subsection{Gauss-Markov assumptions:}
+1. True relationship between $\mathbf X$ and $\mathbf y$ is $\mathbf y= \mathbf X \boldsymbol\beta+ \boldsymbol\epsilon$, where $\mathbf X$ is a n by p matrix and $\boldsymbol\beta$ is a p-dimensional vector.\\
+2. $\mathbf X$ is a full rank matrix, i.e. $\mathrm{r}( \mathbf X) = p$.\\
+3. The random errors are zero-centered, i.e., $\mathbb E( \boldsymbol\epsilon)= \boldsymbol 0$ and hence $\mathbb E(\mathbf y)=\mathbf X \boldsymbol\beta$.\\
+4. The random errors are uncorrelated, and have homogeneous variance, i.e., $\mathrm{Var}(\boldsymbol\epsilon)=\sigma^2 \mathbf I$.\\
+5. The random errors are multivariate normal, i.e. $\boldsymbol\epsilon\sim\mathcal N(\boldsymbol0, \sigma^2 \mathbf I)$.\\
+\medskip
+Under assumption (1-4), $\widehat{\boldsymbol\beta}=(\mathbf X^T\mathbf X)^{-1}\mathbf X^T\mathbf y$ is BLUE of $\boldsymbol\beta$.\\
+Alternate LUE $\mathbf b=\mathbf L\mathbf y=[(\mathbf X^T\mathbf X)^{-1}\mathbf X^T + \mathbf B]\mathbf y$ where $\mathbf B= \mathbf L-(\mathbf X^T\mathbf X)^{-1}\mathbf X^T$.\\
+\medskip
+Under assumption (1, 5), $\mathbf y\sim MVN(\mathbf X\boldsymbol\beta, \sigma^2 \mathbf I)$. Errors $\epsilon$ are independent.
+\medskip
+\subsection{Proof sigma2 is biased:}
+$\text{bias}=\mathbb E(\widehat{\sigma}^2)-\sigma^2=\mathbb E\left(\frac{\|\mathbf y-\mathbf X\boldsymbol\beta\|^2}{n}\right)-\sigma^2=\frac{n-p}{n}\mathbb E\left(\frac{\|\mathbf y-\mathbf X\boldsymbol\beta\|^2}{n-p}\right)-\sigma^2=\dfrac{n-p}{n}\mathbb E(s^2)-\sigma^2=\dfrac{n-p}{n}\mathbb \sigma^2-\sigma^2=-\dfrac{p}{n}\mathbb \sigma^2$\\
+\medskip
+\subsection{Proof s2 is unbiased:}
+$s^2= \frac{\mathrm{SS}_\mathrm{Res} }{n-p}=\frac{n}{n-p}\widehat{\sigma}^2$;\\
+$\mathbb E[s^2]=\frac{1}{n-p}\mathbb E[\|\mathbf y-\mathbf X\widehat{\boldsymbol\beta}\|^2] =\frac{1}{n-p}\mathbb E[\mathbf y^T(\mathbf I-\mathbf H)\mathbf y]=\frac{1}{n-p}\mathbb \sigma^2(n-p) = \sigma^2$
+$\Leftarrow \mathbb E [\mathbf y^T \mathbf{Ay}] =\mathrm{tr}(\mathbf{AV}) + \boldsymbol\mu^T \mathbf A\boldsymbol\mu$\\
+\medskip
+\subsection{Diagnostics}
+\textbf{Leverage:} $h_{ii} = \dfrac{\partial \widehat{y}_i}{\partial y_i} = [\mathbf{H}]_{ii}$ 
+\; ($0 < h_{ii} < 1$). \\[6pt]
+\textbf{Residual:} $e_i = y_i - \widehat{y}_i$. \\[6pt]
+\textbf{Var(residual):} $\mathrm{Var}(e_i) = \sigma^2 (1 - h_{ii})$. \\[6pt]
+\textbf{Standardised residual:} 
+$z_i = \frac{e_i}{s \sqrt{1-h_{ii}}}$, \quad
+$s^2 = \tfrac{\mathrm{SSE}}{n-p}$. \\[6pt]
+\textbf{Cook's distance:} 
+$D_i = \frac{(\widehat{\boldsymbol\beta}_{(-i)}-\widehat{\boldsymbol\beta})^T\mathbf X^T\mathbf X(\widehat{\boldsymbol\beta}_{(-i)}-\widehat{\boldsymbol\beta})}{ps^2} = \frac{z_i^2}{p}\left(\frac{h_{ii} }{1-h_{ii} }\right)$, where $\widehat{\boldsymbol\beta}_{(-i)}$ is the estimated coefficient vector if the point $i$  is removed and $p$ is the size of $\widehat{\boldsymbol\beta}$.
+\medskip
+\subsection{T Statistic}
+PDF: $f(x)=\frac{\Gamma((\gamma+1)/2)}{\sqrt{\gamma\pi}\Gamma(\gamma/2)}\left(1+\frac{x^2}{\gamma}\right)^{-(\gamma+1)/2}$
+\medskip
+\subsection{Interval Estimation}
+$Z=\frac{\widehat{\boldsymbol\beta}_i-\boldsymbol\beta_i}{\sigma\sqrt{c_{ii} } }\sim N(0,1)$; $X^2=\frac{\mathrm{SS}_\mathrm{res}}{\sigma^2}\sim\chi^2_{n-p}$;\\
+$T=\frac{\widehat{\boldsymbol\beta}_i-\boldsymbol\beta_i}{\sigma\sqrt{c_{ii} } }/\sqrt{\frac{\mathrm{SS}_\mathrm{res}/\sigma^2}{n-p} }=\frac{\widehat{\boldsymbol\beta}_i-\boldsymbol\beta_i}{\sigma\sqrt{c_{ii} } }/\sqrt{\frac{s^2}{\sigma^2}}=\frac{\widehat{\boldsymbol\beta}_i-\boldsymbol\beta_i}{s\sqrt{c_{ii} } }\sim t_{n-p}$.\\
+Proof of $\widehat{\boldsymbol\beta}\perp\!\!\!\perp\frac{\mathrm{SS}_\mathrm{res}}{\sigma^2}\Leftarrow  \mathbf{B}\mathbf{V}\mathbf{A} = 0$.
+\medskip
+\subsubsection{100(1-alpha)\% Confidence Interval:}
+$\beta_i$: CI $=\widehat{\boldsymbol\beta}_i\pm t_{\alpha/2}s\sqrt{c_{ii} }$, where $c_{ii}=[(\mathbf X^T\mathbf X)^{-1}]_{ii}$.\\
+$\mathbb E(t^T \widehat{\boldsymbol\beta})$: $\text{CI} = t^T \widehat{\boldsymbol\beta}\pm t_{\alpha/2} s\sqrt{(t^T(\mathbf X^T\mathbf X)^{-1}t}$\\
+$\mathbb E(y|x^\ast)$: $\text{CI} = (\mathbf x^\ast)^T\widehat{\boldsymbol\beta}\pm t_{\alpha/2} s\sqrt{(\mathbf x^\ast)^T(\mathbf X^T\mathbf X)^{-1}\mathbf x^\ast}$\\
+\medskip
+\subsubsection{Prediction Interval:}
+$y^\ast=(\mathbf x^\ast)^T\boldsymbol\beta+\boldsymbol\epsilon^\ast$, where $\mathrm{Var}(\boldsymbol\epsilon^\ast)=\sigma^2$ by assumption.\\
+$\Rightarrow\boldsymbol\epsilon^\ast=y^\ast- (\mathbf x^\ast)^T\widehat{\boldsymbol\beta}$\\
+$\because y^\ast\perp\!\!\!\perp\widehat{\boldsymbol\beta}\Leftarrow$ new vs old observations are indep.\\
+$\therefore \mathrm{Var}(y^\ast- (\mathbf x^\ast)^T\widehat{\boldsymbol\beta})=\mathrm{Var}(\boldsymbol\epsilon^\ast)+\mathrm{Var}[(\mathbf x^\ast)^T\widehat{\boldsymbol\beta}]=[1+(\mathbf x^\ast)^T(\mathbf X^T\mathbf X)^{-1}\mathbf x^\ast]\sigma^2$\\
+\medskip
+\subsubsection{100(1-alpha)\% Prediction Interval:}
+$y|x^\ast$: $\text{PI} = (\mathbf x^\ast)^T\widehat{\boldsymbol\beta}\pm t_{\alpha/2} s\sqrt{1+(\mathbf x^\ast)^T(\mathbf X^T\mathbf X)^{-1}\mathbf x^\ast}$\\
+\subsection{F distribution:}
+Let $X^2_{\gamma_1}$ and $X^2_{\gamma_2}$ be indept. $\chi^2$ r.v. with $\gamma_1$ and $\gamma_2$ d.f., then:
+$F=\frac{X^2_{\gamma_1}/\gamma_1}{X^2_{\gamma_2}/\gamma_2}$ has an F distribution with $\gamma_1$ and $\gamma_2$ d.f.\\
+PDF: $f(x;\gamma_1, \gamma_2)=\frac{1}{\beta(\gamma_1/2, \gamma_2/2)}(\frac{\gamma_1}{\gamma_2})^{\gamma_1/2} x^{\gamma_1/2-1}(1+\frac{\gamma_1}{\gamma_2}x)^{-(\gamma_1+\gamma_2)/2}$\\
+\medskip
+\subsection{Confidence Region:}
+$\widehat{\boldsymbol\beta}=(\mathbf X^T\mathbf X)^{-1}\mathbf X^T\mathbf y\sim \mathrm{MVN}(\boldsymbol\beta, (\mathbf X^T\mathbf X)^{-1}\sigma^2)$\\
+$\Rightarrow \frac{(\widehat{\boldsymbol\beta}-\boldsymbol\beta)^T(\mathbf X^T\mathbf X)(\widehat{\boldsymbol\beta}-\boldsymbol\beta)}{\sigma^2}\sim \chi^2_p$; 
+and $\frac{(n-p)s^2}{\sigma^2}\sim \chi^2_{n-p}$\\
+$\Rightarrow \left(\frac{(\widehat{\boldsymbol\beta}-\boldsymbol\beta)^T(\mathbf X^T\mathbf X)(\widehat{\boldsymbol\beta}-\boldsymbol\beta)}{\sigma^2}\right)/\left(\frac{(n-p)s^2}{(n-p)\sigma^2}\right)$\\
+$=\frac{(\widehat{\boldsymbol\beta}-\boldsymbol\beta)^T(\mathbf X^T\mathbf X)(\widehat{\boldsymbol\beta}-\boldsymbol\beta)}{ps^2}\sim F_{p, n-p}$\\
+\medskip
+$\mathbb P\left[\frac{(\widehat{\boldsymbol\beta}-\boldsymbol\beta)^T(\mathbf X^T\mathbf X)(\widehat{\boldsymbol\beta}-\boldsymbol\beta)}{ps^2} \le f_\alpha\right] = 1-\alpha$\\
+Confidence Region: $(\widehat{\boldsymbol\beta}-\boldsymbol\beta)^T(\mathbf X^T\mathbf X)(\widehat{\boldsymbol\beta}-\boldsymbol\beta) \le ps^2f_\alpha$\\
+C.R. is ellipse/ellipsoid because LHS is quadratic form whose matrix $\mathbf X^T\mathbf X$ is positive definite.\\
+\medskip
+\subsection{ANOVA}
+\subsubsection{Sum of Squares (Total/Regression/Residual)}
+$\mathrm{SS}_\mathrm{Total}=\mathbf y^T\mathbf y=\|\mathbf y\|^2=(\mathbf y-\mathbf X\widehat{\boldsymbol\beta})^T(\mathbf y-\mathbf X\widehat{\boldsymbol\beta})+(\mathbf X\widehat{\boldsymbol\beta})^T(\mathbf X\widehat{\boldsymbol\beta})=\mathrm{SS}_\mathrm{Res}+\mathrm{SS}_\mathrm{Reg}$.\\
+$\mathrm{SS}_\mathrm{Reg}=\widehat{\mathbf y}^T\widehat{\mathbf y}=\mathbf y^T\mathbf H\mathbf y=(\mathbf X\widehat{\boldsymbol\beta})^T(\mathbf X\widehat{\boldsymbol\beta})=\widehat{\boldsymbol\beta}^T\mathbf X^T\mathbf X\widehat{\boldsymbol\beta}=\widehat{\mathbf y}^T\mathbf X\widehat{\boldsymbol\beta}$.\\
+$\mathrm{SS}_\mathrm{Res}=(\mathbf y-\mathbf X\widehat{\boldsymbol\beta})^T(\mathbf y-\mathbf X\widehat{\boldsymbol\beta})=\mathbf y^T(\mathbf I-\mathbf H)\mathbf y$.\\
+\medskip
 \subsection{Hypothesis Testing}
 \begin{tabular}{|l|l|l|}\hline
 & Not Significant& Significant\\\hline
