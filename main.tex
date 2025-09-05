@@ -96,7 +96,7 @@ $2\times 2$: $\begin{bmatrix} a & b \\ c & d \end{bmatrix}^{-1} = \frac{1}{ad-bc
 \medskip
 $\begin{vmatrix} a & b & c \\ d & e & f \\ g & h & i \end{vmatrix} \implies a\begin{vmatrix} e & f \\ h & i \end{vmatrix}-b\begin{vmatrix} d & f \\ g & i \end{vmatrix}+c\begin{vmatrix} d & e \\ g & h \end{vmatrix}$\\
 \medskip
-Row ops: swap $\times(-1)$, scale row $\times c$, add multiple $\to$ det unchanged.\\
+Row ops: swap$\times(-1)$, scale row$\times c$, add$\times c$$\to$det unchanged.\\
 \medskip
 \subsection{Partitioned Matrices}
 $\mathbf{X} =
@@ -173,7 +173,7 @@ $\mathbf y = \boldsymbol\mu + \boldsymbol\Sigma^{1/2} \mathbf Z,\ \mathbf{Z}\sim
 Linear transform: $\mathbf{A}\mathbf{X}+\mathbf{b} \sim MVN(\mathbf{A}\boldsymbol\mu+\mathbf{b}, \mathbf{A}\boldsymbol\Sigma\mathbf{A}^T)$.\\
 If $\mathbf{Z} \sim N(0, I)$, then $\mathbf{X} = \mathbf{A}\mathbf{Z} + \boldsymbol\mu \ \Rightarrow\ \mathbf{X} \sim MVN(\boldsymbol\mu, \ \mathbf{A}\mathbf{A}^T)$.
 \medskip
-Density: $f(\mathbf x) = \frac{1}{(2\pi)^{k/2} |\boldsymbol\Sigma|^{1/2} } \exp \left[ -\frac{1}{2} (\mathbf x-\boldsymbol\mu)^T \boldsymbol\Sigma^{-1} (\mathbf x-\boldsymbol\mu) \right] $\\
+PDF: $f(\mathbf x) = \frac{1}{(2\pi)^{k/2} |\boldsymbol\Sigma|^{1/2} } \exp \left[ -\frac{1}{2} (\mathbf x-\boldsymbol\mu)^T \boldsymbol\Sigma^{-1} (\mathbf x-\boldsymbol\mu) \right] $\\
 For MVN, uncorrelated $\Leftrightarrow$ independent; in general, indep. $\Rightarrow$uncorrelated, but uncorrelated $\neq$ indep.\\
 \medskip
 \subsection{Random Quadratic Form}
@@ -247,7 +247,7 @@ Alternate LUE $\mathbf b=\mathbf L\mathbf y=[(\mathbf X^T\mathbf X)^{-1}\mathbf 
 Under assumption (1, 5), $\mathbf y\sim MVN(\mathbf X\boldsymbol\beta, \sigma^2 \mathbf I)$. Errors $\epsilon$ are independent.
 \medskip
 \subsection{Proof sigma2 is biased:}
-$\text{bias}=\mathbb E(\widehat{\sigma}^2)-\sigma^2=\mathbb E\left(\frac{\|\mathbf y-\mathbf X\boldsymbol\beta\|^2}{n}\right)-\sigma^2=\frac{n-p}{n}\mathbb E\left(\frac{\|\mathbf y-\mathbf X\boldsymbol\beta\|^2}{n-p}\right)-\sigma^2=\dfrac{n-p}{n}\mathbb E(s^2)-\sigma^2=\dfrac{n-p}{n}\mathbb \sigma^2-\sigma^2=-\dfrac{p}{n}\mathbb \sigma^2$\\
+$\text{bias}=\mathbb E(\widehat{\sigma}^2)-\sigma^2=\mathbb E\left(\frac{\|\mathbf y-\mathbf X\boldsymbol\beta\|^2}{n}\right)-\sigma^2=\frac{n-p}{n}\mathbb E\left(\frac{\|\mathbf y-\mathbf X\boldsymbol\beta\|^2}{n-p}\right)-\sigma^2=\frac{n-p}{n}\mathbb E(s^2)-\sigma^2=\frac{n-p}{n}\mathbb \sigma^2-\sigma^2=-\frac{p}{n}\mathbb \sigma^2$\\
 \medskip
 \subsection{Proof s2 is unbiased:}
 $s^2= \frac{\mathrm{SS}_\mathrm{Res} }{n-p}=\frac{n}{n-p}\widehat{\sigma}^2$;\\
@@ -255,7 +255,7 @@ $\mathbb E[s^2]=\frac{1}{n-p}\mathbb E[\|\mathbf y-\mathbf X\widehat{\boldsymbol
 $\Leftarrow \mathbb E [\mathbf y^T \mathbf{Ay}] =\mathrm{tr}(\mathbf{AV}) + \boldsymbol\mu^T \mathbf A\boldsymbol\mu$\\
 \medskip
 \subsection{Diagnostics}
-\textbf{Leverage:} $h_{ii} = \dfrac{\partial \widehat{y}_i}{\partial y_i} = [\mathbf{H}]_{ii}$ 
+\textbf{Leverage:} $h_{ii} = \frac{\partial \widehat{y}_i}{\partial y_i} = [\mathbf{H}]_{ii}$ 
 \; ($0 < h_{ii} < 1$). \\[6pt]
 \textbf{Residual:} $e_i = y_i - \widehat{y}_i$. \\[6pt]
 \textbf{Var(residual):} $\mathrm{Var}(e_i) = \sigma^2 (1 - h_{ii})$. \\[6pt]
@@ -269,7 +269,7 @@ $D_i = \frac{(\widehat{\boldsymbol\beta}_{(-i)}-\widehat{\boldsymbol\beta})^T\ma
 PDF: $f(x)=\frac{\Gamma((\gamma+1)/2)}{\sqrt{\gamma\pi}\Gamma(\gamma/2)}\left(1+\frac{x^2}{\gamma}\right)^{-(\gamma+1)/2}$
 \medskip
 \subsection{Interval Estimation}
-$Z=\frac{\widehat{\boldsymbol\beta}_i-\boldsymbol\beta_i}{\sigma\sqrt{c_{ii} } }\sim N(0,1)$; $X^2=\frac{\mathrm{SS}_\mathrm{res}}{\sigma^2}\sim\chi^2_{n-p}$;\\
+$Z=\frac{\widehat{\boldsymbol\beta}_i-\boldsymbol\beta_i}{\sigma\sqrt{c_{ii} } }\sim N(0,1)$; $X^2=\frac{(n-p)s^2}{\sigma^2}=\frac{\mathrm{SS}_\mathrm{res}}{\sigma^2}\sim\chi^2_{n-p}$;\\
 $T=\frac{\widehat{\boldsymbol\beta}_i-\boldsymbol\beta_i}{\sigma\sqrt{c_{ii} } }/\sqrt{\frac{\mathrm{SS}_\mathrm{res}/\sigma^2}{n-p} }=\frac{\widehat{\boldsymbol\beta}_i-\boldsymbol\beta_i}{\sigma\sqrt{c_{ii} } }/\sqrt{\frac{s^2}{\sigma^2}}=\frac{\widehat{\boldsymbol\beta}_i-\boldsymbol\beta_i}{s\sqrt{c_{ii} } }\sim t_{n-p}$.\\
 Proof of $\widehat{\boldsymbol\beta}\perp\!\!\!\perp\frac{\mathrm{SS}_\mathrm{res}}{\sigma^2}\Leftarrow  \mathbf{B}\mathbf{V}\mathbf{A} = 0$.
 \medskip
@@ -295,7 +295,9 @@ PDF: $f(x;\gamma_1, \gamma_2)=\frac{1}{\beta(\gamma_1/2, \gamma_2/2)}(\frac{\gam
 $\widehat{\boldsymbol\beta}=(\mathbf X^T\mathbf X)^{-1}\mathbf X^T\mathbf y\sim \mathrm{MVN}(\boldsymbol\beta, (\mathbf X^T\mathbf X)^{-1}\sigma^2)$\\
 $\Rightarrow \frac{(\widehat{\boldsymbol\beta}-\boldsymbol\beta)^T(\mathbf X^T\mathbf X)(\widehat{\boldsymbol\beta}-\boldsymbol\beta)}{\sigma^2}\sim \chi^2_p$; 
 and $\frac{(n-p)s^2}{\sigma^2}\sim \chi^2_{n-p}$\\
-$\Rightarrow \left(\frac{(\widehat{\boldsymbol\beta}-\boldsymbol\beta)^T(\mathbf X^T\mathbf X)(\widehat{\boldsymbol\beta}-\boldsymbol\beta)}{\sigma^2}\right)/\left(\frac{(n-p)s^2}{(n-p)\sigma^2}\right)$\\
+\medskip
+Using the F distribution formula:
+$\left(\frac{(\widehat{\boldsymbol\beta}-\boldsymbol\beta)^T(\mathbf X^T\mathbf X)(\widehat{\boldsymbol\beta}-\boldsymbol\beta)}{p\sigma^2}\right)/\left(\frac{(n-p)s^2}{(n-p)\sigma^2}\right)$\\
 $=\frac{(\widehat{\boldsymbol\beta}-\boldsymbol\beta)^T(\mathbf X^T\mathbf X)(\widehat{\boldsymbol\beta}-\boldsymbol\beta)}{ps^2}\sim F_{p, n-p}$\\
 \medskip
 $\mathbb P\left[\frac{(\widehat{\boldsymbol\beta}-\boldsymbol\beta)^T(\mathbf X^T\mathbf X)(\widehat{\boldsymbol\beta}-\boldsymbol\beta)}{ps^2} \le f_\alpha\right] = 1-\alpha$\\
@@ -307,6 +309,7 @@ C.R. is ellipse/ellipsoid because LHS is quadratic form whose matrix $\mathbf X^
 $\mathrm{SS}_\mathrm{Total}=\mathbf y^T\mathbf y=\|\mathbf y\|^2=(\mathbf y-\mathbf X\widehat{\boldsymbol\beta})^T(\mathbf y-\mathbf X\widehat{\boldsymbol\beta})+(\mathbf X\widehat{\boldsymbol\beta})^T(\mathbf X\widehat{\boldsymbol\beta})=\mathrm{SS}_\mathrm{Res}+\mathrm{SS}_\mathrm{Reg}$.\\
 $\mathrm{SS}_\mathrm{Reg}=\widehat{\mathbf y}^T\widehat{\mathbf y}=\mathbf y^T\mathbf H\mathbf y=(\mathbf X\widehat{\boldsymbol\beta})^T(\mathbf X\widehat{\boldsymbol\beta})=\widehat{\boldsymbol\beta}^T\mathbf X^T\mathbf X\widehat{\boldsymbol\beta}=\widehat{\mathbf y}^T\mathbf X\widehat{\boldsymbol\beta}$.\\
 $\mathrm{SS}_\mathrm{Res}=(\mathbf y-\mathbf X\widehat{\boldsymbol\beta})^T(\mathbf y-\mathbf X\widehat{\boldsymbol\beta})=\mathbf y^T(\mathbf I-\mathbf H)\mathbf y$.\\
+$\mathrm{SS}_\mathrm{Reg}\perp\!\!\!\perp\mathrm{SS}_\mathrm{Res}\Leftarrow\mathbf H(\mathbf I-\mathbf H)=0$\\
 \medskip
 \subsection{Hypothesis Testing}
 \begin{tabular}{|l|l|l|}\hline
@@ -314,13 +317,13 @@ $\mathrm{SS}_\mathrm{Res}=(\mathbf y-\mathbf X\widehat{\boldsymbol\beta})^T(\mat
 $H_0$ true&True Neg ($1-\alpha$)& T1 - False Pos ($\alpha$)\\\hline
 $H_1$ true&T2 - False Neg ($\beta$)& True Pos ($1-\beta$)\\ \hline
 \end{tabular}
-
-
+\medskip
 \vfill
 Last updated:
-2025-08-16 T22-41-20
+2025-09-05 T21-45-44
 \hrule
 Enoch Ko (147934), University of Melbourne.\\
+$180/100 = 1.8$ mins/mark. $1 \mapsto 1.8 // 2 \mapsto 3.6 //3 \mapsto 5.4 // 4 \mapsto 7.2 // 5 \mapsto 9 // 6 \mapsto 10.8 // 7 \mapsto 12.6$\\
 $180/35 = 5$ mins/mark. $1 \mapsto 5 // 2 \mapsto 10 //3 \mapsto 15 // 4 \mapsto 20 // 5 \mapsto 25 // 6 \mapsto 30$\\
 \end{multicols}
 \end{document}
