@@ -143,11 +143,6 @@ $\Rightarrow \mathbf{X}^T \mathbf{X} \widehat{\boldsymbol{\beta}} = \mathbf{X}^T
 \textbf{OLS solution:} $\widehat{\boldsymbol{\beta}} = (\mathbf{X}^T \mathbf{X})^{-1}\mathbf{X}^T \mathbf{y}$\\
 $\mathbb{E}[\widehat{\boldsymbol{\beta}}] = \boldsymbol{\beta}$; \quad $\mathrm{Var}(\widehat{\boldsymbol{\beta}}) = \sigma^2(\mathbf{X}^T \mathbf{X})^{-1}$\\
 \medskip
-\textbf{Error variance \& sample variance: } 
-$\mathrm{SS}_\mathrm{res}=(\mathbf{y}-\mathbf{X}\widehat{\boldsymbol{\beta}})^{\!T}(\mathbf{y}-\mathbf{X}\widehat{\boldsymbol{\beta}})$, \quad
-$\widehat{\sigma}^2_{\mathrm{MLE}} = \frac{\mathrm{SS}_\mathrm{res}}{n}$, \quad
-$s^2 = \widehat{\sigma}^2_{\mathrm{unb}} = \frac{\mathrm{SS}_\mathrm{res}}{n-p}$ with $\mathbb{E}[s^2]=\sigma^2$\\
-\medskip
 \textbf{Estimated covariance of } $\widehat{\boldsymbol{\beta}}$: 
 $\widehat{\mathrm{Var}}(\widehat{\boldsymbol{\beta}})= s^2\,(\mathbf{X}^T \mathbf{X})^{-1}\,$\\
 \medskip
@@ -237,14 +232,21 @@ Cochran–Fisher: $\sum \mathbf{A}_i = \mathbf{I}$, idempotent $\Rightarrow$ ind
 \subsection{Gauss-Markov assumptions:}
 1. True relationship between $\mathbf X$ and $\mathbf y$ is $\mathbf y= \mathbf X \boldsymbol\beta+ \boldsymbol\epsilon$, where $\mathbf X$ is a n by p matrix and $\boldsymbol\beta$ is a p-dimensional vector.\\
 2. $\mathbf X$ is a full rank matrix, i.e. $\mathrm{r}( \mathbf X) = p$.\\
-3. The random errors are zero-centered, i.e., $\mathbb E( \boldsymbol\epsilon)= \boldsymbol 0$ and hence $\mathbb E(\mathbf y)=\mathbf X \boldsymbol\beta$.\\
-4. The random errors are uncorrelated, and have homogeneous variance, i.e., $\mathrm{Var}(\boldsymbol\epsilon)=\sigma^2 \mathbf I$.\\
-5. The random errors are multivariate normal, i.e. $\boldsymbol\epsilon\sim\mathcal N(\boldsymbol0, \sigma^2 \mathbf I)$.\\
+3. Random errors are zero-centered, i.e., $\mathbb E( \boldsymbol\epsilon)= \boldsymbol 0$$\Rightarrow$ $\mathbb E(\mathbf y)=\mathbf X \boldsymbol\beta$.\\
+4. Random errors are uncorrelated, and have homogeneous variance, i.e., $\mathrm{Var}(\boldsymbol\epsilon)=\sigma^2 \mathbf I$.\\
+5. Random errors are multivariate normal, i.e. $\boldsymbol\epsilon\sim\mathcal N(\boldsymbol0, \sigma^2 \mathbf I)$.\\
 \medskip
-Under assumption (1-4), $\widehat{\boldsymbol\beta}=(\mathbf X^T\mathbf X)^{-1}\mathbf X^T\mathbf y$ is BLUE of $\boldsymbol\beta$.\\
+Under (1-4), $\widehat{\boldsymbol\beta}=(\mathbf X^T\mathbf X)^{-1}\mathbf X^T\mathbf y$ is BLUE of $\boldsymbol\beta$.\\
 Alternate LUE $\mathbf b=\mathbf L\mathbf y=[(\mathbf X^T\mathbf X)^{-1}\mathbf X^T + \mathbf B]\mathbf y$ where $\mathbf B= \mathbf L-(\mathbf X^T\mathbf X)^{-1}\mathbf X^T$.\\
 \medskip
-Under assumption (1, 5), $\mathbf y\sim MVN(\mathbf X\boldsymbol\beta, \sigma^2 \mathbf I)$. Errors $\epsilon$ are independent.
+Under (1, 5), $\mathbf y\sim MVN(\mathbf X\boldsymbol\beta, \sigma^2 \mathbf I)$. Errors $\epsilon$ are independent.
+\medskip
+\subsection{Maximum Likelihood Estimators}
+$f(\mathbf y; \boldsymbol\beta, \sigma^2)=(2\pi\sigma^2)^{-n/2}\exp[-(\mathbf y-\mathbf X\boldsymbol\beta)^T(\mathbf y-\mathbf X\boldsymbol\beta)/(2\sigma^2)]=\frac{1}{(2\pi\sigma^2)^{n/2} }\exp\left[-\frac{\|\mathbf y-\mathbf X\boldsymbol\beta\|^2}{2\sigma^2}\right]$.\\
+$\widehat{\boldsymbol{\beta}}_{\mathrm{MLE}}= (\mathbf{X}^T \mathbf{X})^{-1}\mathbf{X}^T \mathbf{y} $;\quad$\widehat{\sigma}^2_{\mathrm{MLE}} = \frac{\mathrm{SS}_\mathrm{res}}{n}$;\\
+$\mathrm{bias}(\widehat{\sigma}^2_{\mathrm{MLE}})=-\frac{p}{n}\sigma^2\Rightarrow$ underestimates $\sigma^2$.\\
+$s^2 = \widehat{\sigma}^2_{\mathrm{unb}} = \frac{\mathrm{SS}_\mathrm{res}}{n-p}$ with $\mathbb{E}[s^2]=\sigma^2$\\
+Under (1), (2), (5): $\widehat{\boldsymbol{\beta}}$ and $s^2$ are unbiased, and jointly sufficient and complete, and UMVUE for $\boldsymbol{\beta}$ and $\sigma^2$.\\
 \medskip
 \subsection{Proof sigma2 is biased:}
 $\text{bias}=\mathbb E(\widehat{\sigma}^2)-\sigma^2=\mathbb E\left(\frac{\|\mathbf y-\mathbf X\boldsymbol\beta\|^2}{n}\right)-\sigma^2=\frac{n-p}{n}\mathbb E\left(\frac{\|\mathbf y-\mathbf X\boldsymbol\beta\|^2}{n-p}\right)-\sigma^2=\frac{n-p}{n}\mathbb E(s^2)-\sigma^2=\frac{n-p}{n}\mathbb \sigma^2-\sigma^2=-\frac{p}{n}\mathbb \sigma^2$\\
@@ -314,7 +316,7 @@ $\mathrm{SS}_\mathrm{Reg}\perp\!\!\!\perp\mathrm{SS}_\mathrm{Res}\Leftarrow\math
 \medskip
 \subsubsection{Model Relevance Test:}
 $H_0:\boldsymbol\beta=\boldsymbol0$;\qquad$H_1:\boldsymbol\beta\neq\boldsymbol0$.\\
-$H_0:\frac{\mathrm{SS}_\mathrm{Reg} }{\sigma^2}\chi^2_{k,\lambda}(\lambda=\frac{1}{2\sigma^2}\widehat{\boldsymbol\beta}^T\mathbf X^T\mathbf X\widehat{\boldsymbol\beta}=0)$;\\
+$H_0:\frac{\mathrm{SS}_\mathrm{Reg} }{\sigma^2}\sim\chi^2_{k,\lambda}(\lambda=\frac{1}{2\sigma^2}\widehat{\boldsymbol\beta}^T\mathbf X^T\mathbf X\widehat{\boldsymbol\beta}=0)$;\\
 Assume (I), (II), (V):\\
 $f^\ast=\frac{(\mathrm{SS}_\mathrm{Res}^{H_0}-\mathrm{SS}_\mathrm{Res}^{H_1})/p}{\mathrm{SS}_\mathrm{Res}^{H_1}/(n-p)}=\frac{\mathrm{SS}_\mathrm{Reg}^{H_1}/p}{\mathrm{SS}_\mathrm{Res}^{H_1}/(n-p)}=\frac{\mathrm{MS}_\mathrm{Reg}}{\mathrm{MS}_\mathrm{Res}}\stackrel{H_0}{\sim}F_{p, n-p}$\\
 $H_1:$
@@ -337,15 +339,22 @@ $f^\ast=\frac{(\mathrm{SS}_\mathrm{Res}^{H_0}-\mathrm{SS}_\mathrm{Res}^{H_1})/k}
 Reject $H_0$ if $f^\ast\ge F_{\alpha;k, n-p}$; or $\text{p-value}=\mathbb P(F_{k,n-p}\ge f^\ast)\le\alpha$.\\
 Reject $H_0\implies$not all slopes are 0.\\
 \medskip
-\subsubsection{Linear Hypothesis Test:}
-$H_0:\mathbf L\boldsymbol\beta=\boldsymbol\delta$;\qquad$H_1:\mathbf L\boldsymbol\beta\neq\boldsymbol\delta$\qquad$\mathrm{dim}(\mathbf L)=r\times p$ \\
+\subsubsection{General Linear Hypothesis Test:}
+$H_0:\mathbf L\boldsymbol\beta=\boldsymbol\delta$;\qquad$H_1:\mathbf L\boldsymbol\beta\neq\boldsymbol\delta$\\
+$\mathbf L:r\times p;\quad \mathrm{r(\mathbf L):r\le p}$;\quad$\boldsymbol\delta:r\times 1$ \\
 \medskip
 Assume (I), (II), (V) and $\mathrm{r}(L)=r\le p$:\\
 $f^\ast=\frac{(\mathrm{SS}_\mathrm{Res}^{H_0}-\mathrm{SS}_\mathrm{Res}^{H_1})/r}{\mathrm{SS}_\mathrm{Res}^{H_1}/(n-p)}\stackrel{H_0}{\sim} F_{r, n-p}$\\
-Numerator of $f^\ast=\frac{1}{r}(\mathbf L\widehat{\boldsymbol\beta}-\boldsymbol\delta)^T(\mathbf{L}(\mathbf{X}^T \mathbf{L})^{-1}\mathbf{X}^T)^{-1}(\mathbf L\widehat{\boldsymbol\beta}-\boldsymbol\delta)$\\
+Numerator of $f^\ast=\frac{1}{r}(\mathbf L\widehat{\boldsymbol\beta}-\boldsymbol\delta)^T(\mathbf{L}(\mathbf{X}^T \mathbf{X})^{-1}\mathbf{L}^T)^{-1}(\mathbf L\widehat{\boldsymbol\beta}-\boldsymbol\delta)$\\
 \medskip
 Reject $H_0$ if $f^\ast\ge F_{\alpha;r, n-p}$; or $\text{p-value}=\mathbb P(F_{r,n-p}\ge f^\ast)\le\alpha$.\\
 Reject $H_0\implies \mathbf L\boldsymbol\beta\neq\boldsymbol\delta$.\\
+\medskip
+$(\sigma^2\mathbf{L}(\mathbf{X}^T \mathbf{X})^{-1}\mathbf{L}^T)^{-1}\sigma^2\mathbf{L}(\mathbf{X}^T \mathbf{X})^{-1}\mathbf{L}^T=\mathbf{I}_r$\\
+$\frac{\mathrm{SS}_\mathrm{Res}^{H_0}-\mathrm{SS}_\mathrm{Res}^{H_1} }{\sigma^2}\sim\chi^2_{r(\mathbf I_r)=r, \lambda}$\\
+\hspace*{4em}$\lambda=\frac{1}{2}\mathbf L\widehat{\boldsymbol\beta}-\boldsymbol\delta)^T(\sigma^2\mathbf{L}(\mathbf{X}^T \mathbf{X})^{-1}\mathbf{L}^T)^{-1}(\mathbf L\widehat{\boldsymbol\beta}-\boldsymbol\delta)$\\
+Under $H_0:\mathrm{SS}_\mathrm{Res}^{H_1}\perp\!\!\!\perp(\mathrm{SS}_\mathrm{Res}^{H_0}-\mathrm{SS}_\mathrm{Res}^{H_1})$.\\
+\medskip
 \subsection{Hypothesis Testing}
 \begin{tabular}{|l|l|l|}\hline
 & Not Significant& Significant\\\hline
@@ -358,7 +367,7 @@ Last updated:
 2025-09-06 T11-30-34
 \hrule
 Enoch Ko (147934), University of Melbourne.\\
-$180/100 = 1.8$ mins/mark. $1 \mapsto 1.8 // 2 \mapsto 3.6 //3 \mapsto 5.4 // 4 \mapsto 7.2 // 5 \mapsto 9 // 6 \mapsto 10.8 // 7 \mapsto 12.6$\\
+$180/100 = 1.8$ mins/mark. $1 \mapsto 1.8 // 2 \mapsto 3.6 //3 \mapsto 5.4 // 4 \mapsto 7.2 // 5 \mapsto 9 // 6 \mapsto 10.8 // 7 \mapsto 12.6// 8\mapsto 14.4$\\
 $180/35 = 5$ mins/mark. $1 \mapsto 5 // 2 \mapsto 10 //3 \mapsto 15 // 4 \mapsto 20 // 5 \mapsto 25 // 6 \mapsto 30$\\
 \end{multicols}
 \end{document}
