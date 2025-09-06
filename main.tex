@@ -325,6 +325,13 @@ $\mathbb E\left[\frac{\mathrm{SS}_\mathrm{Res} }{n-p}\right] =\mathbb E[s^2] = \
 Reject $H_0$ if $f^\ast\ge F_{\alpha;p, n-p}$; or $\text{p-value}=\mathbb P(F_{p,n-p}\ge f^\ast)\le\alpha$.\\
 Reject $H_0\implies$not all coefficients are 0.\\
 \medskip
+\begin{tabular}{|l|l|l|l|l|}\hline
+         Var Source &  $\sum$ squares & d.f.& $\sum$ mean$^2$ & F ratio\\\hline
+         Regression& $\mathbf y^T\mathbf H\mathbf y$&  $p$& $\frac{\mathrm{SS}_\mathrm{Reg}}{p}$&$\frac{\mathrm{MS}_\mathrm{Reg}}{\mathrm{MS}_\mathrm{Res}}$\\\hline
+         Residual&  $\mathbf y^T(\mathbf I-\mathbf H)\mathbf y$&  $n-p$&$\frac{\mathrm{SS}_\mathrm{Res}}{n-p}$& \\\hline
+         Total&  $\mathbf y^T\mathbf y$&  $n$&  &\\\hline
+    \end{tabular}
+\medskip
 \subsubsection{Intercept-Only Model Test:}
 $H_0: \beta_1=\dots=\beta_k=0$; $\mathbf{y} = \boldsymbol1\beta_0 + \boldsymbol{\epsilon}$;\\
 $\widehat{\beta}_0=(\boldsymbol1^T\boldsymbol1)^{-1}\boldsymbol1^T \mathbf{y}=\bar{y}$.\\
@@ -352,8 +359,31 @@ Reject $H_0\implies \mathbf L\boldsymbol\beta\neq\boldsymbol\delta$.\\
 \medskip
 $(\sigma^2\mathbf{L}(\mathbf{X}^T \mathbf{X})^{-1}\mathbf{L}^T)^{-1}\sigma^2\mathbf{L}(\mathbf{X}^T \mathbf{X})^{-1}\mathbf{L}^T=\mathbf{I}_r$\\
 $\frac{\mathrm{SS}_\mathrm{Res}^{H_0}-\mathrm{SS}_\mathrm{Res}^{H_1} }{\sigma^2}\sim\chi^2_{r(\mathbf I_r)=r, \lambda}$\\
-\hspace*{4em}$\lambda=\frac{1}{2}\mathbf L\widehat{\boldsymbol\beta}-\boldsymbol\delta)^T(\sigma^2\mathbf{L}(\mathbf{X}^T \mathbf{X})^{-1}\mathbf{L}^T)^{-1}(\mathbf L\widehat{\boldsymbol\beta}-\boldsymbol\delta)$\\
+\hspace*{4em}$\lambda=\frac{1}{2}(\mathbf L\widehat{\boldsymbol\beta}-\boldsymbol\delta)^T(\sigma^2\mathbf{L}(\mathbf{X}^T \mathbf{X})^{-1}\mathbf{L}^T)^{-1}(\mathbf L\widehat{\boldsymbol\beta}-\boldsymbol\delta)$\\
 Under $H_0:\mathrm{SS}_\mathrm{Res}^{H_1}\perp\!\!\!\perp(\mathrm{SS}_\mathrm{Res}^{H_0}-\mathrm{SS}_\mathrm{Res}^{H_1})$.\\
+\medskip
+\subsubsection{Test if part of beta coefficients is zero:}
+1. Split $\mathbf X$ and $\boldsymbol\beta$ into partitions: $\mathbf X=\begin{bmatrix}\mathbf X_1|\mathbf X_2\end{bmatrix}$, $\boldsymbol\beta=\begin{bmatrix}\gamma_1\\\hline\gamma_2\end{bmatrix}$.\\
+2. Test hypotheses: $H_0:\gamma_1=\boldsymbol0$ vs. $H_1:\gamma_1\neq\boldsymbol{0}$.\\
+$\mathbf L=[\mathbf I_r|\boldsymbol0]$; $\boldsymbol\delta=\boldsymbol0$$\implies\mathbf L\boldsymbol\beta=\boldsymbol\delta\iff\gamma_1=\boldsymbol0$\\
+$R(\gamma_1|\gamma_2)=(\mathbf L\widehat{\boldsymbol\beta}-\boldsymbol\delta)^T(\mathbf{L}(\mathbf{X}^T \mathbf{X})^{-1}\mathbf{L}^T)^{-1}(\mathbf L\widehat{\boldsymbol\beta}-\boldsymbol\delta)=\hat\gamma_1^T\mathbf A_{11}^{-1}\hat\gamma_1$\\
+$\mathbf{A}_{11}^{-1} = \mathbf{X}_{1}^T\mathbf{X}_{1}-\mathbf{X}_{1}^T\mathbf{X}_{2}(\mathbf{X}_{2}^T\mathbf{X}_{2})^{-1}\mathbf{X}_{2}^T\mathbf{X}_{1}$\\
+\medskip
+$R(\gamma_1|\gamma_2)=R(\boldsymbol\beta)-R(\gamma_2)=\mathrm{SS}_\mathrm{Res}^{H_0}-\mathrm{SS}_\mathrm{Res}^{H_1}$\\
+
+\medskip
+$f^\ast=\frac{R(\gamma_1|\gamma_2)/r}{\mathrm{SS}_\mathrm{Res}/(n-p)}\sim F_{r, n-p}$\\
+Reject $H_0$ if $f^\ast\ge F_{\alpha;r, n-p}$; or $\text{p-value}=\mathbb P(F_{r,n-p}\ge f^\ast)\le\alpha$.\\
+\medskip
+\begin{tabular}{|l|l|l|l|l|}\hline
+         Var Source &  $\sum$ squares & d.f.& $\sum$ mean$^2$ & F ratio\\\hline
+         Regression& & & & \\\hline
+         \hspace*{1em}Full&$R(\boldsymbol\beta)$& $p$&&\\\hline
+         \hspace*{1em}Reduced&$R(\gamma_2)$&$p-r$&&\\\hline
+         \hspace*{1em}$\gamma_1|\gamma_2$&$R(\gamma_1|\gamma_2)$&$r$&$\frac{R(\gamma_1|\gamma_2)}{r}$&$\frac{R(\gamma_1|\gamma_2)/r}{\mathrm{MS}_\mathrm{Res}}$ \\\hline
+         Residual&$\mathbf y^T\mathbf y-R(\boldsymbol\beta)$&$n-p$&$\frac{\mathrm{SS}_\mathrm{Res}}{n-p}$& \\\hline
+         Total&  $\mathbf y^T\mathbf y$&  $n$&  &\\\hline
+    \end{tabular}
 \medskip
 \subsection{Hypothesis Testing}
 \begin{tabular}{|l|l|l|}\hline
@@ -362,7 +392,7 @@ $H_0$ true&True Neg ($1-\alpha$)& T1 - False Pos ($\alpha$)\\\hline
 $H_1$ true&T2 - False Neg ($\beta$)& True Pos ($1-\beta$)\\ \hline
 \end{tabular}
 \medskip
-\vfill
+\vfil l
 Last updated:
 2025-09-06 T11-30-34
 \hrule
