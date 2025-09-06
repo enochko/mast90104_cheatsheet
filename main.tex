@@ -256,29 +256,30 @@ $\Leftarrow \mathbb E [\mathbf y^T \mathbf{Ay}] =\mathrm{tr}(\mathbf{AV}) + \bol
 \medskip
 \subsection{Diagnostics}
 \textbf{Leverage:} $h_{ii} = \frac{\partial \widehat{y}_i}{\partial y_i} = [\mathbf{H}]_{ii}$ 
-\; ($0 < h_{ii} < 1$). \\[6pt]
-\textbf{Residual:} $e_i = y_i - \widehat{y}_i$. \\[6pt]
-\textbf{Var(residual):} $\mathrm{Var}(e_i) = \sigma^2 (1 - h_{ii})$. \\[6pt]
+\; ($0 < h_{ii} < 1$). \\
+\textbf{Residual:} $e_i = y_i - \widehat{y}_i$. \\
+\textbf{Var(residual):} $\mathrm{Var}(e_i) = \sigma^2 (1 - h_{ii})$. \\
 \textbf{Standardised residual:} 
 $z_i = \frac{e_i}{s \sqrt{1-h_{ii}}}$, \quad
-$s^2 = \tfrac{\mathrm{SSE}}{n-p}$. \\[6pt]
+$s^2 = \tfrac{\mathrm{SSE}}{n-p}$. \\
 \textbf{Cook's distance:} 
-$D_i = \frac{(\widehat{\boldsymbol\beta}_{(-i)}-\widehat{\boldsymbol\beta})^T\mathbf X^T\mathbf X(\widehat{\boldsymbol\beta}_{(-i)}-\widehat{\boldsymbol\beta})}{ps^2} = \frac{z_i^2}{p}\left(\frac{h_{ii} }{1-h_{ii} }\right)$, where $\widehat{\boldsymbol\beta}_{(-i)}$ is the estimated coefficient vector if the point $i$  is removed and $p$ is the size of $\widehat{\boldsymbol\beta}$.
+$D_i = \frac{(\widehat{\boldsymbol\beta}_{(-i)}-\widehat{\boldsymbol\beta})^T\mathbf X^T\mathbf X(\widehat{\boldsymbol\beta}_{(-i)}-\widehat{\boldsymbol\beta})}{ps^2} = \frac{z_i^2}{p}\left(\frac{h_{ii} }{1-h_{ii} }\right)$, where $\widehat{\boldsymbol\beta}_{(-i)}$ is $\widehat{\boldsymbol\beta}$ if the point $i$  is removed and $p$ is the size of $\widehat{\boldsymbol\beta}$.\\
 \medskip
 \subsection{T Statistic}
-PDF: $f(x)=\frac{\Gamma((\gamma+1)/2)}{\sqrt{\gamma\pi}\Gamma(\gamma/2)}\left(1+\frac{x^2}{\gamma}\right)^{-(\gamma+1)/2}$
+PDF: $f(x)=\frac{\Gamma((\gamma+1)/2)}{\sqrt{\gamma\pi}\Gamma(\gamma/2)}\left(1+\frac{x^2}{\gamma}\right)^{-(\gamma+1)/2}$\\
 \medskip
 \subsection{Interval Estimation}
 $Z=\frac{\widehat{\boldsymbol\beta}_i-\boldsymbol\beta_i}{\sigma\sqrt{c_{ii} } }\sim N(0,1)$; $X^2=\frac{(n-p)s^2}{\sigma^2}=\frac{\mathrm{SS}_\mathrm{res}}{\sigma^2}\sim\chi^2_{n-p}$;\\
 $T=\frac{\widehat{\boldsymbol\beta}_i-\boldsymbol\beta_i}{\sigma\sqrt{c_{ii} } }/\sqrt{\frac{\mathrm{SS}_\mathrm{res}/\sigma^2}{n-p} }=\frac{\widehat{\boldsymbol\beta}_i-\boldsymbol\beta_i}{\sigma\sqrt{c_{ii} } }/\sqrt{\frac{s^2}{\sigma^2}}=\frac{\widehat{\boldsymbol\beta}_i-\boldsymbol\beta_i}{s\sqrt{c_{ii} } }\sim t_{n-p}$.\\
-Proof of $\widehat{\boldsymbol\beta}\perp\!\!\!\perp\frac{\mathrm{SS}_\mathrm{res}}{\sigma^2}\Leftarrow  \mathbf{B}\mathbf{V}\mathbf{A} = 0$.
+Proof of $\widehat{\boldsymbol\beta}\perp\!\!\!\perp\frac{\mathrm{SS}_\mathrm{res}}{\sigma^2}\Leftarrow  \mathbf{B}\mathbf{V}\mathbf{A} = 0$.\\
 \medskip
+\subsection{Confidence Interval}
 \subsubsection{100(1-alpha)\% Confidence Interval:}
 $\beta_i$: CI $=\widehat{\boldsymbol\beta}_i\pm t_{\alpha/2}s\sqrt{c_{ii} }$, where $c_{ii}=[(\mathbf X^T\mathbf X)^{-1}]_{ii}$.\\
 $\mathbb E(t^T \widehat{\boldsymbol\beta})$: $\text{CI} = t^T \widehat{\boldsymbol\beta}\pm t_{\alpha/2} s\sqrt{(t^T(\mathbf X^T\mathbf X)^{-1}t}$\\
 $\mathbb E(y|x^\ast)$: $\text{CI} = (\mathbf x^\ast)^T\widehat{\boldsymbol\beta}\pm t_{\alpha/2} s\sqrt{(\mathbf x^\ast)^T(\mathbf X^T\mathbf X)^{-1}\mathbf x^\ast}$\\
 \medskip
-\subsubsection{Prediction Interval:}
+\subsection{Prediction Interval}
 $y^\ast=(\mathbf x^\ast)^T\boldsymbol\beta+\boldsymbol\epsilon^\ast$, where $\mathrm{Var}(\boldsymbol\epsilon^\ast)=\sigma^2$ by assumption.\\
 $\Rightarrow\boldsymbol\epsilon^\ast=y^\ast- (\mathbf x^\ast)^T\widehat{\boldsymbol\beta}$\\
 $\because y^\ast\perp\!\!\!\perp\widehat{\boldsymbol\beta}\Leftarrow$ new vs old observations are indep.\\
@@ -286,12 +287,12 @@ $\therefore \mathrm{Var}(y^\ast- (\mathbf x^\ast)^T\widehat{\boldsymbol\beta})=\
 \medskip
 \subsubsection{100(1-alpha)\% Prediction Interval:}
 $y|x^\ast$: $\text{PI} = (\mathbf x^\ast)^T\widehat{\boldsymbol\beta}\pm t_{\alpha/2} s\sqrt{1+(\mathbf x^\ast)^T(\mathbf X^T\mathbf X)^{-1}\mathbf x^\ast}$\\
-\subsection{F distribution:}
+\subsection{F distribution}
 Let $X^2_{\gamma_1}$ and $X^2_{\gamma_2}$ be indept. $\chi^2$ r.v. with $\gamma_1$ and $\gamma_2$ d.f., then:
 $F=\frac{X^2_{\gamma_1}/\gamma_1}{X^2_{\gamma_2}/\gamma_2}$ has an F distribution with $\gamma_1$ and $\gamma_2$ d.f.\\
 PDF: $f(x;\gamma_1, \gamma_2)=\frac{1}{\beta(\gamma_1/2, \gamma_2/2)}(\frac{\gamma_1}{\gamma_2})^{\gamma_1/2} x^{\gamma_1/2-1}(1+\frac{\gamma_1}{\gamma_2}x)^{-(\gamma_1+\gamma_2)/2}$\\
 \medskip
-\subsection{Confidence Region:}
+\subsection{Confidence Region}
 $\widehat{\boldsymbol\beta}=(\mathbf X^T\mathbf X)^{-1}\mathbf X^T\mathbf y\sim \mathrm{MVN}(\boldsymbol\beta, (\mathbf X^T\mathbf X)^{-1}\sigma^2)$\\
 $\Rightarrow \frac{(\widehat{\boldsymbol\beta}-\boldsymbol\beta)^T(\mathbf X^T\mathbf X)(\widehat{\boldsymbol\beta}-\boldsymbol\beta)}{\sigma^2}\sim \chi^2_p$; 
 and $\frac{(n-p)s^2}{\sigma^2}\sim \chi^2_{n-p}$\\
@@ -302,7 +303,7 @@ $=\frac{(\widehat{\boldsymbol\beta}-\boldsymbol\beta)^T(\mathbf X^T\mathbf X)(\w
 \medskip
 $\mathbb P\left[\frac{(\widehat{\boldsymbol\beta}-\boldsymbol\beta)^T(\mathbf X^T\mathbf X)(\widehat{\boldsymbol\beta}-\boldsymbol\beta)}{ps^2} \le f_\alpha\right] = 1-\alpha$\\
 Confidence Region: $(\widehat{\boldsymbol\beta}-\boldsymbol\beta)^T(\mathbf X^T\mathbf X)(\widehat{\boldsymbol\beta}-\boldsymbol\beta) \le ps^2f_\alpha$\\
-C.R. is ellipse/ellipsoid because LHS is quadratic form whose matrix $\mathbf X^T\mathbf X$ is positive definite.\\
+CR is ellipse/ellipsoid because LHS is quadratic form whose matrix $\mathbf X^T\mathbf X$ is positive definite.\\
 \medskip
 \subsection{ANOVA}
 \subsubsection{Sum of Squares (Total/Regression/Residual)}
@@ -311,6 +312,40 @@ $\mathrm{SS}_\mathrm{Reg}=\widehat{\mathbf y}^T\widehat{\mathbf y}=\mathbf y^T\m
 $\mathrm{SS}_\mathrm{Res}=(\mathbf y-\mathbf X\widehat{\boldsymbol\beta})^T(\mathbf y-\mathbf X\widehat{\boldsymbol\beta})=\mathbf y^T(\mathbf I-\mathbf H)\mathbf y$.\\
 $\mathrm{SS}_\mathrm{Reg}\perp\!\!\!\perp\mathrm{SS}_\mathrm{Res}\Leftarrow\mathbf H(\mathbf I-\mathbf H)=0$\\
 \medskip
+\subsubsection{Model Relevance Test:}
+$H_0:\boldsymbol\beta=\boldsymbol0$;\qquad$H_1:\boldsymbol\beta\neq\boldsymbol0$.\\
+$H_0:\frac{\mathrm{SS}_\mathrm{Reg} }{\sigma^2}\chi^2_{k,\lambda}(\lambda=\frac{1}{2\sigma^2}\widehat{\boldsymbol\beta}^T\mathbf X^T\mathbf X\widehat{\boldsymbol\beta}=0)$;\\
+Assume (I), (II), (V):\\
+$f^\ast=\frac{(\mathrm{SS}_\mathrm{Res}^{H_0}-\mathrm{SS}_\mathrm{Res}^{H_1})/p}{\mathrm{SS}_\mathrm{Res}^{H_1}/(n-p)}=\frac{\mathrm{SS}_\mathrm{Reg}^{H_1}/p}{\mathrm{SS}_\mathrm{Res}^{H_1}/(n-p)}=\frac{\mathrm{MS}_\mathrm{Reg}}{\mathrm{MS}_\mathrm{Res}}\stackrel{H_0}{\sim}F_{p, n-p}$\\
+$H_1:$
+$\mathbb E\left[\frac{\mathrm{SS}_\mathrm{Reg} }{p}\right] = \sigma^2+\frac{1}{p}\boldsymbol\beta^T\mathbf X^T\mathbf X\boldsymbol\beta$;
+$\mathbb E\left[\frac{\mathrm{SS}_\mathrm{Res} }{n-p}\right] =\mathbb E[s^2] = \sigma^2$\\
+Reject $H_0$ if $f^\ast\ge F_{\alpha;p, n-p}$; or $\text{p-value}=\mathbb P(F_{p,n-p}\ge f^\ast)\le\alpha$.\\
+Reject $H_0\implies$not all coefficients are 0.\\
+\medskip
+\subsubsection{Intercept-Only Model Test:}
+$H_0: \beta_1=\dots=\beta_k=0$; $\mathbf{y} = \boldsymbol1\beta_0 + \boldsymbol{\epsilon}$;\\
+$\widehat{\beta}_0=(\boldsymbol1^T\boldsymbol1)^{-1}\boldsymbol1^T \mathbf{y}=\bar{y}$.\\
+$\mathrm{SS}_\mathrm{Res}^{H_0}=\mathbf y^T\mathbf y-\frac{1}{n}\mathbf y^T\boldsymbol1\boldsymbol1^T\mathbf y$.
+(Corrected sum of squares)\\
+\medskip
+$H_1:\widehat{\boldsymbol\beta}=(\mathbf{X}^T \mathbf{X})^{-1}\mathbf{X}^T \mathbf{y}$; $\mathbf{y} = \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\epsilon}$.\\
+$\mathrm{SS}_\mathrm{Res}^{H_1}=\mathbf y^T(\mathbf I-\mathbf H)\mathbf y$.\\
+\medskip
+Assume (I), (II), (V):\\
+$f^\ast=\frac{(\mathrm{SS}_\mathrm{Res}^{H_0}-\mathrm{SS}_\mathrm{Res}^{H_1})/k}{\mathrm{SS}_\mathrm{Res}^{H_1}/(n-p)}\stackrel{H_0}{\sim} F_{k, n-p}$\\
+Reject $H_0$ if $f^\ast\ge F_{\alpha;k, n-p}$; or $\text{p-value}=\mathbb P(F_{k,n-p}\ge f^\ast)\le\alpha$.\\
+Reject $H_0\implies$not all slopes are 0.\\
+\medskip
+\subsubsection{Linear Hypothesis Test:}
+$H_0:\mathbf L\boldsymbol\beta=\boldsymbol\delta$;\qquad$H_1:\mathbf L\boldsymbol\beta\neq\boldsymbol\delta$\qquad$\mathrm{dim}(\mathbf L)=r\times p$ \\
+\medskip
+Assume (I), (II), (V) and $\mathrm{r}(L)=r\le p$:\\
+$f^\ast=\frac{(\mathrm{SS}_\mathrm{Res}^{H_0}-\mathrm{SS}_\mathrm{Res}^{H_1})/r}{\mathrm{SS}_\mathrm{Res}^{H_1}/(n-p)}\stackrel{H_0}{\sim} F_{r, n-p}$\\
+Numerator of $f^\ast=\frac{1}{r}(\mathbf L\widehat{\boldsymbol\beta}-\boldsymbol\delta)^T(\mathbf{L}(\mathbf{X}^T \mathbf{L})^{-1}\mathbf{X}^T)^{-1}(\mathbf L\widehat{\boldsymbol\beta}-\boldsymbol\delta)$\\
+\medskip
+Reject $H_0$ if $f^\ast\ge F_{\alpha;r, n-p}$; or $\text{p-value}=\mathbb P(F_{r,n-p}\ge f^\ast)\le\alpha$.\\
+Reject $H_0\implies \mathbf L\boldsymbol\beta\neq\boldsymbol\delta$.\\
 \subsection{Hypothesis Testing}
 \begin{tabular}{|l|l|l|}\hline
 & Not Significant& Significant\\\hline
