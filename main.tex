@@ -6,12 +6,12 @@
 \usepackage[landscape]{geometry}
 \usepackage[colorlinks=true,citecolor=blue,linkcolor=blue]{hyperref}
 
-\ifthenelse{\lengthtest { \paperwidth = 11in}}
-    { \geometry{top=.5in,left=.5in,right=.5in,bottom=.5in} }
-	{\ifthenelse{ \lengthtest{ \paperwidth = 297mm}}
-		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
-		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
-	}
+\ifthenelse{ \lengthtest{ \paperwidth = 297mm}}
+    {\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm}}
+    {\ifthenelse{\lengthtest { \paperwidth = 11in}}
+        { \geometry{top=.5in,left=.5in,right=.5in,bottom=.5in}}
+        {\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm}}
+    }
 \pagestyle{empty}
 \makeatletter
 \renewcommand{\section}{\@startsection{section}{1}{0mm}%
@@ -24,7 +24,7 @@
                                 {\normalfont\small\bfseries}}
 \renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
                                 {-1ex plus -.5ex minus -.2ex}%
-                                {1ex plus .2ex}%
+                                {0.5ex plus .2ex}%
                                 {\normalfont\small\bfseries}}
 \makeatother
 \setcounter{secnumdepth}{0}
@@ -32,7 +32,7 @@
 \setlength{\parskip}{0pt plus 0.5ex}
 % -----------------------------------------------------------------------
 
-\title{MAST90105 Cheat Sheet for Enoch Ko (147938)}
+\title{MAST90104 Cheat Sheet for Enoch Ko (147938)}
 
 \begin{document}
 
@@ -75,7 +75,7 @@ $\mathbf{X}$ is ortho. matrix $\Leftrightarrow$ cols/rows form an orthonormal se
 \hspace*{1em} Singular $\Leftrightarrow$ at least one $\lambda_i = 0 \ \Leftrightarrow \det(\mathbf{A}) = 0$.\\
 \smallskip
 \textbf{Simult. Diag.:} Let $\mathbf{A}_i$ be symm. $k \times k$ matrices:\\
-\hspace*{1em} $\exists$ ortho. $\mathbf{P}$: $\mathbf{P}^T \mathbf{A}_i \mathbf{P} = \mathbf{\Lambda}_i (\forall i)$ $\Leftrightarrow$ $\mathbf{A}_i \mathbf{A}_j=\mathbf{A}_j\mathbf{A}_i$ ($\forall i,j$);\\
+\hspace*{1em} $\exists$ ortho. $\mathbf{P}$: $\mathbf{P}^T \mathbf{A}_i \mathbf{P} = \mathbf{\Lambda}_i (\forall i)$ $\Leftrightarrow$ $\mathbf{A}_i \mathbf{A}_j=\mathbf{A}_j\mathbf{A}_i$ ($\forall i,j$).\\
 \smallskip
 \textbf{Square Root:} If $\mathbf A= \mathbf P\boldsymbol\Lambda\mathbf P^T$(SPD), then $\mathbf A^{1/2}= \mathbf P\boldsymbol\Lambda^{1/2}\mathbf P^T$\\
 \smallskip
@@ -242,7 +242,7 @@ Alternate LUE $\mathbf b=\mathbf L\mathbf y=[(\mathbf X^T\mathbf X)^{-1}\mathbf 
 Under (1, 5), $\mathbf y\sim MVN(\mathbf X\boldsymbol\beta, \sigma^2 \mathbf I)$. Errors $\epsilon$ are independent.
 \medskip
 \subsection{Maximum Likelihood Estimators}
-$f(\mathbf y; \boldsymbol\beta, \sigma^2)=(2\pi\sigma^2)^{-n/2}\exp[-(\mathbf y-\mathbf X\boldsymbol\beta)^T(\mathbf y-\mathbf X\boldsymbol\beta)/(2\sigma^2)]=\frac{1}{(2\pi\sigma^2)^{n/2} }\exp\left[-\frac{\|\mathbf y-\mathbf X\boldsymbol\beta\|^2}{2\sigma^2}\right]$.\\
+$f(\mathbf y; \boldsymbol\beta, \sigma^2)=\frac{1}{(2\pi\sigma^2)^{n/2} }\exp\left[-\frac{\|\mathbf y-\mathbf X\boldsymbol\beta\|^2}{2\sigma^2}\right]$.\\
 $\widehat{\boldsymbol{\beta}}_{\mathrm{MLE}}= (\mathbf{X}^T \mathbf{X})^{-1}\mathbf{X}^T \mathbf{y} $;\quad$\widehat{\sigma}^2_{\mathrm{MLE}} = \frac{\mathrm{SS}_\mathrm{res}}{n}$;\\
 $\mathrm{bias}(\widehat{\sigma}^2_{\mathrm{MLE}})=-\frac{p}{n}\sigma^2\Rightarrow$ underestimates $\sigma^2$.\\
 $s^2 = \widehat{\sigma}^2_{\mathrm{unb}} = \frac{\mathrm{SS}_\mathrm{res}}{n-p}$ with $\mathbb{E}[s^2]=\sigma^2$\\
@@ -257,6 +257,7 @@ $\mathbb E[s^2]=\frac{1}{n-p}\mathbb E[\|\mathbf y-\mathbf X\widehat{\boldsymbol
 $\Leftarrow \mathbb E [\mathbf y^T \mathbf{Ay}] =\mathrm{tr}(\mathbf{AV}) + \boldsymbol\mu^T \mathbf A\boldsymbol\mu$\\
 \medskip
 \subsection{Diagnostics}
+\textbf{Graphs:} Residual vs Fitted$\rightarrow$ linearity / QQ-plot $\rightarrow$ normality / Scale-Location $\rightarrow$ homoscedasticity / Residual vs Leverage (Cook's distance).
 \textbf{Leverage:} $h_{ii} = \frac{\partial \widehat{y}_i}{\partial y_i} = [\mathbf{H}]_{ii}$ 
 \; ($0 < h_{ii} < 1$). \\
 \textbf{Residual:} $e_i = y_i - \widehat{y}_i$. \\
@@ -314,6 +315,8 @@ $\mathrm{SS}_\mathrm{Reg}=\widehat{\mathbf y}^T\widehat{\mathbf y}=\mathbf y^T\m
 $\mathrm{SS}_\mathrm{Res}=(\mathbf y-\mathbf X\widehat{\boldsymbol\beta})^T(\mathbf y-\mathbf X\widehat{\boldsymbol\beta})=\mathbf y^T(\mathbf I-\mathbf H)\mathbf y$.\\
 $\mathrm{SS}_\mathrm{Reg}\perp\!\!\!\perp\mathrm{SS}_\mathrm{Res}\Leftarrow\mathbf H(\mathbf I-\mathbf H)=0$\\
 \medskip
+df: n=sample size; p=cols in X; r=rows in L in GLH or diff. b/w models (n-p)[H1]-(n-p)[H0]; k=predictors ex-intercept.\\
+\medskip
 \subsubsection{Model Relevance Test:}
 $H_0:\boldsymbol\beta=\boldsymbol0$;\qquad$H_1:\boldsymbol\beta\neq\boldsymbol0$.\\
 $H_0:\frac{\mathrm{SS}_\mathrm{Reg} }{\sigma^2}\sim\chi^2_{k,\lambda}(\lambda=\frac{1}{2\sigma^2}\widehat{\boldsymbol\beta}^T\mathbf X^T\mathbf X\widehat{\boldsymbol\beta}=0)$;\\
@@ -364,13 +367,14 @@ Under $H_0:\mathrm{SS}_\mathrm{Res}^{H_1}\perp\!\!\!\perp(\mathrm{SS}_\mathrm{Re
 \medskip
 \subsubsection{Test if part of beta coefficients is zero:}
 1. Split $\mathbf X$ and $\boldsymbol\beta$ into partitions: $\mathbf X=\begin{bmatrix}\mathbf X_1|\mathbf X_2\end{bmatrix}$, $\boldsymbol\beta=\begin{bmatrix}\gamma_1\\\hline\gamma_2\end{bmatrix}$.\\
-2. Test hypotheses: $H_0:\gamma_1=\boldsymbol0$ vs. $H_1:\gamma_1\neq\boldsymbol{0}$.\\
+2. Test: $H_0:\gamma_1=\boldsymbol0$ (reduced) vs. $H_1:\gamma_1\neq\boldsymbol{0}$ (full).\\
 $\mathbf L=[\mathbf I_r|\boldsymbol0]$; $\boldsymbol\delta=\boldsymbol0$$\implies\mathbf L\boldsymbol\beta=\boldsymbol\delta\iff\gamma_1=\boldsymbol0$\\
 $R(\gamma_1|\gamma_2)=(\mathbf L\widehat{\boldsymbol\beta}-\boldsymbol\delta)^T(\mathbf{L}(\mathbf{X}^T \mathbf{X})^{-1}\mathbf{L}^T)^{-1}(\mathbf L\widehat{\boldsymbol\beta}-\boldsymbol\delta)=\hat\gamma_1^T\mathbf A_{11}^{-1}\hat\gamma_1$\\
 $\mathbf{A}_{11}^{-1} = \mathbf{X}_{1}^T\mathbf{X}_{1}-\mathbf{X}_{1}^T\mathbf{X}_{2}(\mathbf{X}_{2}^T\mathbf{X}_{2})^{-1}\mathbf{X}_{2}^T\mathbf{X}_{1}$\\
 \medskip
-$R(\gamma_1|\gamma_2)=R(\boldsymbol\beta)-R(\gamma_2)=\mathrm{SS}_\mathrm{Res}^{H_0}-\mathrm{SS}_\mathrm{Res}^{H_1}$\\
-
+$R(\beta)=\mathrm{SS}_\mathrm{Reg}^{\mathrm{full}}$;
+$R(\gamma_2)=\mathrm{SS}_\mathrm{Reg}^{\mathrm{reduced}}$ (just $\mathbf X_2$);
+$R(\gamma_1|\gamma_2)=R(\boldsymbol\beta)-R(\gamma_2)=\mathrm{SS}_\mathrm{Res}^{H_0}-\mathrm{SS}_\mathrm{Res}^{H_1}$.\\
 \medskip
 $f^\ast=\frac{R(\gamma_1|\gamma_2)/r}{\mathrm{SS}_\mathrm{Res}/(n-p)}\sim F_{r, n-p}$\\
 Reject $H_0$ if $f^\ast\ge F_{\alpha;r, n-p}$; or $\text{p-value}=\mathbb P(F_{r,n-p}\ge f^\ast)\le\alpha$.\\
@@ -385,6 +389,10 @@ Reject $H_0$ if $f^\ast\ge F_{\alpha;r, n-p}$; or $\text{p-value}=\mathbb P(F_{r
          Total&  $\mathbf y^T\mathbf y$&  $n$&  &\\\hline
     \end{tabular}
 \medskip
+\subsection{Model Selection Metrics}
+$R^2_{adj}=1-\frac{n-1}{n-p}(1-R^2)=1-\frac{n-1}{n-p}\frac{\mathrm{SS}_{\mathrm{Res}}}{\mathrm{SS}_{\mathrm{Total}}}$
+$\mathrm{AIC}=-2 log L+2p$
+\medskip
 \subsection{Hypothesis Testing}
 \begin{tabular}{|l|l|l|}\hline
 & Not Significant& Significant\\\hline
@@ -392,11 +400,47 @@ $H_0$ true&True Neg ($1-\alpha$)& T1 - False Pos ($\alpha$)\\\hline
 $H_1$ true&T2 - False Neg ($\beta$)& True Pos ($1-\beta$)\\ \hline
 \end{tabular}
 \medskip
-\vfil l
+\subsection{R Functions}
+\subsubsection{General Linear Hypothesis Test:}
+\texttt{linearHypothesis(model,L,delta)\\
+\#\# Model 1: restricted model\\
+\#\# Model 2: y$\sim$X[, -1] \# full model\\
+\#\# Res.Df RSS Df Sum of Sq F Pr(>F)\\
+\#\# 1 11 1788.81\\
+\#\# 2 7 688.63 4 1100.2 2.7959 0.1116\\
+$\mathrm{SS}_\mathrm{Res}^{H_0}=1788.81$; $\mathrm{SS}_\mathrm{Res}^{H_1}=688.63$; $r=4$; $n-p=11-4=7$;
+$\mathrm{SS}_\mathrm{Res}^{H_0}-\mathrm{SS}_\mathrm{Res}^{H_1}=1100.2$; $f^\ast=2.7959$; $\mathbf{Pr}(>f^\ast)=0.1116$.\\
+\medskip
+\subsubsection{Nested Model Comparisons:}
+\texttt{anova(basemodel, model)\\
+\#\# Model 1: area $\sim$ 0\\
+\#\# Model 2: area $\sim$ midrib + estim\\
+\#\# Res.Df RSS Df Sum of Sq F Pr(>F)\\
+\#\# 1 139 37.806\\
+\#\# 2 136 4.722 3 33.084 317.62 < 2.2e-16 ***}}\\
+$\mathrm{SS}_\mathrm{Res}^{H_0}=37.806$; $\mathrm{SS}_\mathrm{Res}^{H_1}=4.722$; $r=139-136=3$; $n-p=139-3=136$;
+$\mathrm{SS}_\mathrm{Res}^{H_0}-\mathrm{SS}_\mathrm{Res}^{H_1}=4.722$; $f^\ast=317.62$; $\mathbf{Pr}(>f^\ast)=2.2 \exp(-16)$.\\
+\medskip
+\subsubsection{Set Beta to particular values:}
+$H_0:\beta_0=-1.1; \beta_1=0.5;\beta_2=0.7$
+\texttt{delta <- as.vector(c(-1.1, 0.5, 0.7))\\
+h0 <- X \%*\% delta\\ \# define H0\\
+basemodel <- lm(area$\sim$0, data=clover, offset=h0)\\
+anova(basemodel, model)\\
+\#\# Model 1: area $\sim$ 0\\
+\#\# Model 2: area $\sim$ midrib + estim\\
+\#\# Res.Df RSS Df Sum of Sq F Pr(>F)\\
+\#\# 1 139 6.9485\\
+\#\# 2 136 4.7221 3 2.2265 21.375 2.102e-11 ***}\\
+$\mathrm{SS}_\mathrm{Res}^{H_0}=6.9485$; $\mathrm{SS}_\mathrm{Res}^{H_1}=4.7221$; $r=139-136=3$; $n-p=139-3=136$;
+$\mathrm{SS}_\mathrm{Res}^{H_0}-\mathrm{SS}_\mathrm{Res}^{H_1}=2.2265$; $f^\ast=21.375$; $\mathbf{Pr}(>f^\ast)=2.102 \exp(-17)$.\\
+\medskip
+\texttt{complete.cases()} returns a logical vector that identifies rows in a dataset that contain no missing values.
+\vfill
 Last updated:
 2025-09-06 T11-30-34
 \hrule
-Enoch Ko (147934), University of Melbourne.\\
+Enoch Ko (147934), University of Melbourne. Seat No. 1.\\
 $180/100 = 1.8$ mins/mark. $1 \mapsto 1.8 // 2 \mapsto 3.6 //3 \mapsto 5.4 // 4 \mapsto 7.2 // 5 \mapsto 9 // 6 \mapsto 10.8 // 7 \mapsto 12.6// 8\mapsto 14.4$\\
 $180/35 = 5$ mins/mark. $1 \mapsto 5 // 2 \mapsto 10 //3 \mapsto 15 // 4 \mapsto 20 // 5 \mapsto 25 // 6 \mapsto 30$\\
 \end{multicols}
