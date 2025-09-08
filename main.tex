@@ -5,14 +5,18 @@
 \usepackage{ifthen}
 \usepackage[landscape]{geometry}
 \usepackage[colorlinks=true,citecolor=blue,linkcolor=blue]{hyperref}
+\usepackage{datetime2}
+\DTMsetdatestyle{iso}
 
 \ifthenelse{ \lengthtest{ \paperwidth = 297mm}}
-    {\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm}}
+    {\geometry{top=0.5cm,left=0.5cm,right=0.5cm,bottom=0.5cm}}
     {\ifthenelse{\lengthtest { \paperwidth = 11in}}
-        { \geometry{top=.5in,left=.5in,right=.5in,bottom=.5in}}
-        {\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm}}
+        { \geometry{top=.2in,left=.2in,right=.2in,bottom=.2in}}
+        {\geometry{top=0.5cm,left=0.5cm,right=0.5cm,bottom=0.5cm}}
     }
+    
 \pagestyle{empty}
+
 \makeatletter
 \renewcommand{\section}{\@startsection{section}{1}{0mm}%
                                 {-1ex plus -.5ex minus -.2ex}%
@@ -47,7 +51,7 @@
 \setlength{\postmulticols}{1pt}
 \setlength{\multicolsep}{1pt}
 \setlength{\columnsep}{2pt}
-
+Compiled: \DTMnow\\
 \subsection{Linear Algebra Essentials}
 \textbf{Symm.:} $\mathbf{X}^T=\mathbf{X}$;\quad 
 \textbf{Ortho.:} $\mathbf{X}^T\mathbf{X}=\mathbf{I} \Rightarrow \mathbf{X}^{-1}=\mathbf{X}^T$;\\ 
@@ -317,6 +321,9 @@ $\mathrm{SS}_\mathrm{Reg}\perp\!\!\!\perp\mathrm{SS}_\mathrm{Res}\Leftarrow\math
 \medskip
 df: n=sample size; p=cols in X; r=rows in L in GLH or diff. b/w models (n-p)[H1]-(n-p)[H0]; k=predictors ex-intercept.\\
 \medskip
+$\mathrm{MS}_\mathrm{Reg}=\frac{\mathrm{SS}_\mathrm{Reg}}{n}$;
+$\mathrm{MSE}=\mathrm{MS}_\mathrm{Res}=\frac{\mathrm{SS}_\mathrm{Res}}{n-p}$.\\
+\medskip
 \subsubsection{Model Relevance Test:}
 $H_0:\boldsymbol\beta=\boldsymbol0$;\qquad$H_1:\boldsymbol\beta\neq\boldsymbol0$.\\
 $H_0:\frac{\mathrm{SS}_\mathrm{Reg} }{\sigma^2}\sim\chi^2_{k,\lambda}(\lambda=\frac{1}{2\sigma^2}\widehat{\boldsymbol\beta}^T\mathbf X^T\mathbf X\widehat{\boldsymbol\beta}=0)$;\\
@@ -424,11 +431,11 @@ $\mathbf A=[\mathbf A_1|\mathbf A_2]$ full rank $n\times m, n > m$ $\Rightarrow 
 \medskip
 \textbf{Backward Elimination:} Start with full model. Remove least significant variable until no more insig var to remove.\\
 \medskip
-\textbf{Stepwise Selection:} Start w/any model. Add/remove 1 var based on goodness-of-fit - Akaike's Information Criterion (AIC). Smaller AIC=better. Better than forward/backward. Finds local optimum.\\
+\textbf{Stepwise Selection:} Start w/any model. Add/remove 1 var based on goodness-of-fit - Akaike's Information Criterion (AIC). Smaller AIC=better. Repeat until all next step AIC greater than current model. Better than forward/backward. Finds local optimum.\\
 \medskip
 \subsection{Model Selection Metrics - Goodness-of-Fit}
 $R^2=1-\frac{\mathrm{SS}_{\mathrm{Res}}}{\mathrm{SS}_{\mathrm{Total}}-(\sum_iy_i)^2/n)}\leftarrow$bad, always decrease.\\
-$R^2_{adj}=1-\frac{n-1}{n-1-k}(1-R^2)=1-\frac{n-1}{n-p}(1-R^2)=1-\frac{n-1}{n-p}\cdot\frac{\mathrm{SS}_{\mathrm{Res}}}{\mathrm{SS}_{\mathrm{Total}}}$\\
+$R^2_{adj}=1-\frac{n-1}{n-1-k_M}(1-R_M^2)=1-\frac{n-1}{n-p}(1-R^2)=1-\frac{n-1}{n-p}\cdot\frac{\mathrm{SS}_{\mathrm{Res}}}{\mathrm{CSS}}=1-\frac{n-1}{n-p}\cdot\frac{\mathrm{SS}_{\mathrm{Res}}}{\mathrm{SS}_{\mathrm{Total}}}$\\
 $\mathrm{AIC}=-2 \ln(L)+2p=n\ln(\frac{\mathrm{SS}_{\mathrm{Res}}}{n})+2p+const.$\\
 where $L$=likelihood. Smaller AIC=better.\\
 $C_p=\frac{\mathrm{SS}_{\mathrm{Res}}(\text{model})}{s^2(\text{full model})}+2p-n$,
@@ -524,7 +531,7 @@ drop1(model2, scope=$\sim$., test="F")}\\
 Define model based on prev test. Drop1 then drop each variable to test. Once drop1 returns no insig vars, stop.\\
 \medskip
 \subsubsection{Stepwise Selection}
-\texttt{model2 <- step(basemodel, scope=$\sim$.+x1+x2+x3+x4,steps=1)\\
+\texttt{model2<-step(basemodel,scope=$\sim$.+x1+x2+x3+x4,steps=1)\\
 model3 <- step(model2, scope=$\sim$.+x1+x2+x3,steps=1)\\
 model4 <- step(model3, scope=$\sim$.+x2+x3,steps=1)\\
 step(model4, scope=$\sim$.+x3)\\
@@ -535,7 +542,8 @@ Start model. Step adds/removes each variable to test.\\
 \texttt{complete.cases()} returns a logical vector that identifies rows in a dataset that contain no missing values.
 \vfill
 Last updated:
-2025-09-06 T11-30-34
+2025-09-08 T16-13-18\\
+Compiled: \DTMnow\\
 \hrule
 Enoch Ko (147934), University of Melbourne. Seat No. 1.\\
 $180/100 = 1.8$ mins/mark. $1 \mapsto 1.8 // 2 \mapsto 3.6 //3 \mapsto 5.4 // 4 \mapsto 7.2 // 5 \mapsto 9 // 6 \mapsto 10.8 // 7 \mapsto 12.6// 8\mapsto 14.4$\\
