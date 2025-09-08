@@ -407,9 +407,32 @@ Reject $H_0$ if $f^\ast\ge F_{\alpha;r, n-p}$; or $\text{p-value}=\mathbb P(F_{r
          Total&  $\mathbf y^T\mathbf y$&  $n$&  &\\\hline
     \end{tabular}
 \medskip
-\subsection{Model Selection Metrics}
-$R^2_{adj}=1-\frac{n-1}{n-p}(1-R^2)=1-\frac{n-1}{n-p}\frac{\mathrm{SS}_{\mathrm{Res}}}{\mathrm{SS}_{\mathrm{Total}}}$
-$\mathrm{AIC}=-2 log L+2p$
+\subsubsection{Test if one beta coefficient is zero:}
+Use $t$ test for partial test of one parameter.\\
+$H_0:\beta_i=0$; $H_1:\beta_i\neq0$. (in presence of all other parameters.)\\
+$f^\ast = \frac{\widehat{\boldsymbol\beta}_i^2}{c_{ii}s^2}$, equal square of $T=\frac{\widehat{\boldsymbol\beta}_i}{s\sqrt{c_{ii}}}$.\\
+$f^\ast$ : T num $Z^2=\chi^2_1$, denom $(\sqrt{\chi^2/df}^2)$.\\
+\medskip
+\subsection{Sequential Testing}
+$\frac{1}{\sigma^2}\widehat{\mathbf y}^T\widehat{\mathbf y}=\frac{1}{\sigma^2}\mathrm{SS}_\mathrm{Res}+\frac{1}{\sigma^2}R(\beta_0)+\frac{1}{\sigma^2}R(\beta_1|\beta_0)+\frac{1}{\sigma^2}R(\beta_2|\beta_0,\beta_1)+\dots+\frac{1}{\sigma^2}R(\beta_k|\beta_0,\beta_1,\dots,,\beta_k-1)$.\\
+RHS qudaratic forms all indep. w/noncentral $\chi^2$, \\
+$df(\mathrm{SS}_\mathrm{Res})=n-p; df(R(\beta_i|\beta_{j:k})=1\forall i,j,k$.\\
+\medskip
+$\mathbf A=[\mathbf A_1|\mathbf A_2]$ full rank $n\times m, n > m$ $\Rightarrow H(\mathbf A)-H(\mathbf A_i)$ idemp.\\
+\medskip
+\textbf{Forward Selection:} Start with empty model. Progressively add most significant variable until no more sig var to add.\\
+\medskip
+\textbf{Backward Elimination:} Start with full model. Remove least significant variable until no more insig var to remove.\\
+\medskip
+\textbf{Stepwise Selection:} Start w/any model. Add/remove 1 var based on goodness-of-fit - Akaike's Information Criterion (AIC). Smaller AIC=better. Better than forward/backward. Finds local optimum.\\
+\medskip
+\subsection{Model Selection Metrics - Goodness-of-Fit}
+$R^2=1-\frac{\mathrm{SS}_{\mathrm{Res}}}{\mathrm{SS}_{\mathrm{Total}}-(\sum_iy_i)^2/n)}\leftarrow$bad, always decrease.\\
+$R^2_{adj}=1-\frac{n-1}{n-1-k}(1-R^2)=1-\frac{n-1}{n-p}(1-R^2)=1-\frac{n-1}{n-p}\cdot\frac{\mathrm{SS}_{\mathrm{Res}}}{\mathrm{SS}_{\mathrm{Total}}}$\\
+$\mathrm{AIC}=-2 \ln(L)+2p=n\ln(\frac{\mathrm{SS}_{\mathrm{Res}}}{n})+2p+const.$\\
+where $L$=likelihood. Smaller AIC=better.\\
+$C_p=\frac{\mathrm{SS}_{\mathrm{Res}}(\text{model})}{s^2(\text{full model})}+2p-n$,
+where p=param in intermediate model. Small $C_p$=better.\\
 \medskip
 \subsection{Hypothesis Testing}
 \begin{tabular}{|l|l|l|}\hline
@@ -454,6 +477,60 @@ anova(basemodel, model)\\
 \#\# 2 136 4.7221 3 2.2265 21.375 2.102e-11 ***}\\
 $\mathrm{SS}_\mathrm{Res}^{H_0}=6.9485$; $\mathrm{SS}_\mathrm{Res}^{H_1}=4.7221$; $r=139-136=3$; $n-p=139-3=136$;
 $\mathrm{SS}_\mathrm{Res}^{H_0}-\mathrm{SS}_\mathrm{Res}^{H_1}=2.2265$; $f^\ast=21.375$; $\mathbf{Pr}(>f^\ast)=2.102 \exp(-17)$.\\
+\medskip
+\subsubsection{Model Relevance/Set Intercept to 0:}
+$H_0:\beta_0=0$
+\texttt{null <- lm(area$\sim$0+midrib+estim, data=clover)\\
+anova(null, model)}\\
+Null model sets intercept to zero, keeps both predictors.\\
+\medskip
+\subsubsection{Set Beta 1 to 0:}
+$H_0:\beta_1=0$
+\texttt{null <- lm(area$\sim$estim, data=clover)\\
+anova(null, model)}\\
+Null model has intercept and $\beta_2$, but skips $\beta_1$.\\
+\medskip
+\subsubsection{Set Beta 2 to 0:}
+$H_0:\beta_2=0$
+\texttt{null <- lm(area$\sim$midrib, data=clover)\\
+anova(null, model)}\\
+Null model has intercept and $\beta_1$, but no $\beta_2$.\\
+\medskip
+\subsubsection{Sequential Testing:}
+\texttt{model <- lm(area \~ midrib + estim, data=clover)\\
+nm1 <- lm(area \~ 0, data=clover)\\
+nm2 <- lm(area \~ 1, data=clover)\\
+nm3 <- lm(area \~ midrib, data=clover)\\
+anova(nm1, nm2, nm3, model)}\\
+Compare nm1/2/3 vs full model.\\
+\medskip
+\subsubsection{Forward Selection}
+\texttt{basemodel <- lm(y$\sim$1, data=heat)\\
+add1(basemodel, scope=$\sim$.+x1+x2+x3+x4, test="F")}\\
+Base model intercept-only. Add1 scope's (.) starts with full basemodel (int-only), then add each variable to test.\\
+\medskip
+\texttt{model2 <- lm(y$\sim$x4, data=heat))\\
+add1(model2, scope=$\sim$.+x1+x2+x3, test="F")}\\
+Model2 has int+x4. Add1 starts w/full model2, then add each variable to test.
+Once add1 returns no sig vars, stop.\\
+\medskip
+\subsubsection{Backward Elimination}
+\texttt{fullmodel <- lm(y$\sim$., data=heat)\\
+drop1(fullmodel, scope=$\sim$., test="F")}\\
+Start full model. Drop1 scope starts with full model, then drop each variable to test.\\
+\medskip
+\texttt{model2 <- lm(y$\sim$x1+x2+x4,data=heat)\\
+drop1(model2, scope=$\sim$., test="F")}\\
+Define model based on prev test. Drop1 then drop each variable to test. Once drop1 returns no insig vars, stop.\\
+\medskip
+\subsubsection{Stepwise Selection}
+\texttt{model2 <- step(basemodel, scope=$\sim$.+x1+x2+x3+x4,steps=1)\\
+model3 <- step(model2, scope=$\sim$.+x1+x2+x3,steps=1)\\
+model4 <- step(model3, scope=$\sim$.+x2+x3,steps=1)\\
+step(model4, scope=$\sim$.+x3)\\
+model2 <- step(fullmodel, scope=$\sim$., steps=1)\\
+step(model2, scope=$\sim$.+x3)}\\
+Start model. Step adds/removes each variable to test.\\
 \medskip
 \texttt{complete.cases()} returns a logical vector that identifies rows in a dataset that contain no missing values.
 \vfill
