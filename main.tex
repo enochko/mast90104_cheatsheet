@@ -94,7 +94,8 @@ Eigenvectors: $(\mathbf A-\lambda\mathbf I)\mathbf v=0$, solve for $ \mathbf v$ 
 \subsection{Determinants \& Inverses}
 $\det(c\mathbf{A}) = c^n \det(\mathbf{A})$ for $n\times n$ $\mathbf{A}$; 
 $\det(\mathbf{A}^k) = (\det \mathbf{A})^k$; 
-$\det(\mathbf{A}\mathbf{B}) = \det(\mathbf{A})\det(\mathbf{B})$.\\
+$\det(\mathbf{A}\mathbf{B}) = \det(\mathbf{A})\det(\mathbf{B})$;
+$\det(\mathbf {I + ab}^T) = 1+ \mathbf {a}^T \mathbf b$.\\
 \medskip
 $2\times 2$: $\begin{bmatrix} a & b \\ c & d \end{bmatrix}^{-1} = \frac{1}{ad-bc}\begin{bmatrix} d & -b \\ -c & a \end{bmatrix}$.\\
 \medskip
@@ -138,14 +139,14 @@ $e_i = y_i - \hat{\beta}_0 - \hat{\beta}_1 x_i$,\quad
 $\epsilon_i = y_i - \beta_0 - \beta_1 x_i$\\[4pt]
 \medskip
 \textbf{Matrix Form:}\\
-$\mathbf{y} = \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\epsilon},\quad \widehat{\boldsymbol{\beta}} = \arg\min_{\boldsymbol{\beta}} \|\mathbf{y} - \mathbf{X}\boldsymbol{\beta}\|^2$\\[2pt]
+$\mathbf{y} = \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\epsilon},\quad \widehat{\boldsymbol{\beta}} = \arg\min_{\boldsymbol{\beta}} \|\mathbf{y} - \mathbf{X}\boldsymbol{\beta}\|^2$.\\[2pt]
 $\|\mathbf{y} - \mathbf{X}\boldsymbol{\beta}\|^2 = (\mathbf{y} - \mathbf{X}\boldsymbol{\beta})^T(\mathbf{y} - \mathbf{X}\boldsymbol{\beta})$\\
-$= \mathbf{y}^T \mathbf{y} - 2\mathbf{y}^T\mathbf{X}\boldsymbol{\beta} + \boldsymbol{\beta}^T \mathbf{X}^T \mathbf{X} \boldsymbol{\beta}$\\
-$\frac{\partial}{\partial\boldsymbol{\beta}} \|\mathbf{y} - \mathbf{X}\boldsymbol{\beta}\|^2 = - 2\mathbf{y}^T \mathbf{X} + 2\boldsymbol{\beta}^T \mathbf{X}^T \mathbf{X} = 0$\\
-$\Rightarrow \mathbf{X}^T \mathbf{X} \widehat{\boldsymbol{\beta}} = \mathbf{X}^T \mathbf{y}$ or $\widehat{\boldsymbol{\beta}}^T\mathbf{X}^T \mathbf{X}  = \mathbf{y}^T\mathbf{X}$\\
+$= \mathbf{y}^T \mathbf{y} - 2\mathbf{y}^T\mathbf{X}\boldsymbol{\beta} + \boldsymbol{\beta}^T \mathbf{X}^T \mathbf{X} \boldsymbol{\beta}$.\\
+$\frac{\partial}{\partial\boldsymbol{\beta}} \|\mathbf{y} - \mathbf{X}\boldsymbol{\beta}\|^2 = - 2\mathbf{y}^T \mathbf{X} + 2\boldsymbol{\beta}^T \mathbf{X}^T \mathbf{X} = 0$.\\
+$\Rightarrow \widehat{\boldsymbol{\beta}}^T\mathbf{X}^T \mathbf{X}  = \mathbf{y}^T\mathbf{X}$ or $\mathbf{X}^T \mathbf{X} \widehat{\boldsymbol{\beta}} = \mathbf{X}^T \mathbf{y}$.\\
 \medskip
-\textbf{OLS solution:} $\widehat{\boldsymbol{\beta}} = (\mathbf{X}^T \mathbf{X})^{-1}\mathbf{X}^T \mathbf{y}$\\
-$\mathbb{E}[\widehat{\boldsymbol{\beta}}] = \boldsymbol{\beta}$; \quad $\mathrm{Var}(\widehat{\boldsymbol{\beta}}) = \sigma^2(\mathbf{X}^T \mathbf{X})^{-1}$\\
+\textbf{OLS solution:} $\widehat{\boldsymbol{\beta}} = (\mathbf{X}^T \mathbf{X})^{-1}\mathbf{X}^T \mathbf{y}$.\\
+$\mathbb{E}[\widehat{\boldsymbol{\beta}}] = \boldsymbol{\beta}$; \quad $\mathrm{Var}(\widehat{\boldsymbol{\beta}}) = \sigma^2(\mathbf{X}^T \mathbf{X})^{-1}$.\\
 \medskip
 \textbf{Estimated covariance of } $\widehat{\boldsymbol{\beta}}$: 
 $\widehat{\mathrm{Var}}(\widehat{\boldsymbol{\beta}})= s^2\,(\mathbf{X}^T \mathbf{X})^{-1}\,$\\
@@ -180,9 +181,10 @@ $\mathbb E [\mathbf y^T \mathbf{Ay}] = tr(\mathbf{AV}) + \boldsymbol\mu^T \mathb
 \medskip
 \subsection*{Chi-Square \& QF}
 Central $\chi^2_k$: $\mathbf{y} \sim N(0,\mathbf{I}_k)$, $\mathbf{y}^T\mathbf{y} \sim \chi^2_k$, $\mathbb E=k$, $\mathrm{Var}=2k$.\\
-Noncentral $\chi^2_{k,\lambda}$: $\mathbf{y} \sim N(\mu,\mathbf{I}_k)$, $\lambda=\frac{1}{2}\boldsymbol\mu^T\boldsymbol\mu$, $\mathbb E=k+2\lambda$, $\mathrm{Var}=2k+8\lambda$.
-PDF:\\
+Noncentral $\chi^2_{k,\lambda}$: $\mathbf{y} \sim N(\mu,\mathbf{I}_k)$, $\lambda=\frac{1}{2}\boldsymbol\mu^T\boldsymbol\mu$, $\mathbb E=k+2\lambda$, $\mathrm{Var}=2k+8\lambda$.\\
+General: $\mathbf{y} \sim N(\boldsymbol\mu,\boldsymbol{\Sigma})$ $\mapsto$ $\mathbf{y}^T\boldsymbol{\Sigma}^{-1}\mathbf{y} \sim \chi^2_{df= \mathrm{r}(\Sigma)}(\lambda=\frac{1}{2}\boldsymbol\mu^T\boldsymbol{\Sigma}^{-1}\boldsymbol\mu)$\\
 \medskip
+PDF:
 $f(x;k,\lambda) = \sum_{i=0}^\infty \frac{e^{-\lambda}\lambda^i}{i!} g(x;k+2i)$,  
 $g(x;k) = \frac{x^{k/2-1} e^{-x/2}}{2^{k/2}\Gamma(k/2)}$.\\
 Sum rule: $\sum_{i=1}^n \chi^2_{k_i,\lambda_i} \sim \chi^2_{\sum k_i, \sum\lambda_i}$.  \\
@@ -261,7 +263,10 @@ $\mathbb E[s^2]=\frac{1}{n-p}\mathbb E[\|\mathbf y-\mathbf X\widehat{\boldsymbol
 $\Leftarrow \mathbb E [\mathbf y^T \mathbf{Ay}] =\mathrm{tr}(\mathbf{AV}) + \boldsymbol\mu^T \mathbf A\boldsymbol\mu$\\
 \medskip
 \subsection{Diagnostics}
-\textbf{Graphs:} Residual vs Fitted$\rightarrow$ linearity / QQ-plot $\rightarrow$ normality / Scale-Location $\rightarrow$ homoscedasticity / Residual vs Leverage (Cook's distance).
+\textbf{Graphs:} 1. Residual vs Fitted: linearity. Large residuals$\Rightarrow$outliers; non-horizontal$\Rightarrow$missing intercept or non-linear (I); pattern$\Rightarrow$ correlated random error (IV).\\
+2. QQ-plot: normality. Extreme quantile$\Rightarrow$outliers. High/low far from line$\Rightarrow$over/under-est. of tails. Asymm. over/under$\Rightarrow$skew.\\
+3. Scale-Location: homoscedasticity. Unusually high $\sqrt{z_i}$$\Rightarrow$outlier. Non-horizontal trendline$\Rightarrow$non-constant error variance (IV).\\
+5. Residual vs Leverage (Cook's distance). Points beyond high Cook's dist. contours$\Rightarrow$outlier.\\
 \textbf{Leverage:} $h_{ii} = \frac{\partial \widehat{y}_i}{\partial y_i} = [\mathbf{H}]_{ii}$ 
 \; ($0 < h_{ii} < 1$). \\
 \textbf{Residual:} $e_i = y_i - \widehat{y}_i$. \\
@@ -344,7 +349,7 @@ Reject $H_0\implies$not all coefficients are 0.\\
 \medskip
 \subsubsection{Intercept-Only Model Test:}
 $H_0: \beta_1=\dots=\beta_k=0$; $\mathbf{y} = \boldsymbol1\beta_0 + \boldsymbol{\epsilon}$;\\
-$\widehat{\beta}_0=(\boldsymbol1^T\boldsymbol1)^{-1}\boldsymbol1^T \mathbf{y}=\bar{y}$.\\
+$\widehat{\beta}_0=(\boldsymbol1^T\boldsymbol1)^{-1}\boldsymbol1^T \mathbf{y}=n^{-1}\boldsymbol1\mathbf{y}=\bar{y}$.\\
 $\mathrm{SS}_\mathrm{Res}^{H_0}=\mathbf y^T\mathbf y-\frac{1}{n}\mathbf y^T\boldsymbol1\boldsymbol1^T\mathbf y$.
 (Corrected sum of squares)\\
 \medskip
@@ -376,7 +381,7 @@ Corrected Sum of Squares:
 \medskip
 \subsubsection{General Linear Hypothesis Test:}
 $H_0:\mathbf L\boldsymbol\beta=\boldsymbol\delta$;\qquad$H_1:\mathbf L\boldsymbol\beta\neq\boldsymbol\delta$\\
-$\mathbf L:r\times p;\quad \mathrm{r(\mathbf L):r\le p}$;\quad$\boldsymbol\delta:r\times 1$ \\
+$\mathbf L:r\times p;\quad r=\mathrm{r(\mathbf L):r\le p}$;\quad$\boldsymbol\delta:r\times 1$ \\
 \medskip
 Assume (I), (II), (V) and $\mathrm{r}(L)=r\le p$:\\
 $f^\ast=\frac{(\mathrm{SS}_\mathrm{Res}^{H_0}-\mathrm{SS}_\mathrm{Res}^{H_1})/r}{\mathrm{SS}_\mathrm{Res}^{H_1}/(n-p)}\stackrel{H_0}{\sim} F_{r, n-p}$\\
@@ -436,10 +441,12 @@ $\mathbf A=[\mathbf A_1|\mathbf A_2]$ full rank $n\times m, n > m$ $\Rightarrow 
 \subsection{Model Selection Metrics - Goodness-of-Fit}
 $R^2=1-\frac{\mathrm{SS}_{\mathrm{Res}}}{\mathrm{SS}_{\mathrm{Total}}-(\sum_iy_i)^2/n)}\leftarrow$bad, always decrease.\\
 $R^2_{adj}=1-\frac{n-1}{n-1-k_M}(1-R_M^2)=1-\frac{n-1}{n-p}(1-R^2)=1-\frac{n-1}{n-p}\cdot\frac{\mathrm{SS}_{\mathrm{Res}}}{\mathrm{CSS}}=1-\frac{n-1}{n-p}\cdot\frac{\mathrm{SS}_{\mathrm{Res}}}{\mathrm{SS}_{\mathrm{Total}}}$\\
+\medskip
 $\mathrm{AIC}=-2 \ln(L)+2p=n\ln(\frac{\mathrm{SS}_{\mathrm{Res}}}{n})+2p+const.$\\
 where $L$=likelihood. Smaller AIC=better.\\
+\medskip
 $C_p=\frac{\mathrm{SS}_{\mathrm{Res}}(\text{model})}{s^2(\text{full model})}+2p-n$,
-where p=param in intermediate model. Small $C_p$=better.\\
+where p=param in intermediate model. Smaller Mallow's $C_p$=better.\\
 \medskip
 \subsection{Hypothesis Testing}
 \begin{tabular}{|l|l|l|}\hline
@@ -542,7 +549,7 @@ Start model. Step adds/removes each variable to test.\\
 \texttt{complete.cases()} returns a logical vector that identifies rows in a dataset that contain no missing values.
 \vfill
 Last updated:
-2025-09-08 T16-13-18\\
+2025-09-09 T01-36-58\\
 Compiled: \DTMnow\\
 \hrule
 Enoch Ko (147934), University of Melbourne. Seat No. 1.\\
