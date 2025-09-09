@@ -8,12 +8,18 @@
 \usepackage{datetime2}
 \DTMsetdatestyle{iso}
 
-\ifthenelse{ \lengthtest{ \paperwidth = 297mm}}
-    {\geometry{top=0.5cm,left=0.5cm,right=0.5cm,bottom=0.5cm}}
-    {\ifthenelse{\lengthtest { \paperwidth = 11in}}
-        { \geometry{top=.2in,left=.2in,right=.2in,bottom=.2in}}
-        {\geometry{top=0.5cm,left=0.5cm,right=0.5cm,bottom=0.5cm}}
+\geometry{a4paper,
+    top=0.5cm,
+    left=0.5cm,
+    right=0.5cm,
+    bottom=0.5cm
     }
+%\ifthenelse{ \lengthtest{ \paperwidth = 297mm}}
+%    {\geometry{top=0.75cm,left=0.2cm,right=0.2cm,bottom=0.75cm}}
+%    {\ifthenelse{\lengthtest { \paperwidth = 11in}}
+%        { \geometry{top=.2in,left=.2in,right=.2in,bottom=.2in}}
+%        {\geometry{top=0.5cm,left=0.5cm,right=0.5cm,bottom=0.5cm}}
+%    }
     
 \pagestyle{empty}
 
@@ -86,6 +92,7 @@ $\mathbf{X}$ is ortho. matrix $\Leftrightarrow$ cols/rows form an orthonormal se
 \textbf{Matrix calculus:} $\frac{\partial}{\partial x}(m^T x) = m$, 
 $\frac{\partial}{\partial x}(x^T \mathbf{A}) = \mathbf{A}^T$, 
 $\frac{\partial}{\partial x}(x^T \mathbf{A} x) = (\mathbf{A}+\mathbf{A}^T)x$.\\
+\textbf{Cosine rule:} $\mathbf{a}\cdot\mathbf{b} = \mathbf{cos}(\theta)\Vert \mathbf{a}\Vert\Vert \mathbf{b}\Vert$\\
 \medskip
 \subsection{Finding Eigens}
 Eigenvalues: $\mathrm{det}(\mathbf A-\lambda\mathbf I) = 0$, solve for $\lambda$.\\
@@ -339,7 +346,7 @@ $\mathbb E\left[\frac{\mathrm{SS}_\mathrm{Reg} }{p}\right] = \sigma^2+\frac{1}{p
 $\mathbb E\left[\frac{\mathrm{SS}_\mathrm{Res} }{n-p}\right] =\mathbb E[s^2] = \sigma^2$\\
 Reject $H_0$ if $f^\ast\ge F_{\alpha;p, n-p}$; or $\text{p-value}=\mathbb P(F_{p,n-p}\ge f^\ast)\le\alpha$.\\
 Reject $H_0\implies$not all coefficients are 0.\\
-\medskip
+%\medskip
 \begin{tabular}{|l|l|l|l|l|}\hline
          Var Source &  $\sum$ squares & d.f.& $\sum$ mean$^2$ & F ratio\\\hline
          Regression& $\mathbf y^T\mathbf H\mathbf y$&  $p$& $\frac{\mathrm{SS}_\mathrm{Reg}}{p}$&$\frac{\mathrm{MS}_\mathrm{Reg}}{\mathrm{MS}_\mathrm{Res}}$\\\hline
@@ -370,7 +377,7 @@ Reject $H_0\implies$not all slopes are 0.\\
          Residual&$\mathbf y^T\mathbf y-R(\boldsymbol\beta)$&$n-k-1$&$\frac{\mathrm{SS}_\mathrm{Res}}{n-p}$& \\\hline
          Total&  $\mathbf y^T\mathbf y$&  $n$&  &\\\hline
     \end{tabular}
-\medskip
+\medskip\\
 Corrected Sum of Squares:
 \begin{tabular}{|l|l|l|l|l|}\hline
          Var Src&  $\sum$ squares & d.f.& $\sum$ mean$^2$ & F ratio\\\hline
@@ -546,7 +553,11 @@ model2 <- step(fullmodel, scope=$\sim$., steps=1)\\
 step(model2, scope=$\sim$.+x3)}\\
 Start model. Step adds/removes each variable to test.\\
 \medskip
-\texttt{complete.cases()} returns a logical vector that identifies rows in a dataset that contain no missing values.
+\texttt{complete.cases()} returns a logical vector that identifies rows in a dataset that contain no missing values.\\
+\medskip
+Sherman-Morrison Formula:
+$(\mathbf A+uv^T)^{-1}=\mathbf A^{-1}-\frac{\mathbf A^{-1}uv^T\mathbf A^{-1}}{1+v^T\mathbf A^{-1}u}$\\
+\medskip
 \vfill
 Last updated:
 2025-09-09 T01-36-58\\
