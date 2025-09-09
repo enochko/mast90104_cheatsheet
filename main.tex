@@ -92,6 +92,7 @@ $\mathbf{X}$ is ortho. matrix $\Leftrightarrow$ cols/rows form an orthonormal se
 \textbf{Matrix calculus:} $\frac{\partial}{\partial x}(m^T x) = m$, 
 $\frac{\partial}{\partial x}(x^T \mathbf{A}) = \mathbf{A}^T$, 
 $\frac{\partial}{\partial x}(x^T \mathbf{A} x) = (\mathbf{A}+\mathbf{A}^T)x$.\\
+\medskip
 \textbf{Cosine rule:} $\mathbf{a}\cdot\mathbf{b} = \mathbf{cos}(\theta)\Vert \mathbf{a}\Vert\Vert \mathbf{b}\Vert$\\
 \medskip
 \subsection{Finding Eigens}
@@ -140,7 +141,7 @@ $Y_i = \beta_0 + \sum_{j=1}^k \beta_j x_{ij} + \epsilon_i$, \quad $\mathbb{E}(\e
 \medskip
 \textbf{Simple Regression (k=1):}\\
 $L(\hat{\beta}_0,\hat{\beta}_1) = \sum_{i=1}^n (y_i - \hat{\beta}_0 - \hat{\beta}_1 x_i)^2$\\
-$\hat{\beta}_1 = \frac{\sum (x_i - \bar{x})(y_i - \bar{y}}{\sum (x_i - \bar{x})^2} = \frac{\sum x_i y_i - n\bar{x}\bar{y})}{\sum x_i^2 - n\bar{x}^2}$,\quad
+$\hat{\beta}_1 = \frac{\sum (x_i - \bar{x})(y_i - \bar{y})}{\sum (x_i - \bar{x})^2} = \frac{\sum x_i y_i - n\bar{x}\bar{y}}{\sum x_i^2 - n\bar{x}^2}$,\quad
 $\hat{\beta}_0 = \bar{y} - \hat{\beta}_1 \bar{x}$\\
 $e_i = y_i - \hat{\beta}_0 - \hat{\beta}_1 x_i$,\quad
 $\epsilon_i = y_i - \beta_0 - \beta_1 x_i$\\[4pt]
@@ -239,9 +240,6 @@ $\mathbf{A}$ Sym:
 $\mathbf{y}^T \mathbf{A} \mathbf{y} \perp\!\!\!\perp \mathbf{y}^T \mathbf{B} \mathbf{y} \Leftrightarrow \mathbf{A}\mathbf{V}\mathbf{B} = 0$ ($\mathbf{V}$ non-sing.) (3.12).
 $\mathbf{y}^T \mathbf{A} \mathbf{y} \perp\!\!\!\perp \mathbf{C} \mathbf{y} \Leftrightarrow \mathbf{C}\mathbf{V}\mathbf{A} = 0$ (3.14).\\
 \medskip
-Multiple QFs: any 2 of:$\mathbf{A}_i^2 = \mathbf{A}_i$, $\sum \mathbf{A}_i$ idem., $\mathbf{A}_i \mathbf{A}_j=0 \ (i\neq j) \Rightarrow$ all indep. $\sum r(\mathbf{A}_i)=r(\sum \mathbf{A}_i)$\\
-Cochran–Fisher: $\sum \mathbf{A}_i = \mathbf{I}$, idempotent $\Rightarrow$ indep. $\chi^2$.\\
-\medskip
 \subsection{Gauss-Markov assumptions:}
 1. True relationship between $\mathbf X$ and $\mathbf y$ is $\mathbf y= \mathbf X \boldsymbol\beta+ \boldsymbol\epsilon$, where $\mathbf X$ is a n by p matrix and $\boldsymbol\beta$ is a p-dimensional vector.\\
 2. $\mathbf X$ is a full rank matrix, i.e. $\mathrm{r}( \mathbf X) = p$.\\
@@ -251,14 +249,19 @@ Cochran–Fisher: $\sum \mathbf{A}_i = \mathbf{I}$, idempotent $\Rightarrow$ ind
 \medskip
 Under (1-4), $\widehat{\boldsymbol\beta}=(\mathbf X^T\mathbf X)^{-1}\mathbf X^T\mathbf y$ is BLUE of $\boldsymbol\beta$.\\
 Alternate LUE $\mathbf b=\mathbf L\mathbf y=[(\mathbf X^T\mathbf X)^{-1}\mathbf X^T + \mathbf B]\mathbf y$ where $\mathbf B= \mathbf L-(\mathbf X^T\mathbf X)^{-1}\mathbf X^T$.\\
+BLUE: Best Linear Unbiased Estimator - unbiased, lowest var among all LUEs.\\
 \medskip
-Under (1, 5), $\mathbf y\sim MVN(\mathbf X\boldsymbol\beta, \sigma^2 \mathbf I)$. Errors $\epsilon$ are independent.
+Under (1, 5), $\mathbf y\sim MVN(\mathbf X, \sigma^2 \mathbf I)$. Errors $\epsilon$ are independent.
+UMVUE: Uniformly Minimum Variance Unbiased Estimator - unbiased, sufficient and complete for $\boldsymbol\beta$, lowest var among \textbf{all} unbiased estimators.
 \medskip
 \subsection{Maximum Likelihood Estimators}
 $f(\mathbf y; \boldsymbol\beta, \sigma^2)=\frac{1}{(2\pi\sigma^2)^{n/2} }\exp\left[-\frac{\|\mathbf y-\mathbf X\boldsymbol\beta\|^2}{2\sigma^2}\right]$.\\
+$\ln L(\boldsymbol\beta, \sigma^2) = -\frac{n}{2}\ln(2\pi)-\frac{n}{2}\ln(\sigma^2)-\frac{1}{2\sigma^2}\|\mathbf y-\mathbf X\widehat{\boldsymbol\beta}\|$\\
+\medskip
 $\widehat{\boldsymbol{\beta}}_{\mathrm{MLE}}= (\mathbf{X}^T \mathbf{X})^{-1}\mathbf{X}^T \mathbf{y} $;\quad$\widehat{\sigma}^2_{\mathrm{MLE}} = \frac{\mathrm{SS}_\mathrm{res}}{n}$;\\
 $\mathrm{bias}(\widehat{\sigma}^2_{\mathrm{MLE}})=-\frac{p}{n}\sigma^2\Rightarrow$ underestimates $\sigma^2$.\\
 $s^2 = \widehat{\sigma}^2_{\mathrm{unb}} = \frac{\mathrm{SS}_\mathrm{res}}{n-p}$ with $\mathbb{E}[s^2]=\sigma^2$\\
+\medskip
 Under (1), (2), (5): $\widehat{\boldsymbol{\beta}}$ and $s^2$ are unbiased, and jointly sufficient and complete, and UMVUE for $\boldsymbol{\beta}$ and $\sigma^2$.\\
 \medskip
 \subsection{Proof sigma2 is biased:}
@@ -274,13 +277,11 @@ $\Leftarrow \mathbb E [\mathbf y^T \mathbf{Ay}] =\mathrm{tr}(\mathbf{AV}) + \bol
 2. QQ-plot: normality. Extreme quantile$\Rightarrow$outliers. High/low far from line$\Rightarrow$over/under-est. of tails. Asymm. over/under$\Rightarrow$skew.\\
 3. Scale-Location: homoscedasticity. Unusually high $\sqrt{z_i}$$\Rightarrow$outlier. Non-horizontal trendline$\Rightarrow$non-constant error variance (IV).\\
 5. Residual vs Leverage (Cook's distance). Points beyond high Cook's dist. contours$\Rightarrow$outlier.\\
-\textbf{Leverage:} $h_{ii} = \frac{\partial \widehat{y}_i}{\partial y_i} = [\mathbf{H}]_{ii}$ 
-\; ($0 < h_{ii} < 1$). \\
+\medskip
+\textbf{Leverage:} $h_{ii} = \frac{\partial \widehat{y}_i}{\partial y_i} = [\mathbf{H}]_{ii}$ \; ($0 < h_{ii} < 1$). Self-sensitivity.\\ 
 \textbf{Residual:} $e_i = y_i - \widehat{y}_i$. \\
 \textbf{Var(residual):} $\mathrm{Var}(e_i) = \sigma^2 (1 - h_{ii})$. \\
-\textbf{Standardised residual:} 
-$z_i = \frac{e_i}{s \sqrt{1-h_{ii}}}$, \quad
-$s^2 = \tfrac{\mathrm{SSE}}{n-p}$. \\
+\textbf{Standardised residual:}  $z_i = \frac{e_i}{s \sqrt{1-h_{ii}}}$; $s^2 = \tfrac{\mathrm{SSE}}{n-p}$. $\mathrm{Var}(z_i)=1$.\\
 \textbf{Cook's distance:} 
 $D_i = \frac{(\widehat{\boldsymbol\beta}_{(-i)}-\widehat{\boldsymbol\beta})^T\mathbf X^T\mathbf X(\widehat{\boldsymbol\beta}_{(-i)}-\widehat{\boldsymbol\beta})}{ps^2} = \frac{z_i^2}{p}\left(\frac{h_{ii} }{1-h_{ii} }\right)$, where $\widehat{\boldsymbol\beta}_{(-i)}$ is $\widehat{\boldsymbol\beta}$ if the point $i$  is removed and $p$ is the size of $\widehat{\boldsymbol\beta}$.\\
 \medskip
@@ -288,7 +289,7 @@ $D_i = \frac{(\widehat{\boldsymbol\beta}_{(-i)}-\widehat{\boldsymbol\beta})^T\ma
 PDF: $f(x)=\frac{\Gamma((\gamma+1)/2)}{\sqrt{\gamma\pi}\Gamma(\gamma/2)}\left(1+\frac{x^2}{\gamma}\right)^{-(\gamma+1)/2}$\\
 \medskip
 \subsection{Interval Estimation}
-$Z=\frac{\widehat{\boldsymbol\beta}_i-\boldsymbol\beta_i}{\sigma\sqrt{c_{ii} } }\sim N(0,1)$; $X^2=\frac{(n-p)s^2}{\sigma^2}=\frac{\mathrm{SS}_\mathrm{res}}{\sigma^2}\sim\chi^2_{n-p}$;\\
+$Z=\frac{\widehat{\boldsymbol\beta}_i-\boldsymbol\beta_i}{\sigma\sqrt{c_{ii} } }\sim N(0,1)$;\qquad$X^2=\frac{(n-p)s^2}{\sigma^2}=\frac{\mathrm{SS}_\mathrm{res}}{\sigma^2}\sim\chi^2_{n-p}$;\\
 $T=\frac{\widehat{\boldsymbol\beta}_i-\boldsymbol\beta_i}{\sigma\sqrt{c_{ii} } }/\sqrt{\frac{\mathrm{SS}_\mathrm{res}/\sigma^2}{n-p} }=\frac{\widehat{\boldsymbol\beta}_i-\boldsymbol\beta_i}{\sigma\sqrt{c_{ii} } }/\sqrt{\frac{s^2}{\sigma^2}}=\frac{\widehat{\boldsymbol\beta}_i-\boldsymbol\beta_i}{s\sqrt{c_{ii} } }\sim t_{n-p}$.\\
 Proof of $\widehat{\boldsymbol\beta}\perp\!\!\!\perp\frac{\mathrm{SS}_\mathrm{res}}{\sigma^2}\Leftarrow  \mathbf{B}\mathbf{V}\mathbf{A} = 0$.\\
 \medskip
@@ -297,6 +298,7 @@ Proof of $\widehat{\boldsymbol\beta}\perp\!\!\!\perp\frac{\mathrm{SS}_\mathrm{re
 $\beta_i$: CI $=\widehat{\boldsymbol\beta}_i\pm t_{\alpha/2}s\sqrt{c_{ii} }$, where $c_{ii}=[(\mathbf X^T\mathbf X)^{-1}]_{ii}$.\\
 $\mathbb E(t^T \widehat{\boldsymbol\beta})$: $\text{CI} = t^T \widehat{\boldsymbol\beta}\pm t_{\alpha/2} s\sqrt{(t^T(\mathbf X^T\mathbf X)^{-1}t}$\\
 $\mathbb E(y|x^\ast)$: $\text{CI} = (\mathbf x^\ast)^T\widehat{\boldsymbol\beta}\pm t_{\alpha/2} s\sqrt{(\mathbf x^\ast)^T(\mathbf X^T\mathbf X)^{-1}\mathbf x^\ast}$\\
+Unverified: $\sigma^2:\text{CI}=\left[\frac{(n-p)s^2}{\chi^2_{1-\alpha/2,\,n-p}}\;,\;\frac{(n-p)s^2}{\chi^2_{\alpha/2,\,n-p}}\right]$\\
 \medskip
 \subsection{Prediction Interval}
 $y^\ast=(\mathbf x^\ast)^T\boldsymbol\beta+\boldsymbol\epsilon^\ast$, where $\mathrm{Var}(\boldsymbol\epsilon^\ast)=\sigma^2$ by assumption.\\
@@ -306,6 +308,7 @@ $\therefore \mathrm{Var}(y^\ast- (\mathbf x^\ast)^T\widehat{\boldsymbol\beta})=\
 \medskip
 \subsubsection{100(1-alpha)\% Prediction Interval:}
 $y|x^\ast$: $\text{PI} = (\mathbf x^\ast)^T\widehat{\boldsymbol\beta}\pm t_{\alpha/2} s\sqrt{1+(\mathbf x^\ast)^T(\mathbf X^T\mathbf X)^{-1}\mathbf x^\ast}$\\
+\medskip
 \subsection{F distribution}
 Let $X^2_{\gamma_1}$ and $X^2_{\gamma_2}$ be indept. $\chi^2$ r.v. with $\gamma_1$ and $\gamma_2$ d.f., then:
 $F=\frac{X^2_{\gamma_1}/\gamma_1}{X^2_{\gamma_2}/\gamma_2}$ has an F distribution with $\gamma_1$ and $\gamma_2$ d.f.\\
@@ -359,8 +362,8 @@ Under $H_0$: $\mathrm{SS}_\mathrm{Res}^{H_0}=\mathrm{SS}_\mathrm{Total}$; $\math
 \subsubsection{Intercept-Only Model Test:}
 $H_0: \beta_1=\dots=\beta_k=0$; $\mathbf{y} = \boldsymbol1\beta_0 + \boldsymbol{\epsilon}$;\\
 $\widehat{\beta}_0=(\boldsymbol1^T\boldsymbol1)^{-1}\boldsymbol1^T \mathbf{y}=n^{-1}\boldsymbol1\mathbf{y}=\bar{y}$.\\
-$\mathrm{SS}_\mathrm{Res}^{H_0}=\mathbf y^T\mathbf y-\frac{1}{n}\mathbf y^T\boldsymbol1\boldsymbol1^T\mathbf y$.
-(Corrected sum of squares)\\
+$\mathrm{SS}_\mathrm{Res}^{H_0}=\mathbf y^T\mathbf y-\frac{1}{n}\mathbf y^T\boldsymbol1\boldsymbol1^T\mathbf y$. (Corrected sum of squares, CSS)\\
+$\mathrm{SS}_\mathrm{Reg}^{H_0}=\frac{1}{n}\mathbf y^T\boldsymbol1\boldsymbol1^T\mathbf y$. (Correction factor)\\
 \medskip
 $H_1:\widehat{\boldsymbol\beta}=(\mathbf{X}^T \mathbf{X})^{-1}\mathbf{X}^T \mathbf{y}$; $\mathbf{y} = \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\epsilon}$.\\
 $\mathrm{SS}_\mathrm{Res}^{H_1}=\mathbf y^T(\mathbf I-\mathbf H)\mathbf y$.\\
@@ -448,8 +451,8 @@ $\mathbf A=[\mathbf A_1|\mathbf A_2]$ full rank $n\times m, n > m$ $\Rightarrow 
 \textbf{Stepwise Selection:} Start w/any model. Add/remove 1 var based on goodness-of-fit - Akaike's Information Criterion (AIC). Smaller AIC=better. Repeat until all next step AIC greater than current model. Better than forward/backward. Finds local optimum.\\
 \medskip
 \subsection{Model Selection Metrics - Goodness-of-Fit}
-$R^2=1-\frac{\mathrm{SS}_{\mathrm{Res}}}{\mathrm{SS}_{\mathrm{Total}}-(\sum_iy_i)^2/n)}\leftarrow$bad, always decrease.\\
-$R^2_{adj}=1-\frac{n-1}{n-1-k_M}(1-R_M^2)=1-\frac{n-1}{n-p}(1-R^2)=1-\frac{n-1}{n-p}\cdot\frac{\mathrm{SS}_{\mathrm{Res}}}{\mathrm{CSS}}=1-\frac{n-1}{n-p}\cdot\frac{\mathrm{SS}_{\mathrm{Res}}}{\mathrm{SS}_{\mathrm{Total}}}$\\
+$R^2=1-\frac{\mathrm{SS}_{\mathrm{Res}}}{\mathrm{SS}_{\mathrm{Total}}-(\sum_iy_i)^2/n)}=1-\frac{\mathrm{SS}_{\mathrm{Res}}}{CSS}\leftarrow$bad, always decrease.\\
+$R^2_{adj}=1-\frac{n-1}{n-1-k_M}(1-R_M^2)=1-\frac{n-1}{n-p}(1-R^2)=1-\frac{n-1}{n-p}\cdot\frac{\mathrm{SS}_{\mathrm{Res}}}{\mathrm{CSS}}$\\
 \medskip
 $\mathrm{AIC}=-2 \ln(L)+2p=n\ln(\frac{\mathrm{SS}_{\mathrm{Res}}}{n})+2p+const.$\\
 where $L$=likelihood. Smaller AIC=better.\\
@@ -560,9 +563,20 @@ Start model. Step adds/removes each variable to test.\\
 Sherman-Morrison Formula:
 $(\mathbf A+uv^T)^{-1}=\mathbf A^{-1}-\frac{\mathbf A^{-1}uv^T\mathbf A^{-1}}{1+v^T\mathbf A^{-1}u}$\\
 \medskip
+Proof of idempotent matrix eigenvalue: $\mathbf{A}\mathbf{x}=\lambda\mathbf{x}$.
+$\mathbf{A}^2\mathbf{x}=\mathbf{A}\lambda\mathbf{x}=\lambda\mathbf{A}\mathbf{x}=\lambda^2\mathbf{x}$.
+$\Rightarrow$$\lambda^2\mathbf{x}=\mathbf{A}^2\mathbf{x}=\mathbf{A}\mathbf{x}=\lambda\mathbf{x}$.
+$\Rightarrow$$(\lambda^2-\lambda)\mathbf{x}=\boldsymbol 0$.
+$\Rightarrow$$\lambda=\lambda^2$ ($\because \mathbf{x}\neq\boldsymbol 0$).
+$\Rightarrow$$\lambda=0\text{ or }1$.\\
+\medskip
+Proof of idempotent matrix rank=trace: $\mathbf{A}$ idemp.$\Rightarrow$$\lambda=0\text{ or }1$.
+Sym. idemp. $\Rightarrow$ $\exists$ ortho $\mathbf{P}$ diag $\mathbf{A}$. $\mathrm{r}(\mathbf{P}^T\mathbf{A}\mathbf{P})=\mathrm{r}(\mathbf{A})=$non-zero $\lambda$ of $\mathbf{A}$.\\
+$\mathrm{r}(\mathbf{A})=\mathrm{r}(\mathbf{P}^T\mathbf{A}\mathbf{P})=\mathrm{tr}(\mathbf{P}^T\mathbf{A}\mathbf{P})=\mathrm{tr}(\mathbf{P}\mathbf{P}^T\mathbf{A})=\mathrm{tr}(\mathbf{A})$.\\
+\medskip
 \vfill
 Last updated:
-2025-09-09 T01-36-58\\
+2025-09-10 T00-03-30\\
 Compiled: \DTMnow\\
 \hrule
 Enoch Ko (147934), University of Melbourne. Seat No. 1.\\
