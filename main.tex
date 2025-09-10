@@ -89,9 +89,9 @@ $\mathbf{X}$ is ortho. matrix $\Leftrightarrow$ cols/rows form an orthonormal se
 \smallskip
 \textbf{Square Root:} If $\mathbf A= \mathbf P\boldsymbol\Lambda\mathbf P^T$(SPD), then $\mathbf A^{1/2}= \mathbf P\boldsymbol\Lambda^{1/2}\mathbf P^T$\\
 \smallskip
-\textbf{Matrix calculus:} $\frac{\partial}{\partial x}(m^T x) = m$, 
-$\frac{\partial}{\partial x}(x^T \mathbf{A}) = \mathbf{A}^T$, 
-$\frac{\partial}{\partial x}(x^T \mathbf{A} x) = (\mathbf{A}+\mathbf{A}^T)x$.\\
+\textbf{Matrix calculus:} $\frac{\partial}{\partial \mathbf{x}}(\mathbf{A}^T \mathbf{x}) = \mathbf{A}$, 
+$\frac{\partial}{\partial \mathbf{x}^T}(\mathbf{x}^T \mathbf{A}^T) = \mathbf{A}^T$, 
+$\frac{\partial}{\partial \mathbf{x}}(\mathbf{x}^T \mathbf{A} \mathbf{x}) = \mathbf{x}^T(\mathbf{A}+\mathbf{A}^T)$.\\
 \medskip
 \textbf{Cosine rule:} $\mathbf{a}\cdot\mathbf{b} = \mathbf{cos}(\theta)\Vert \mathbf{a}\Vert\Vert \mathbf{b}\Vert$\\
 \medskip
@@ -185,7 +185,7 @@ PDF: $f(\mathbf x) = \frac{1}{(2\pi)^{k/2} |\boldsymbol\Sigma|^{1/2} } \exp \lef
 For MVN, uncorrelated $\Leftrightarrow$ independent; in general, indep. $\Rightarrow$uncorrelated, but uncorrelated $\neq$ indep.\\
 \medskip
 \subsection{Random Quadratic Form}
-$\mathbb E [\mathbf y^T \mathbf{Ay}] = tr(\mathbf{AV}) + \boldsymbol\mu^T \mathbf A\boldsymbol\mu$.\\
+$\mathbb E [\mathbf{y}^T \mathbf{A}\mathbf{y}] = \mathrm{tr}(\mathbf{AV}) + \boldsymbol\mu^T \mathbf A\boldsymbol\mu$.\\
 \medskip
 \subsection*{Chi-Square \& QF}
 Central $\chi^2_k$: $\mathbf{y} \sim N(0,\mathbf{I}_k)$, $\mathbf{y}^T\mathbf{y} \sim \chi^2_k$, $\mathbb E=k$, $\mathrm{Var}=2k$.\\
@@ -251,8 +251,8 @@ Under (1-4), $\widehat{\boldsymbol\beta}=(\mathbf X^T\mathbf X)^{-1}\mathbf X^T\
 Alternate LUE $\mathbf b=\mathbf L\mathbf y=[(\mathbf X^T\mathbf X)^{-1}\mathbf X^T + \mathbf B]\mathbf y$ where $\mathbf B= \mathbf L-(\mathbf X^T\mathbf X)^{-1}\mathbf X^T$.\\
 BLUE: Best Linear Unbiased Estimator - unbiased, lowest var among all LUEs.\\
 \medskip
-Under (1, 5), $\mathbf y\sim MVN(\mathbf X, \sigma^2 \mathbf I)$. Errors $\epsilon$ are independent.
-UMVUE: Uniformly Minimum Variance Unbiased Estimator - unbiased, sufficient and complete for $\boldsymbol\beta$, lowest var among \textbf{all} unbiased estimators.
+Under (1, 5), $\mathbf y\sim MVN(\mathbf X, \sigma^2 \mathbf I)$. Errors $\epsilon$ are independent.\\
+(1, 2, 5) UMVUE: Uniformly Minimum Variance Unbiased Estimator - unbiased, sufficient and complete for $\boldsymbol\beta$, lowest var among \textbf{all} unbiased estimators.
 \medskip
 \subsection{Maximum Likelihood Estimators}
 $f(\mathbf y; \boldsymbol\beta, \sigma^2)=\frac{1}{(2\pi\sigma^2)^{n/2} }\exp\left[-\frac{\|\mathbf y-\mathbf X\boldsymbol\beta\|^2}{2\sigma^2}\right]$.\\
@@ -264,14 +264,6 @@ $s^2 = \widehat{\sigma}^2_{\mathrm{unb}} = \frac{\mathrm{SS}_\mathrm{res}}{n-p}$
 \medskip
 Under (1), (2), (5): $\widehat{\boldsymbol{\beta}}$ and $s^2$ are unbiased, and jointly sufficient and complete, and UMVUE for $\boldsymbol{\beta}$ and $\sigma^2$.\\
 \medskip
-\subsection{Proof sigma2 is biased:}
-$\text{bias}=\mathbb E(\widehat{\sigma}^2)-\sigma^2=\mathbb E\left(\frac{\|\mathbf y-\mathbf X\boldsymbol\beta\|^2}{n}\right)-\sigma^2=\frac{n-p}{n}\mathbb E\left(\frac{\|\mathbf y-\mathbf X\boldsymbol\beta\|^2}{n-p}\right)-\sigma^2=\frac{n-p}{n}\mathbb E(s^2)-\sigma^2=\frac{n-p}{n}\mathbb \sigma^2-\sigma^2=-\frac{p}{n}\mathbb \sigma^2$\\
-\medskip
-\subsection{Proof s2 is unbiased:}
-$s^2= \frac{\mathrm{SS}_\mathrm{Res} }{n-p}=\frac{n}{n-p}\widehat{\sigma}^2$;\\
-$\mathbb E[s^2]=\frac{1}{n-p}\mathbb E[\|\mathbf y-\mathbf X\widehat{\boldsymbol\beta}\|^2] =\frac{1}{n-p}\mathbb E[\mathbf y^T(\mathbf I-\mathbf H)\mathbf y]=\frac{1}{n-p}\mathbb \sigma^2(n-p) = \sigma^2$
-$\Leftarrow \mathbb E [\mathbf y^T \mathbf{Ay}] =\mathrm{tr}(\mathbf{AV}) + \boldsymbol\mu^T \mathbf A\boldsymbol\mu$\\
-\medskip
 \subsection{Diagnostics}
 \textbf{Graphs:} 1. Residual vs Fitted: linearity. Large residuals$\Rightarrow$outliers; non-horizontal$\Rightarrow$missing intercept or non-linear (I); pattern$\Rightarrow$ correlated random error (IV).\\
 2. QQ-plot: normality. Extreme quantile$\Rightarrow$outliers. High/low far from line$\Rightarrow$over/under-est. of tails. Asymm. over/under$\Rightarrow$skew.\\
@@ -279,7 +271,7 @@ $\Leftarrow \mathbb E [\mathbf y^T \mathbf{Ay}] =\mathrm{tr}(\mathbf{AV}) + \bol
 5. Residual vs Leverage (Cook's distance). Points beyond high Cook's dist. contours$\Rightarrow$outlier.\\
 \medskip
 \textbf{Leverage:} $h_{ii} = \frac{\partial \widehat{y}_i}{\partial y_i} = [\mathbf{H}]_{ii}$ \; ($0 < h_{ii} < 1$). Self-sensitivity.\\ 
-\textbf{Residual:} $e_i = y_i - \widehat{y}_i$. \\
+\textbf{Residual:} $e_i = y_i - \widehat{y}_i$.\quad
 \textbf{Var(residual):} $\mathrm{Var}(e_i) = \sigma^2 (1 - h_{ii})$. \\
 \textbf{Standardised residual:}  $z_i = \frac{e_i}{s \sqrt{1-h_{ii}}}$; $s^2 = \tfrac{\mathrm{SSE}}{n-p}$. $\mathrm{Var}(z_i)=1$.\\
 \textbf{Cook's distance:} 
@@ -294,11 +286,12 @@ $T=\frac{\widehat{\boldsymbol\beta}_i-\boldsymbol\beta_i}{\sigma\sqrt{c_{ii} } }
 Proof of $\widehat{\boldsymbol\beta}\perp\!\!\!\perp\frac{\mathrm{SS}_\mathrm{res}}{\sigma^2}\Leftarrow  \mathbf{B}\mathbf{V}\mathbf{A} = 0$.\\
 \medskip
 \subsection{Confidence Interval}
+Probability CI contains the true population param is $1-\alpha$.
 \subsubsection{100(1-alpha)\% Confidence Interval:}
 $\beta_i$: CI $=\widehat{\boldsymbol\beta}_i\pm t_{\alpha/2}s\sqrt{c_{ii} }$, where $c_{ii}=[(\mathbf X^T\mathbf X)^{-1}]_{ii}$.\\
-$\mathbb E(t^T \widehat{\boldsymbol\beta})$: $\text{CI} = t^T \widehat{\boldsymbol\beta}\pm t_{\alpha/2} s\sqrt{(t^T(\mathbf X^T\mathbf X)^{-1}t}$\\
+$t^T \widehat{\boldsymbol\beta}$: $\text{CI} = t^T \widehat{\boldsymbol\beta}\pm t_{\alpha/2} s\sqrt{(t^T(\mathbf X^T\mathbf X)^{-1}t}$\\
 $\mathbb E(y|x^\ast)$: $\text{CI} = (\mathbf x^\ast)^T\widehat{\boldsymbol\beta}\pm t_{\alpha/2} s\sqrt{(\mathbf x^\ast)^T(\mathbf X^T\mathbf X)^{-1}\mathbf x^\ast}$\\
-Unverified: $\sigma^2:\text{CI}=\left[\frac{(n-p)s^2}{\chi^2_{1-\alpha/2,\,n-p}}\;,\;\frac{(n-p)s^2}{\chi^2_{\alpha/2,\,n-p}}\right]$\\
+$\sigma^2:\text{CI}=\left[\frac{(n-p)s^2}{\chi^2_{1-\alpha/2,\,n-p}}\;,\;\frac{(n-p)s^2}{\chi^2_{\alpha/2,\,n-p}}\right]$\\
 \medskip
 \subsection{Prediction Interval}
 $y^\ast=(\mathbf x^\ast)^T\boldsymbol\beta+\boldsymbol\epsilon^\ast$, where $\mathrm{Var}(\boldsymbol\epsilon^\ast)=\sigma^2$ by assumption.\\
@@ -331,7 +324,7 @@ CR is ellipse/ellipsoid because LHS is quadratic form whose matrix $\mathbf X^T\
 \subsubsection{Sum of Squares (Total/Regression/Residual)}
 $\mathrm{SS}_\mathrm{Total}=\mathbf y^T\mathbf y=\|\mathbf y\|^2=(\mathbf y-\mathbf X\widehat{\boldsymbol\beta})^T(\mathbf y-\mathbf X\widehat{\boldsymbol\beta})+(\mathbf X\widehat{\boldsymbol\beta})^T(\mathbf X\widehat{\boldsymbol\beta})=\mathrm{SS}_\mathrm{Res}+\mathrm{SS}_\mathrm{Reg}$.\\
 $\mathrm{SS}_\mathrm{Reg}=\widehat{\mathbf y}^T\widehat{\mathbf y}=\mathbf y^T\mathbf H\mathbf y=(\mathbf X\widehat{\boldsymbol\beta})^T(\mathbf X\widehat{\boldsymbol\beta})=\widehat{\boldsymbol\beta}^T\mathbf X^T\mathbf X\widehat{\boldsymbol\beta}=\widehat{\mathbf y}^T\mathbf X\widehat{\boldsymbol\beta}$.\\
-$\mathrm{SS}_\mathrm{Res}=(\mathbf y-\mathbf X\widehat{\boldsymbol\beta})^T(\mathbf y-\mathbf X\widehat{\boldsymbol\beta})=\mathbf y^T(\mathbf I-\mathbf H)\mathbf y$.\\
+$\mathrm{SS}_\mathrm{Res}=\mathrm{SSE}=(\mathbf y-\mathbf X\widehat{\boldsymbol\beta})^T(\mathbf y-\mathbf X\widehat{\boldsymbol\beta})=\mathbf y^T(\mathbf I-\mathbf H)\mathbf y$.\\
 $\mathrm{SS}_\mathrm{Reg}\perp\!\!\!\perp\mathrm{SS}_\mathrm{Res}\Leftarrow\mathbf H(\mathbf I-\mathbf H)=0$\\
 \medskip
 df: n=sample size; p=cols in X; r=rows in L in GLH or diff. b/w models (n-p)[H1]-(n-p)[H0]; k=predictors ex-intercept.\\
@@ -365,11 +358,12 @@ $\widehat{\beta}_0=(\boldsymbol1^T\boldsymbol1)^{-1}\boldsymbol1^T \mathbf{y}=n^
 $\mathrm{SS}_\mathrm{Res}^{H_0}=\mathbf y^T\mathbf y-\frac{1}{n}\mathbf y^T\boldsymbol1\boldsymbol1^T\mathbf y$. (Corrected sum of squares, CSS)\\
 $\mathrm{SS}_\mathrm{Reg}^{H_0}=\frac{1}{n}\mathbf y^T\boldsymbol1\boldsymbol1^T\mathbf y$. (Correction factor)\\
 \medskip
-$H_1:\widehat{\boldsymbol\beta}=(\mathbf{X}^T \mathbf{X})^{-1}\mathbf{X}^T \mathbf{y}$; $\mathbf{y} = \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\epsilon}$.\\
+$H_1:\widehat{\boldsymbol\beta}=(\mathbf{X}^T \mathbf{X})^{-1}\mathbf{X}^T \mathbf{y}$; $\mathbf{y} = \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\epsilon}$.
 $\mathrm{SS}_\mathrm{Res}^{H_1}=\mathbf y^T(\mathbf I-\mathbf H)\mathbf y$.\\
 \medskip
 Assume (I), (II), (V):\\
 $f^\ast=\frac{(\mathrm{SS}_\mathrm{Res}^{H_0}-\mathrm{SS}_\mathrm{Res}^{H_1})/k}{\mathrm{SS}_\mathrm{Res}^{H_1}/(n-p)}\stackrel{H_0}{\sim} F_{k, n-p}$\\
+\medskip
 Reject $H_0$ if $f^\ast\ge F_{\alpha;k, n-p}$; or $\text{p-value}=\mathbb P(F_{k,n-p}\ge f^\ast)\le\alpha$.\\
 Reject $H_0\implies$not all slopes are 0.\\
 \medskip
@@ -406,6 +400,13 @@ $(\sigma^2\mathbf{L}(\mathbf{X}^T \mathbf{X})^{-1}\mathbf{L}^T)^{-1}\sigma^2\mat
 $\frac{\mathrm{SS}_\mathrm{Res}^{H_0}-\mathrm{SS}_\mathrm{Res}^{H_1} }{\sigma^2}\sim\chi^2_{r(\mathbf I_r)=r, \lambda}$\\
 \hspace*{4em}$\lambda=\frac{1}{2}(\mathbf L\widehat{\boldsymbol\beta}-\boldsymbol\delta)^T(\sigma^2\mathbf{L}(\mathbf{X}^T \mathbf{X})^{-1}\mathbf{L}^T)^{-1}(\mathbf L\widehat{\boldsymbol\beta}-\boldsymbol\delta)$\\
 Under $H_0:\mathrm{SS}_\mathrm{Res}^{H_1}\perp\!\!\!\perp(\mathrm{SS}_\mathrm{Res}^{H_0}-\mathrm{SS}_\mathrm{Res}^{H_1})$.\\
+\medskip
+If $y=c+x_1+x_2+x_3$;
+$H_0:\beta_1=\beta_2=0$;
+$\mathbf L=\begin{bmatrix}0&1&0&0\\0&0&1&0\end{bmatrix}$; $\boldsymbol\delta=\begin{bmatrix}0\\0\end{bmatrix}$\\
+$H_0:\beta_1=\beta_2$;
+$\mathbf L=\begin{bmatrix}0&1&-1&0\end{bmatrix}$; $\boldsymbol\delta=\begin{bmatrix}0\end{bmatrix}$\\
+\medskip
 \medskip
 \subsubsection{Test if part of beta coefficients is zero:}
 1. Split $\mathbf X$ and $\boldsymbol\beta$ into partitions: $\mathbf X=\begin{bmatrix}\mathbf X_1|\mathbf X_2\end{bmatrix}$, $\boldsymbol\beta=\begin{bmatrix}\gamma_1\\\hline\gamma_2\end{bmatrix}$.\\
@@ -451,14 +452,13 @@ $\mathbf A=[\mathbf A_1|\mathbf A_2]$ full rank $n\times m, n > m$ $\Rightarrow 
 \textbf{Stepwise Selection:} Start w/any model. Add/remove 1 var based on goodness-of-fit - Akaike's Information Criterion (AIC). Smaller AIC=better. Repeat until all next step AIC greater than current model. Better than forward/backward. Finds local optimum.\\
 \medskip
 \subsection{Model Selection Metrics - Goodness-of-Fit}
-$R^2=1-\frac{\mathrm{SS}_{\mathrm{Res}}}{\mathrm{SS}_{\mathrm{Total}}-(\sum_iy_i)^2/n)}=1-\frac{\mathrm{SS}_{\mathrm{Res}}}{CSS}\leftarrow$bad, always decrease.\\
-$R^2_{adj}=1-\frac{n-1}{n-1-k_M}(1-R_M^2)=1-\frac{n-1}{n-p}(1-R^2)=1-\frac{n-1}{n-p}\cdot\frac{\mathrm{SS}_{\mathrm{Res}}}{\mathrm{CSS}}$\\
-\medskip
-$\mathrm{AIC}=-2 \ln(L)+2p=n\ln(\frac{\mathrm{SS}_{\mathrm{Res}}}{n})+2p+const.$\\
-where $L$=likelihood. Smaller AIC=better.\\
-\medskip
-$C_p=\frac{\mathrm{SS}_{\mathrm{Res}}(\text{model})}{s^2(\text{full model})}+2p-n$,
-where p=param in intermediate model. Smaller Mallow's $C_p$=better.\\
+1. $\mathrm{SS}_{\mathrm{Res}}$: Prefer lower. Always decrease w/more predictors.\\
+2. $\mathrm{MSE}/s^2$: Prefer lower. Penalises more complex models by n-p.\\
+3. $R^2=1-\frac{\mathrm{SS}_{\mathrm{Res}}}{\mathrm{SS}_{\mathrm{Total}}-(\sum_iy_i)^2/n)}=1-\frac{\mathrm{SS}_{\mathrm{Res}}}{CSS}$: Prefer higher. Nested models: always pick most complicated model like $\mathrm{SS}_{\mathrm{Res}}$.\\
+4. $\mathrm{Adj-}R^2=1-\frac{n-1}{n-1-k}(1-R^2)=1-\frac{n-1}{n-p}(1-R^2)=1-\frac{n-1}{n-p}\cdot\frac{\mathrm{SS}_{\mathrm{Res}}}{\mathrm{CSS}}$: Prefer lower. Penalise large no. of slopes via n-1-k.\\
+5. $\mathrm{AIC}=-2 \ln(L)+2p=n\ln(\frac{\mathrm{SS}_{\mathrm{Res}}}{n})+2p+const.$: Prefer lower.\\
+6. Mallow's $C_p=\frac{\mathrm{SS}_{\mathrm{Res}}(\text{model})}{s^2(\text{full model})}+2p-n$: Prefer lower.
+p=param in intermediate model.\\
 \medskip
 \subsection{Hypothesis Testing}
 \begin{tabular}{|l|l|l|}\hline
@@ -563,20 +563,47 @@ Start model. Step adds/removes each variable to test.\\
 Sherman-Morrison Formula:
 $(\mathbf A+uv^T)^{-1}=\mathbf A^{-1}-\frac{\mathbf A^{-1}uv^T\mathbf A^{-1}}{1+v^T\mathbf A^{-1}u}$\\
 \medskip
-Proof of idempotent matrix eigenvalue: $\mathbf{A}\mathbf{x}=\lambda\mathbf{x}$.
+\subsection{Proofs}
+\subsubsection{Idempotent matrix eigenvalue 0 or 1:}
+$\mathbf{A}\mathbf{x}=\lambda\mathbf{x}$.
 $\mathbf{A}^2\mathbf{x}=\mathbf{A}\lambda\mathbf{x}=\lambda\mathbf{A}\mathbf{x}=\lambda^2\mathbf{x}$.
 $\Rightarrow$$\lambda^2\mathbf{x}=\mathbf{A}^2\mathbf{x}=\mathbf{A}\mathbf{x}=\lambda\mathbf{x}$.
 $\Rightarrow$$(\lambda^2-\lambda)\mathbf{x}=\boldsymbol 0$.
 $\Rightarrow$$\lambda=\lambda^2$ ($\because \mathbf{x}\neq\boldsymbol 0$).
 $\Rightarrow$$\lambda=0\text{ or }1$.\\
 \medskip
-Proof of idempotent matrix rank=trace: $\mathbf{A}$ idemp.$\Rightarrow$$\lambda=0\text{ or }1$.
-Sym. idemp. $\Rightarrow$ $\exists$ ortho $\mathbf{P}$ diag $\mathbf{A}$. $\mathrm{r}(\mathbf{P}^T\mathbf{A}\mathbf{P})=\mathrm{r}(\mathbf{A})=$non-zero $\lambda$ of $\mathbf{A}$.\\
+\subsubsection{Idempotent matrix rank=trace:}
+$\mathbf{A}$ idemp.$\Rightarrow$$\lambda=0\text{ or }1$.
+Sym. idemp. $\Rightarrow$ $\exists$ ortho $\mathbf{P}$ diag $\mathbf{A}$. $\mathrm{r}(\mathbf{P}^T\mathbf{A}\mathbf{P})=\mathrm{r}(\mathbf{A})=$non-zero $\lambda$ of $\mathbf{A}$.
 $\mathrm{r}(\mathbf{A})=\mathrm{r}(\mathbf{P}^T\mathbf{A}\mathbf{P})=\mathrm{tr}(\mathbf{P}^T\mathbf{A}\mathbf{P})=\mathrm{tr}(\mathbf{P}\mathbf{P}^T\mathbf{A})=\mathrm{tr}(\mathbf{A})$.\\
+\medskip
+\subsubsection{Expectation of quadratic form:}
+$\mathbb E [\mathbf y^T \mathbf{Ay}]=\mathbb E [\mathrm{tr}(\mathbf y^T \mathbf{Ay})]=\mathbb E [\mathrm{tr}(\mathbf{y}\mathbf y^T \mathbf{A})]=\mathrm{tr}[\mathbb E(\mathbf{y}\mathbf y^T \mathbf{A})]$\\
+$\because \mathrm{Var}(\mathbf y)=\mathbb E [(\mathbf y-\boldsymbol\mu)(\mathbf y-\boldsymbol\mu)^T]=\mathbb E (\mathbf y\mathbf y^T)-\boldsymbol\mu\boldsymbol\mu^T=\mathbf{V}$\\
+$\therefore\mathbb E [\mathbf y^T \mathbf{Ay}]=\mathrm{tr}[(\mathbf{V}+\boldsymbol\mu\boldsymbol\mu^T)\mathbf{A})]= \mathrm{tr}[\mathbf{V}\mathbf{A}+\boldsymbol\mu\boldsymbol\mu^T\mathbf{A})]=\mathrm{tr}(\mathbf{AV}) + \boldsymbol\mu^T \mathbf A\boldsymbol\mu$.\\
+\medskip
+\subsubsection{Expectation and Variance of y and beta:}
+$\mathbb E(\widehat{\mathbf y})=\mathbf H\,\mathbb E(\mathbf y)=\mathbf X\boldsymbol{\beta}$;
+$\mathrm{Var}(\widehat{\mathbf y})=\mathbf H\,\mathrm{Var}(\mathbf y)\,\mathbf H^T=\sigma^2$\\
+\medskip
+$\mathbb E[\widehat{\boldsymbol{\beta} }]=(\mathbf X^T\mathbf X)^{-1}\mathbf X^T\mathbb E[\mathbf y]=\boldsymbol{\beta}$;
+$\mathrm{Var}(\widehat{\boldsymbol{\beta} })=\mathrm{Var}[(\mathbf X^T\mathbf X)^{-1}\mathbf X^T\mathbf y] = \sigma^2(\mathbf X^T\mathbf X)^{-1}$\\
+\medskip
+\subsubsection{Sigma2 is biased:}
+$\text{bias}=\mathbb E(\widehat{\sigma}^2)-\sigma^2=\mathbb E\left(\frac{\|\mathbf y-\mathbf X\boldsymbol\beta\|^2}{n}\right)-\sigma^2=\frac{n-p}{n}\mathbb E\left(\frac{\|\mathbf y-\mathbf X\boldsymbol\beta\|^2}{n-p}\right)-\sigma^2=\frac{n-p}{n}\mathbb E(s^2)-\sigma^2=\frac{n-p}{n}\mathbb \sigma^2-\sigma^2=-\frac{p}{n}\mathbb \sigma^2$\\
+\medskip
+\subsubsection{s2 is unbiased:}
+$s^2= \frac{\mathrm{SS}_\mathrm{Res} }{n-p}=\frac{n}{n-p}\widehat{\sigma}^2$;\\
+$\mathbb E[s^2]=\frac{1}{n-p}\mathbb E[\|\mathbf y-\mathbf X\widehat{\boldsymbol\beta}\|^2] =\frac{1}{n-p}\mathbb E[\mathbf y^T(\mathbf I-\mathbf H)\mathbf y]=\frac{1}{n-p}\mathbb \sigma^2(n-p) = \sigma^2$
+$\Leftarrow \mathbb E [\mathbf y^T \mathbf{Ay}] =\mathrm{tr}(\mathbf{AV}) + \boldsymbol\mu^T \mathbf A\boldsymbol\mu$\\
+\medskip
+\subsubsection{CI for variance:}
+$\frac{(n-p)s^2}{\sigma^2}=\frac{\mathrm{SS}_\mathrm{res}}{\sigma^2}=\frac{\mathbf y^T(\mathbf I-\mathbf H)\mathbf y}{\sigma^2}\sim\chi^2_{n-p}$
+$\mathbb P(\chi^2_{\alpha/2,n-p}\le\frac{(n-p)s^2}{\sigma^2}\le\chi^2_{1-\alpha/2,n-p})=1-\alpha$\\
 \medskip
 \vfill
 Last updated:
-2025-09-10 T00-03-30\\
+2025-09-10 T11-12-39\\
 Compiled: \DTMnow\\
 \hrule
 Enoch Ko (147934), University of Melbourne. Seat No. 1.\\
